@@ -55,7 +55,18 @@ public class Ejercicio_1 {
         System.out.println("c) Método vecesRepetido(String letra)");
         System.out.print("Ingrese una letra: ");
         String letra= leer.next().substring(0, 1);
-        System.out.println(String.format("La letra \"%s\" se repite %d veces.", letra, cs.vecesRepetido(cd,letra)));
+        int repetido=cs.vecesRepetido(cd,letra);
+        switch (repetido) {
+            case 1:
+                System.out.println(String.format("La letra \"%s\" se repite %d vez.", letra, repetido));
+                break;
+            case 0:
+                System.out.println(String.format("La letra \"%s\" no se encontro en la frase.", letra));
+                break;
+            default:
+                System.out.println(String.format("La letra \"%s\" se repite %d veces.", letra, repetido));
+                break;
+        }
         System.out.println("");
         leer.nextLine();
         //d)

@@ -30,7 +30,8 @@ public class Ejercicio_5 {
         Persona per;
         PersonaServicio ps = new PersonaServicio();
         per=ps.creaPersona();
-        System.out.println(per);
+        System.out.println(ps.calcularEdad(per));
+        ps.mostrarPersona(per);
     }
     
 }
