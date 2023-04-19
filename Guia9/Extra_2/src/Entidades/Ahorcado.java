@@ -40,12 +40,12 @@ public class Ahorcado {
 
     private String[][] baseDibujo() {
         String[][] di = {{"┌──┐ ", "│     ", "│      ", "│      ", "│       ", "│       ", "██████"},
-        {"┌──┐ ", "│   █ ", "│      ", "│      ", "│       ", "│       ", "██████"},
+                         {"┌──┐ ", "│   █ ", "│      ", "│      ", "│       ", "│       ", "██████"},
         {"┌──┐ ", "│   █ ", "│  /   ", "│      ", "│       ", "│       ", "██████"},
         {"┌──┐ ", "│   █ ", "│  / \\", "│      ", "│       ", "│       ", "██████"},
         {"┌──┐ ", "│   █ ", "│  /│\\", "│   │  ", "│       ", "│       ", "██████"},
-        {"┌──┐ ", "│   █ ", "│  /│\\", "│   │  ", "│  /    ", "│       ", "██████"},
-        {"┌──┐ ", "│   █ ", "│  /│\\", "│   │  ", "│  / \\ ", "│       ", "██████"}};
+        {"┌──┐ ", "│   █ ", "│  /│\\", "│   │  ", "│   /    ", "│       ", "██████"},
+        {"┌──┐ ", "│   █ ", "│  /│\\", "│   │  ", "│   / \\ ", "│       ", "██████"}};
         return di;
     }
     public boolean letraEnPalabra(char letra){
@@ -89,15 +89,21 @@ public class Ahorcado {
     
     @Override
     public String toString() {
-        String resu = "";
+        String resu = "---AHORCADO---\n";
         for (int i = 0; i < dibujo.length; i++) {
             resu = resu.concat(dibujo[fallos][i]).concat("\n");
         }
         resu = resu.concat("\n");
+        /// letras acertadas
+        int cont=0;
         for (int i = 0; i < palabra.length(); i++) {
-            resu = resu.concat(String.valueOf(letraEnPosicion(this.palabra, i)));
+            resu = resu.concat(String.valueOf(letraEnPosicion(this.palabra, i)));    
+            if (letraEnPosicion(palabra, i)=='_') {
+                cont++;
+            }
         }
-        resu = resu.concat("\n");
+        
+        resu = resu.concat(String.format("     faltan %d de %d letras.\n",cont,palabra.length()));
         resu = resu.concat(letrasErradas());
 
         return resu;
