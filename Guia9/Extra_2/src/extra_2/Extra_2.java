@@ -43,6 +43,10 @@ Mensaje: Lo sentimos, no hay más oportunidades
  */
 package extra_2;
 
+import Entidades.Ahorcado;
+import Servicios.AhorcadoServicio;
+import java.util.Scanner;
+
 /**
  *
  * @author Sebastian Cozzi
@@ -54,17 +58,28 @@ public class Extra_2 {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        String[] dib={"  ┌──┐ ",
-                     "  │   █ ",
-                     "  │  /│\\",
-                     "  │   │  ",
-                     "  │  / \\ ",
-                     "  │       ",
-                     "  ██████"};
-        for (int i = 0; i < dib.length; i++) {
-            System.out.println(dib[i]);
+        Scanner leer = new Scanner(System.in);
+        AhorcadoServicio as= new AhorcadoServicio();
+        Ahorcado ahorcado=as.crearJuego();
+        System.out.println("");
+        do {
+            AhorcadoServicio.cls();
+        System.out.println(ahorcado);
+            System.out.print("Ingrese un letra: ");
+            if (!as.ingresaLetra(ahorcado, leer.next().charAt(0))) {
+                AhorcadoServicio.cls();
+                System.out.println(ahorcado);
+                System.out.println("Lo siento, te quedaste sin intentos.");
+                break;
+            } else if (as.esGanador(ahorcado)) {
+                AhorcadoServicio.cls();
+                System.out.println(ahorcado);
+                System.out.println("Felicitaciones!! Gano el ahorcado!! ");
+                break;
+                
+            }
+        } while (true);    
+        
             
         }
     }
-    
-}
