@@ -95,6 +95,7 @@ public class Ahorcado {
         }
         resu = resu.concat("\n");
         /// letras acertadas
+        
         int cont=0;
         for (int i = 0; i < palabra.length(); i++) {
             resu = resu.concat(String.valueOf(letraEnPosicion(this.palabra, i)));    
