@@ -51,7 +51,7 @@ import java.util.Scanner;
  *
  * @author Sebastian Cozzi
  */
-public class Extra_2 {
+public class ahorcado {
 
     /**
      * @param args the command line arguments
