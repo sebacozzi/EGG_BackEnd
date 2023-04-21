@@ -43,12 +43,14 @@ public class AhorcadoServicio {
             System.out.println("Longitud de la palabra: " + longitud(a));
             if (buscar(a, letra)) {
                 System.out.println("La letra pertenece a la palabra.");
+                if (!encontradas(a, letra)) a.setContadorErradas();
             } else {
                 System.out.println("La letra no pertenece a la palabra.");
-            }
-            if (!encontradas(a, letra)) {
                 a.setContadorErradas();
             }
+            
+                
+            
             System.out.println(intentos(a));
         } while (a.getContadorErradas() < a.getContadorIntentos());
 
@@ -65,16 +67,23 @@ public class AhorcadoServicio {
     }
 
     private boolean encontradas(Ahorcado a, char letra) {
-        if (!buscar(a, letra)) {
-            return false;
+        
+        for (char caracter : a.getAcertadas()) {
+            if(caracter == letra){
+                System.out.println("Letra repetida, desperdiciaste una chance...");
+                System.out.printf("Se encontraron %d letras de %d.\n", a.getContadorAcertadas(), longitud(a));
+                return false;
+            }
         }
+        
         int cont = 0;
         for (char caracter : a.getPalabra()) {
             if (caracter == letra) {
+                a.setAcertadas(letra);
                 cont++;
             }
         }
-        System.out.printf("Se encontraron %d letras de %d.\n", cont, longitud(a));
+        System.out.printf("Se encontraron %d letras de %d.\n", a.getContadorAcertadas(), longitud(a));
         return true;
     }
 
