@@ -5,6 +5,9 @@
  */
 package extra_2;
 
+import Entidades.Ahorcado;
+import Servicios.AhorcadoServicio;
+
 /**
  *
  * @author Sebastian Cozzi
@@ -15,7 +18,10 @@ public class Extra_2 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+       
+       AhorcadoServicio as=new AhorcadoServicio();
+       Ahorcado a=as.crearJuego();
+       as.juego(a);
     }
     
 }

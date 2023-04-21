@@ -13,8 +13,8 @@ import java.util.Arrays;
  */
 public class Ahorcado {
     private char[] palabra;
-    private char[] erradas;
-    private char[] acertadas;
+  //  private char[] erradas;
+  //  private char[] acertadas;
     private int contIntentos;
     private int contErradas;
     
@@ -24,27 +24,38 @@ public class Ahorcado {
     }
     public Ahorcado(String palabra,int cantidadIntentos){
         this.palabra=palabra.toCharArray();
-        this.erradas=new char[cantidadIntentos];
+       // this.erradas=new char[cantidadIntentos];
         this.contIntentos = cantidadIntentos;
         this.contErradas =0;
-        Arrays.fill(this.acertadas,' ');
-        Arrays.fill(this.erradas,' ');
+       // Arrays.fill(this.acertadas,' ');
+       // Arrays.fill(this.erradas,' ');
         
     }
     public void setErrados(){
         this.contErradas++;
     }
-    public int getErrados(){
+   public char[] getPalabra(){
+       return palabra;
+   }
+
+    public int getContIntentos() {
         return contIntentos;
     }
 
+    public void setContIntentos(int contIntentos) {
+        this.contIntentos = contIntentos;
+    }
+    public int getErrados(){
+        return contErradas;
+    }
+/*
     @Override
     public String toString() {
         String resultado="%s    Faltan %d de %d\n%s";
         int contCorrectas=0;
         String sAcertadas="";
         for (int i = 0; i < this.palabra.length; i++) {
-            if (letraEnPosicion) {
+            if (letraEnPosicion()) {
                 
             }
         }
@@ -59,7 +70,9 @@ public class Ahorcado {
         
         return String.format(resultado, sAcertadas, contCorrectas, this.palabra.length,sErra);
     }
-    private boolean letraEnPosicion(char letra,int pos){
+    
+    private boolean caracterEnPosicion(char letra,int pos){
         
     }
+*/
 }
