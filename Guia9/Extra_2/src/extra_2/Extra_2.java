@@ -20,8 +20,7 @@ public class Extra_2 {
     public static void main(String[] args) {
        
        AhorcadoServicio as=new AhorcadoServicio();
-       Ahorcado a=as.crearJuego();
-       as.juego(a);
+       as.juego(as.crearJuego());
     }
     
 }
