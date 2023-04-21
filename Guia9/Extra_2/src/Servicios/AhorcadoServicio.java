@@ -6,9 +6,9 @@
 package Servicios;
 
 import Entidades.Ahorcado;
-import java.awt.AWTException;
-import java.awt.Robot;
-import java.awt.event.KeyEvent;
+//import java.awt.AWTException;
+//import java.awt.Robot;
+//import java.awt.event.KeyEvent;
 import java.util.Scanner;
 
 /**
@@ -17,18 +17,21 @@ import java.util.Scanner;
  */
 public class AhorcadoServicio {
 
-    private final Scanner leer = new Scanner(System.in,"ISO-8859-1");
-/**
- * Metodo que crea un nuevo <b>objeto Ahorcado</b> solicitandole la palabra a 
- * descubrir (acepta una o mas palabras) y la cantidad de veces que va a poder 
- * equivocarse.
- * @return <b>Ahorcado</b>
- */
+// declaración de Scanner y seteo de codificación en el input a ISO-8859-1 (latino)
+    private final Scanner leer = new Scanner(System.in, "ISO-8859-1");
+
+    /**
+     * Metodo que crea un nuevo <b>objeto Ahorcado</b> solicitandole la palabra
+     * a descubrir (acepta una o mas palabras) y la cantidad de veces que va a
+     * poder equivocarse.
+     *
+     * @return <b>Ahorcado</b>
+     */
     public Ahorcado crearJuego() {
         String p;
-        do{
+        do {
             System.out.print("Ingrese la palabra secreta: ");
-        p = leer.nextLine(); // almacena la o las palabras ingresadas por teclado
+            p = leer.nextLine(); // almacena la o las palabras ingresadas por teclado
         } while (p.trim().isEmpty());
         System.out.print("Ingrese la cantidad de intentos: ");
         int in = leer.nextInt();// almacena la cantidad de intentos para descubrir la palabra
@@ -40,11 +43,13 @@ public class AhorcadoServicio {
         }
         return new Ahorcado(palabra, in);
     }
-/**
- * Metodo que gestiona el juego, solicitando las letras y dando respuestas segun
- * corresponda
- * @param a <b>Ahorcado</b> que contiene los datos a jugar
- */
+
+    /**
+     * Metodo que gestiona el juego, solicitando las letras y dando respuestas
+     * segun corresponda
+     *
+     * @param a <b>Ahorcado</b> que contiene los datos a jugar
+     */
     public void juego(Ahorcado a) {
         // leer.next();
         System.out.println("Inicio de ahorcado:");
@@ -77,7 +82,7 @@ public class AhorcadoServicio {
                 System.out.println("La letra no pertenece a la palabra.");
                 a.setContadorErradas();
             }
-            
+
             // sale si llegaste al maximo de intentos
             if (!intentos(a)) {
                 System.out.println("Te quedaste sin intentos.\nFin del juego");
@@ -91,13 +96,15 @@ public class AhorcadoServicio {
         } while (true);
 
     }
-/**
- * Metodo privado que recibe la letra a buscar en la palabra almacenada en Ahorcado
- * y retorna true si está o false si no está
- * @param a <b>Ahorcado</b>
- * @param letra <b>char</b>
- * @return <b>boolean</b>
- */
+
+    /**
+     * Metodo privado que recibe la letra a buscar en la palabra almacenada en
+     * Ahorcado y retorna true si está o false si no está
+     *
+     * @param a <b>Ahorcado</b>
+     * @param letra <b>char</b>
+     * @return <b>boolean</b>
+     */
     private boolean buscar(Ahorcado a, char letra) {
         // convierte el array de char a String
         String s = String.copyValueOf(a.getPalabra());
@@ -107,8 +114,9 @@ public class AhorcadoServicio {
 
     /**
      * Metodo que permite determinar si la letra ya se habia ingresado, si ya se
-     * habia ingresado retorna false, si no se habia ingresado la agrega al array
-     * de acertadas perteneciente a <b>Ahorcado</b>
+     * habia ingresado retorna false, si no se habia ingresado la agrega al
+     * array de acertadas perteneciente a <b>Ahorcado</b>
+     *
      * @param a <b>Ahorcado</b>
      * @param letra<b>char</b>
      * @return <b>boolean</b>
@@ -133,16 +141,19 @@ public class AhorcadoServicio {
         }
         // mensaje informando la cantidad de letras encontradas en total y cuantas faltan
         System.out.printf(
-                "Se encontraron %d letra/s, faltan %d letra/s.\n", a.getContadorAcertadas(), longitud(a)-a.getContadorAcertadas());
+                "Se encontraron %d letra/s, faltan %d letra/s.\n", a.getContadorAcertadas(), longitud(a) - a.getContadorAcertadas());
         // retorna "true" porque la letra no estaba entre las que se habian adivinado
         return true;
     }
-/**
- * MEtodo que devuelve la cantidad de letras contiene la palabra almacenada en
- * <b>Ahorcado</b> omitiendo los espacios en blanco
- * @param a<b>Ahorcado</b>
- * @return <b>int</b>
- */
+
+    /**
+     * MEtodo que devuelve la cantidad de letras contiene la palabra almacenada
+     * en
+     * <b>Ahorcado</b> omitiendo los espacios en blanco
+     *
+     * @param a<b>Ahorcado</b>
+     * @return <b>int</b>
+     */
     private int longitud(Ahorcado a) {
         // convierte el array de char que contiene la palabra, reemplaza los
         //espacios con "vacio" y retorna la longitud sin espacios
@@ -152,18 +163,21 @@ public class AhorcadoServicio {
         //      Retorno de length() = 11
         return String.copyValueOf(a.getPalabra()).replaceAll(" ", "").length();
     }
-/**
- * Metodo que verifica si hay intentos disponibles después de ingresar una letra
- * incorrecta, si no quedan mas intentos devuelve false, sino devuelve true.
- * Muestra mensajes de cuantos intetos quedan o si no quedan mas intentos
- * @param a <b>Ahorcado</b>
- * @return <b>boolean</b>
- */
+
+    /**
+     * Metodo que verifica si hay intentos disponibles después de ingresar una
+     * letra incorrecta, si no quedan mas intentos devuelve false, sino devuelve
+     * true. Muestra mensajes de cuantos intetos quedan o si no quedan mas
+     * intentos
+     *
+     * @param a <b>Ahorcado</b>
+     * @return <b>boolean</b>
+     */
     private boolean intentos(Ahorcado a) {
         // verifica que queden intentos disponibles, retorna "true" si hay intentos
         if ((a.getContadorIntentos() - a.getContadorErradas()) != 0) {
-             System.out.println(String.format("Quedan %d de %d intentos.", a.getContadorIntentos() - a.getContadorErradas(), a.getContadorIntentos()));
-             return true;
+            System.out.println(String.format("Quedan %d de %d intentos.", a.getContadorIntentos() - a.getContadorErradas(), a.getContadorIntentos()));
+            return true;
         }
         System.out.println("Lo sentimos, no quedan más oportunidades...");
         return false;
