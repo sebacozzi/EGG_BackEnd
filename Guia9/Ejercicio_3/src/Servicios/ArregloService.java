@@ -40,7 +40,13 @@ public class ArregloService {
   */
     public Double[] ordenar(Double[] arreglo){
         Arrays.sort(arreglo);
-        return arreglo;
+        Double[] a=new Double[arreglo.length];
+        mostrar(arreglo);
+        for (int i = 0; i < arreglo.length; i++) {
+            a[i] = arreglo[49-i];
+        }
+    
+        return a;
     }
     
  /**  d) Método inicializarB copia los primeros 10 números del arreglo A en el 
