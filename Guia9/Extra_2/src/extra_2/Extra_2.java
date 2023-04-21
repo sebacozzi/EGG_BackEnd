@@ -18,7 +18,7 @@ public class Extra_2 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-       
+        
        AhorcadoServicio as=new AhorcadoServicio();
        as.juego(as.crearJuego());
     }

@@ -17,7 +17,7 @@ import java.util.Scanner;
  */
 public class AhorcadoServicio {
 
-    private final Scanner leer = new Scanner(System.in);
+    private final Scanner leer = new Scanner(System.in,"ISO-8859-1");
 /**
  * Metodo que crea un nuevo <b>objeto Ahorcado</b> solicitandole la palabra a 
  * descubrir (acepta una o mas palabras) y la cantidad de veces que va a poder 
@@ -25,8 +25,11 @@ public class AhorcadoServicio {
  * @return <b>Ahorcado</b>
  */
     public Ahorcado crearJuego() {
-        System.out.print("Ingrese la palabra secreta: ");
-        String p = leer.nextLine(); // almacena la o las palabras ingresadas por teclado
+        String p;
+        do{
+            System.out.print("Ingrese la palabra secreta: ");
+        p = leer.nextLine(); // almacena la o las palabras ingresadas por teclado
+        } while (p.trim().isEmpty());
         System.out.print("Ingrese la cantidad de intentos: ");
         int in = leer.nextInt();// almacena la cantidad de intentos para descubrir la palabra
         p = p.trim().toLowerCase(); // elimina espacios al principio y al final, si hay y pasa la palabra a minusculas
