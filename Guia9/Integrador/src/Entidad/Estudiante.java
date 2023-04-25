@@ -7,7 +7,7 @@ package Entidad;
 
 /**
  *
- * @author Asterisco Sublimados
+ * @author Sebastián Cozzi
  */
 public class Estudiante {
     private String nombre;

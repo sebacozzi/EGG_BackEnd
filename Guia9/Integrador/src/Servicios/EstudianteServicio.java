@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 /**
  *
- * @author Asterisco Sublimados
+ * @author Sebastián Cozzi
  */
 public class EstudianteServicio {
     // Scanner encargado de la lectura de los atributos de los estudiantes (ISO-8859-1 es para que acepte acentos)

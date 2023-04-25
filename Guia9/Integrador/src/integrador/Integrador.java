@@ -26,7 +26,7 @@ import Servicios.EstudianteServicio;
 
 /**
  *
- * @author Asterisco Sublimados
+ * @author Sebastián Cozzi
  */
 public class Integrador {
 
