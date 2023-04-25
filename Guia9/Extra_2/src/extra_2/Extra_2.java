@@ -19,8 +19,11 @@ public class Extra_2 {
      */
     public static void main(String[] args) {
         
-       AhorcadoServicio as=new AhorcadoServicio();
-       as.juego(as.crearJuego());
+//       AhorcadoServicio as=new AhorcadoServicio();
+//       as.juego(as.crearJuego());
+for (int i = 2; i <= 128; i*=2) {
+            System.out.println("i "+i);
+        }
     }
     
 }
