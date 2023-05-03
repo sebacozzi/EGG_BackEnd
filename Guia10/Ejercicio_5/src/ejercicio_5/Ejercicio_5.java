@@ -13,6 +13,9 @@ al usuario.
  */
 package ejercicio_5;
 
+import Entidades.Pais;
+import Servicios.PaisServicios;
+
 /**
  *
  * @author Sebastian Cozzi
@@ -23,7 +26,62 @@ public class Ejercicio_5 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+       Pais pais= new Pais();
+       PaisServicios ps = new PaisServicios();
+       ps.cargarPaises(pais);
+        System.out.println("");
+        System.out.println("Lista de Paises:");
+        System.out.println("-----------------");
+       ps.mostrar(pais);
+        System.out.println("---- ---- ---- ---- ---- ---- ---- ----");
+        System.out.println("Lista de Paises ordenados:");
+        System.out.println("---------------------------");
+       ps.ordenarYMostrar(pais);
+       ps.buscarYBorrar(pais);
     }
     
+    
+    
 }
+/*
+México
+s
+Rusia
+s
+Sudáfrica
+s
+Japón
+s
+Italia
+s
+Colombia
+s
+Canadá
+s
+España
+s
+Argentina
+s
+China
+s
+Australia
+s
+Francia
+s
+India
+s
+Reino Unido
+s
+Brasil
+s
+Corea del Sur
+s
+Turquía
+s
+Alemania
+s
+Perú
+s
+Estados Unidos
+n
+*/

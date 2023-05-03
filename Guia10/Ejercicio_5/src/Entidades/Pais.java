@@ -15,6 +15,7 @@ public class Pais {
     private HashSet<String> nombres;
 
     public Pais() {
+        nombres = new HashSet();
     }
 
     public Pais(HashSet<String> nombres) {
@@ -29,8 +30,14 @@ public class Pais {
         this.nombres = nombre;
     }
     
-    public void aniadeNombre(String nombre){
-        this.nombres.add(nombre);
+    public boolean aniadeNombre(String nombre){
+        return this.nombres.add(nombre);
     }
+   public String getNombreID(int id){
+       if (id>nombres.size() ) {
+           return "fuera de rango.";
+       }
+       return (String) nombres.toArray()[id-1];
+   }
   
 }
