@@ -6,6 +6,7 @@
 package Servicios;
 
 import Entidades.Pelicula;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -42,8 +43,11 @@ public class PeliculaServicios {
         String titulo = leer.next();
         System.out.print("Ingresar el Director: ");
         String director = leer.next();
-        System.out.print("Ingresar la duración en minutos: ");
-        int duracion = leer.nextInt();
+        System.out.print("Ingresar la duración en hora (formato= h:m): ");
+        String hora= leer.next();
+        String[] h=hora.split(":");
+        System.out.println(h[0]);
+        Time duracion =new Time(Integer.parseInt(h[0]),Integer.parseInt(h[1]),0);
         return new Pelicula(titulo, director, duracion);
     }
     /**
@@ -97,7 +101,7 @@ public class PeliculaServicios {
         // calculo para centrar "Director" en columna
         int cd = (int) ((ld - 8) / 2);
         // Formato para la fila de encabezado
-        fTexto="    Número     |%1$" + ct + "sTitulo%1$" + ct + "s  | %1$" + cd + "sDirector%" + cd + "s | Minutos |%n";
+        fTexto="    Número     |%1$" + ct + "sTitulo%1$" + ct + "s  | %1$" + cd + "sDirector%" + cd + "s |   Horas   |%n";
         // imprime encabezado
         System.out.printf(fTexto, "");
         // Bucle del iterator
@@ -105,9 +109,9 @@ public class PeliculaServicios {
             // Asigna Iterator a variable para poder utilizar todos los atributos
             pel = iter.next();
             // formato para las filas de peliculas
-            fTexto=" Pelicula %3d: | %-"+ lt +"s | %-"+ ld + "s |   %3d   |%n";
+            fTexto=" Pelicula %3d: | %-"+ lt +"s | %-"+ ld + "s |   %2d:%02d   |%n";
             // imprime fila con datos de la pelicula
-            System.out.printf(fTexto,cont, pel.getTitulo(), pel.getDirector(),pel.getDuracion());
+            System.out.printf(fTexto,cont, pel.getTitulo(), pel.getDirector(),pel.getDuracion().getHours(),pel.getDuracion().getMinutes());
             // contador para indice de pelicula
             cont++;
         }
@@ -122,7 +126,7 @@ public class PeliculaServicios {
     public ArrayList<Pelicula> mayorDeUnaHora(ArrayList<Pelicula> lista) {
         ArrayList<Pelicula> temp = new ArrayList();
         for (Pelicula pelicula : lista) {
-            if (pelicula.getDuracion() > 60) {
+            if (pelicula.getDuracion().getTime()> 14400000) {
                 temp.add(pelicula);
             }
         }

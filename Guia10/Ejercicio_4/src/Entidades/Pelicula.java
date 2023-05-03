@@ -5,6 +5,7 @@
  */
 package Entidades;
 
+import java.sql.Time;
 import java.util.Comparator;
 
 /**
@@ -14,12 +15,12 @@ import java.util.Comparator;
 public class Pelicula {
     private String titulo;
     private String director;
-    private int duracion;
+    private Time duracion;
 
     public Pelicula() {
     }
 
-    public Pelicula(String titulo, String director, int duracion) {
+    public Pelicula(String titulo, String director, Time duracion) {
         this.titulo = titulo;
         this.director = director;
         this.duracion = duracion;
@@ -41,11 +42,11 @@ public class Pelicula {
         this.director = director;
     }
 
-    public Integer getDuracion() {
+    public Time getDuracion() {
         return duracion;
     }
 
-    public void setDuracion(int duracion) {
+    public void setDuracion(Time duracion) {
         this.duracion = duracion;
     }
 

@@ -70,42 +70,50 @@ public class Ejercicio_4 {
 /* Seleccionar, copiar y pegar para cargar todos
 El Padrino
 Francis Ford Coppola
-175
+2:55
 s
 Ciudadano Kane
 Orson Welles
-119
+1:59
 s
 La lista de Schindler
 Steven Spielberg
-195
+3:15
 s
 Apocalypse Now
 Francis Ford Coppola
-147
+2:27
 s
 El Gran Dictador
 Charles Chaplin
-125
+2:05
 s
 El Club de la Pelea
 David Fincher
-139
+2:19
+s
+Otra Pelicula malisima
+Pesimo Director
+0:56
 s
 Blade Runner
 Ridley Scott
-117
+1:57
 s
 El Señor de los Anillos: La Comunidad del Anillo
 Peter Jackson
-178
+2:58
 s
 Pulp Fiction
 Quentin Tarantino
-154
+2:34
 s
 Forrest Gump
 Robert Zemeckis
-142
+2:22
+s
+Pelicula mala
+Yo
+0:59
 n
 */
