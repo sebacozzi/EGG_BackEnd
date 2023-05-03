@@ -21,6 +21,10 @@ pantalla.
  */
 package ejercicio_4;
 
+import Entidades.Pelicula;
+import Servicios.PeliculaServicios;
+import java.util.ArrayList;
+
 /**
  *
  * @author Sebastian Cozzi
@@ -32,6 +36,28 @@ public class Ejercicio_4 {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        ArrayList<Pelicula> listaDePeliculas= new ArrayList();
+        PeliculaServicios ps= new PeliculaServicios();
+        ps.cargarPeliculas(listaDePeliculas);
+        System.out.println("Lista de Peliculas cargadas:");
+        ps.mostrarPeliculas(listaDePeliculas);
+        System.out.println("Peliculas con duracion mayor de una hora:");
+        ps.mostrarPeliculas(ps.mayorDeUnaHora(listaDePeliculas));
+        System.out.println("---- ---- ---- ---- ---- ----");
+        System.out.println("Lista de Peliculas ordenadas por duración de mayor a menor:");
+        ps.mostrarPeliculas(ps.ordenar(listaDePeliculas, false, ps.ORDENA_X_DURACION));
+        System.out.println("---- ---- ---- ---- ---- ----");
+        System.out.println("Lista de Peliculas ordenadas por duración de menor a mayor:");
+        ps.mostrarPeliculas(ps.ordenar(listaDePeliculas, ps.ORDENA_X_DURACION));
+        System.out.println("---- ---- ---- ---- ---- ----");
+        System.out.println("Lista de Peliculas ordenadas por Director:");
+        ps.mostrarPeliculas(ps.ordenar(listaDePeliculas, ps.ORDENA_X_DIRECTOR));
+        System.out.println("---- ---- ---- ---- ---- ----");
+        System.out.println("Lista de Peliculas ordenadas por Titulo:");
+        ps.mostrarPeliculas(ps.ordenar(listaDePeliculas, ps.ORDENA_X_TITULO));
     }
     
 }
+/*
+transformers Alguno 2.5 s El Señor de los Anillos Otro director 2.1 s El Padrino Otro 1.8 n
+*/
