@@ -14,12 +14,12 @@ import java.util.Comparator;
 public class Pelicula {
     private String titulo;
     private String director;
-    private Double duracion;
+    private int duracion;
 
     public Pelicula() {
     }
 
-    public Pelicula(String titulo, String director, Double duracion) {
+    public Pelicula(String titulo, String director, int duracion) {
         this.titulo = titulo;
         this.director = director;
         this.duracion = duracion;
@@ -41,17 +41,17 @@ public class Pelicula {
         this.director = director;
     }
 
-    public Double getDuracion() {
+    public Integer getDuracion() {
         return duracion;
     }
 
-    public void setDuracion(Double duracion) {
+    public void setDuracion(int duracion) {
         this.duracion = duracion;
     }
 
     @Override
     public String toString() {
-        return "Pelicula: " + "\n titulo=" + titulo + "\n director=" + director + "\n duracion=" + duracion ;
+        return "[ " + titulo + " ] [ " + director + " ] [  " + duracion +"  ]" ;
     }
     
     public static Comparator<Pelicula> porTitulo = new Comparator<Pelicula>(){

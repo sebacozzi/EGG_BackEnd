@@ -39,25 +39,73 @@ public class Ejercicio_4 {
         ArrayList<Pelicula> listaDePeliculas= new ArrayList();
         PeliculaServicios ps= new PeliculaServicios();
         ps.cargarPeliculas(listaDePeliculas);
+        System.out.println("");
+         System.out.println("---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----");
         System.out.println("Lista de Peliculas cargadas:");
+        System.out.println("-----------------------------");
         ps.mostrarPeliculas(listaDePeliculas);
+         System.out.println("---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----");
         System.out.println("Peliculas con duracion mayor de una hora:");
+        System.out.println("------------------------------------------");
         ps.mostrarPeliculas(ps.mayorDeUnaHora(listaDePeliculas));
-        System.out.println("---- ---- ---- ---- ---- ----");
+        System.out.println("---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----");
         System.out.println("Lista de Peliculas ordenadas por duración de mayor a menor:");
+        System.out.println("------------------------------------------------------------");
         ps.mostrarPeliculas(ps.ordenar(listaDePeliculas, false, ps.ORDENA_X_DURACION));
-        System.out.println("---- ---- ---- ---- ---- ----");
+        System.out.println("---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----");
         System.out.println("Lista de Peliculas ordenadas por duración de menor a mayor:");
+        System.out.println("------------------------------------------------------------");
         ps.mostrarPeliculas(ps.ordenar(listaDePeliculas, ps.ORDENA_X_DURACION));
-        System.out.println("---- ---- ---- ---- ---- ----");
+        System.out.println("---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----");
         System.out.println("Lista de Peliculas ordenadas por Director:");
+        System.out.println("-------------------------------------------");
         ps.mostrarPeliculas(ps.ordenar(listaDePeliculas, ps.ORDENA_X_DIRECTOR));
-        System.out.println("---- ---- ---- ---- ---- ----");
+        System.out.println("---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----");
         System.out.println("Lista de Peliculas ordenadas por Titulo:");
+        System.out.println("-----------------------------------------");
         ps.mostrarPeliculas(ps.ordenar(listaDePeliculas, ps.ORDENA_X_TITULO));
     }
     
 }
-/*
-transformers Alguno 2.5 s El Señor de los Anillos Otro director 2.1 s El Padrino Otro 1.8 n
+/* Seleccionar, copiar y pegar para cargar todos
+El Padrino
+Francis Ford Coppola
+175
+s
+Ciudadano Kane
+Orson Welles
+119
+s
+La lista de Schindler
+Steven Spielberg
+195
+s
+Apocalypse Now
+Francis Ford Coppola
+147
+s
+El Gran Dictador
+Charles Chaplin
+125
+s
+El Club de la Pelea
+David Fincher
+139
+s
+Blade Runner
+Ridley Scott
+117
+s
+El Señor de los Anillos: La Comunidad del Anillo
+Peter Jackson
+178
+s
+Pulp Fiction
+Quentin Tarantino
+154
+s
+Forrest Gump
+Robert Zemeckis
+142
+n
 */
