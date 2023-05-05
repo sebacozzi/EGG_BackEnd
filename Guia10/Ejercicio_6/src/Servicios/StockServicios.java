@@ -74,8 +74,10 @@ public class StockServicios {
     public void cargarProductos(Stock productos) {
         // variable usada para saber si se cargo algun producto
         int tamanio = productos.size();
+        // Bucle encargado de llamar cargarProducto hasta que devuelva false(no se carga otro producto)
         while (cargarProducto(productos)) {
         }
+        // Notifica si se cargo algun producto nuevo
         if (tamanio == productos.size()) {
             System.out.println("No se cargo ningun producto.");
         }
@@ -89,36 +91,48 @@ public class StockServicios {
      * @param productos
      */
     public void mostrar(Stock productos) {
+            // Variable utilizada para guardar la longitud del nombre mas largo
         int l = maxNombre(productos.getStock().keySet());
+            // Formato estandar para cada item de la lista 
         String st = "| %04d | %-" + l + "s | $ %6.2f |%n";
+            // contador para indices de items
         int cont = 1;
+            // Formato para el encabezado de la lista con los titulos
         String encab = String.format("|  ID  | %-" + l + "s | Precio   |", "Descripcion");
         System.out.println(encab);
+            // Escribe guiones debajo del encabezado
         System.out.println(multString("-", encab.length()));
+            // Bucle que recorre el HashMap y lo muestra por pantalla utilizando el formato guardado es "st"
         for (Map.Entry<String, Double> producto : productos.getStock().entrySet()) {
             System.out.printf(st, cont, producto.getKey(), producto.getValue());
+                // Incrementa el contador de items
             cont++;
         }
+            // cierra la lista con guiones
         System.out.println(multString("-", encab.length()));
-
     }
 
     /**
-     *
-     * @param productos
+     * Metodo que permite elegir un producto e ingresar un nuevo precio de producto
+     * @param productos Objeto Stock con la lista de productos
      */
     public void modificaPrecio(Stock productos) {
+            // Variable donde se va almacenar el nombre del producto a modificar
         String nombre;
+            // Mensaje de bienvenida
         System.out.println(" Modificar precio de Producto");
         System.out.println("------------------------------");
+            // Solicita al usuario el nombre del producto validado
         nombre = verificaNombre(productos, "Ingrese el nombre del producto (no escribir ningun valor para salir): ", true);
+            // Si no se ingreso nada sale del metodo
         if (nombre.trim().isEmpty()) {
             return;
         }
+            // Muestra el detalle del producto a modificar
         System.out.printf("Precio actual: $ %4.2f%n", productos.getStock().get(nombre));
         System.out.print("Ingrese el nuevo precio:");
-        Double nPrecio = leer.nextDouble();
-        productos.getStock().replace(nombre, nPrecio);
+            // Actualiza el precio del producto
+        productos.getStock().replace(nombre, leer.nextDouble());
     }
 
     /**
@@ -128,9 +142,13 @@ public class StockServicios {
      * @param productos Objeto Stock con la lista de productos a modificar
      */
     public void actulizaPrecios(Stock productos) {
-
+            // Mensaje de bienvenida
+        System.out.println(" Modificación masiva de precios");
+        System.out.println("--------------------------------");
         System.out.print("Ingrese el porcentaje de modificación: ");
+            // Solicita el porcentaje al usuario
         Double porcentaje = leer.nextDouble();
+            // Bucle para recorrer el HashMap y actualizar los precios de a uno
         for (Map.Entry<String, Double> producto : productos.getStock().entrySet()) {
             producto.setValue(producto.getValue() * (1 + (porcentaje / 100)));
         }
@@ -143,11 +161,20 @@ public class StockServicios {
      * @param productos Objeto Stock con el HashMap de productos
      */
     public void eliminarProducto(Stock productos) {
+            // Variable donde se va a almacenar el nombre del producto a eliminar
         String nombre;
+            // Mensaje de Bienvenida
         System.out.println(" Eliminar producto: ");
         System.out.println(multString("-", " Eliminar producto: ".length()));
-
-        productos.getStock().remove(verificaNombre(productos, "Ingrese el nombre del producto a eliminar: "));
+            //Solicita el nombre al usuario
+        nombre=verificaNombre(productos, "Ingrese el nombre del producto a eliminar: ",true);
+            // Verifica si esta vacio para continuar
+        if (nombre.trim().isEmpty()) {
+            System.out.println("No se ingreso ningun producto. Saliendo...");
+            return;
+        }
+            // Elimina el producto
+        productos.getStock().remove(nombre);
 
     }
 
@@ -160,6 +187,7 @@ public class StockServicios {
      * "false" si la lista esta vacia
      */
     public boolean hayProductos(Stock productos) {
+        
         return !productos.isEmpty();
     }
 
@@ -211,76 +239,115 @@ public class StockServicios {
      * Metodo que te pide un producto y te muestra una tabla con ese producto,
      * la cantidad el precio del producto y abajo el total de la venta
      *
-     * @param productos
-     * @return
+     * @param productos Objeto Stock con la lista de productos disponibles
+     * 
      */
     public void venderProducto(Stock productos) {
-        Double[] detalle = new Double[2];
+            // Variable donde se va a almacenar el nombre del producto a vender
         String nombre;
+            // HashMap donde se van a guardar los items de la venta
         HashMap<String, Double[]> items = new HashMap();
+            // Mensaje de bienvenida
         System.out.println(" Venta de producto unico:");
         System.out.println("--------------------------");
-        nombre = verificaNombre(productos, "Ingrese el nombre del producto a vender (dejar en vacio para salir) : ", true);
+            // Solicita el nombre del producto al usuario
+        nombre = verificaNombre(productos, "Ingrese el nombre del producto a vender (dejar vacio para salir) : ", true);
+            // Si el nombre esta vacio sale e informa
         if (nombre.trim().isEmpty()) {
             System.out.println("No se ingreso un nombre, saliendo de venta...");
             return;
         }
+            // Solicita la cantidad a vender
         System.out.print("Ingrese la cantidad a vender: ");
-        detalle[0] = leer.nextDouble();
-        detalle[1] = productos.getStock().get(nombre);
-        items.put(nombre, detalle);
-        System.out.println("");
-        mostrarVenta(items);
-        System.out.println("");
-        //System.out.println("No implementado");
-    }
-
-    public void venderProductos(Stock productos) {
-        String nombre;
-        HashMap<String, Double[]> items = new HashMap();
-        System.out.println(" Venta de productos:");
-        System.out.println("--------------------------");
-        do{
-        nombre = verificaNombre(productos, "Ingrese el nombre del producto a vender (dejar en vacio para salir) : ", true);
-        if (nombre.trim().isEmpty()) {
-            if(items.isEmpty()){
-                System.out.println("No se ingreso un nombre, saliendo de venta...");
-                return;
-            }
-            System.out.println("Venta finalizada.");
-            System.out.println(" Detalle de Venta:");
-            System.out.println("-------------------");
-            mostrarVenta(items);
-            return;
-        }
-        System.out.print("Ingrese la cantidad a vender: ");
+            // Agrega el nombre del producto(key) y el precio y la cantidad como Array 
         items.put(nombre, new Double[]{leer.nextDouble(),productos.getStock().get(nombre)});
         System.out.println("");
+            //Mustra por pantalla el detalle de la venta
         mostrarVenta(items);
         System.out.println("");
-        } while (true);
-        //System.out.println("No implementado");
     }
-
+    /**
+     * Metodo que permite agregar varios productos a la una venta<br>
+     * Si el producto ya fue cargado incrementa la cantidad
+     * @param productos Objeto Stock con la lista de productos disponibles
+     */
+    public void venderProductos(Stock productos) {
+            // Variable donde se va almacendo el nombre del producto
+        String nombre;
+            // HashMap con el detalle de la venta
+        HashMap<String, Double[]> items = new HashMap();
+            // Mensaje de bienvenida
+        System.out.println(" Venta de productos:");
+        System.out.println("--------------------------");
+            //Bucle que va solicitando los nombres y las cantidades
+        do{
+                //Solicita el nombre del producto
+            nombre = verificaNombre(productos, "Ingrese el nombre del producto a vender (dejar vacio para salir) : ", true);
+                // Si el nombre esta vacio se prepara para salir del metodo
+            if (nombre.trim().isEmpty()) {
+                    // Si items está vacio sale y muestra un mensaje
+                if(items.isEmpty()){
+                    System.out.println("No se ingresaron datos, saliendo de venta...");
+                    return;
+                }
+                    // En el caso de que items tenga datos informa que se finalizo la venta y muestra el detalle
+                System.out.println("Venta finalizada.");
+                System.out.println(" Detalle de Venta:");
+                System.out.println("-------------------");
+                mostrarVenta(items);
+                    //Sale del metodo
+                return;
+            }
+                // Solicita la cantidad
+            System.out.print("Ingrese la cantidad a vender: ");
+                // Si el producto ya está en la venta, le agrega la cantidad ingresada
+                // Sino crea el item nuevo
+            if (items.containsKey(nombre)) {
+                items.replace(nombre, new Double[]{items.get(nombre)[0] + leer.nextDouble(), productos.getStock().get(nombre)});
+            } else {
+                items.put(nombre, new Double[]{leer.nextDouble(),productos.getStock().get(nombre)});
+            }
+                // Muestra el detalle de la venta parcial
+            System.out.println("");
+            mostrarVenta(items);
+            System.out.println("");
+        } while (true);
+    }
+    
+    /** 
+     * Metodo encargado de mostrar por consola el detalle de la venta<br>
+     * finaliza con el total de la venta
+     * @param productos HashMap con los items de la venta
+     */
     private void mostrarVenta(HashMap<String, Double[]> productos) {
+            // Variable que almacena la longitud del item mas largo
         int l = maxNombre(productos.keySet());
+            // Acumulador para el total de la venta
         Double total = 0.0;
-        if (!productos.isEmpty()) {
-
+            // Verifica que hay items cargador, si no hay Sale del metodo
+        if (productos.isEmpty()) {
+            return;
         }
+            // Chequea si el titulo "Descripcion" sea mayor que el nombre de producto mas largo
         if (l < 11) {
             l = 11;
         }
+            // Formato para los items de la venta
         String st = "| %5s | %-" + l + "s | $ %6.2f |%n";
+            // Formato para el encabezado
         String encab = String.format("| Cant  | %-" + l + "s | Precio   |", "Descripcion");
         System.out.println(encab);
+            //Escribe guiones debajo del encabezado
         System.out.println(multString("-", encab.length()));
+            // Bucle encargado de recorrer el HashMap y mostrar por consola los items
         for (Map.Entry<String, Double[]> producto : productos.entrySet()) {
             System.out.printf(st, String.format("%3.2f", producto.getValue()[0]), producto.getKey(), producto.getValue()[1]);
+                // Suma al total la cantidad por precio del producto
             total += producto.getValue()[0] * producto.getValue()[1];
         }
+            // Cierre del recuadro de detalle
         System.out.println(multString("-", encab.length()));
-
+            // Muestra el total de la venta
         System.out.printf("         %" + l + "s    $ %6.2f  %n", "Total:", total);
 
     }
