@@ -11,13 +11,20 @@ import java.awt.event.KeyEvent;
  */
 
 public class ServiciosMenu {
+    // Scanner encargado de capturar los ingresos por teclado, "ISO-8859-1" es para
+    // que tome los caracteres con acento y la ñ, useDelimiter es para que el next()
+    // lea hasta el salto de linea
 
+    Scanner leer = new Scanner(System.in, "ISO-8859-1").useDelimiter("\n");
     private int resultado;
+    private boolean esSalir=false;
 
     public int getResultado() {
         return resultado;
     }
-
+   public boolean esSalir(){
+       return esSalir;
+   }
     /**
      * Metodo que muestra el menu de opciones (numericas) y sale cuando se
      * ingresa una opci�n valida. controla lo que se ingresa sea un n�mero. el
@@ -28,8 +35,7 @@ public class ServiciosMenu {
      * @param menu Parametro de tipo Menu que se va a utilzar para mostrar
      */
     public void show(Menu menu) {
-        // inicializaci�n de Scanner
-        Scanner leer = new Scanner(System.in).useDelimiter("\n");
+        
         boolean salida, error;
 
         do {
@@ -39,6 +45,7 @@ public class ServiciosMenu {
             error = true;
             try {
                 resultado = leer.nextInt();
+                esSalir= resultado==menu.getItems().length;
             } catch (InputMismatchException e) {
                 System.out.println("Debe ingresar un número.");
                 leer.next();
@@ -54,6 +61,22 @@ public class ServiciosMenu {
         } while (salida);
     }
 
+    public boolean preguntaSN(String texto){
+        
+        do {
+            System.out.print(texto);
+            switch (leer.next().toLowerCase().charAt(0)) {
+                case 's':
+                    return true;
+                case 'n':
+                    return false;
+                default:
+                    System.out.println("Opción incorrecta, es s o n!!");
+            }
+        } while (true);
+        
+    }
+    
     public void esperaTecla() {
         Scanner leer = new Scanner(System.in);
         System.out.println("Precione Enter/Intro para continuar.");

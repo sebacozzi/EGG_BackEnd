@@ -6,6 +6,7 @@
 package Entidades;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -31,5 +32,26 @@ public class Stock {
     }
     public void ingresaProducto(String nombre,Double precio){
         this.stock.put(nombre, precio);
+    }
+
+    /**
+     *Metodo que retorna el tamaño del HashMap
+     * @return int
+     */
+    public int size(){
+    return this.stock.size();
+            }
+    public boolean isEmpty(){
+        return this.stock.isEmpty();
+    }
+    
+    public int maxNombre(){
+        int res=0;
+        for (String producto : this.stock.keySet()) {
+            if (producto.length()>res) {
+                res= producto.length();
+            }
+        }
+        return res;
     }
 }

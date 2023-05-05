@@ -46,7 +46,7 @@ public class Ejercicio_6 {
         do {
             sm.show(new Menu(m, "Menu Principal: "));
             // si la opcion elejida es la de salida, sale del DO con break
-            if (sm.getResultado() == m.length) {
+            if (sm.esSalir()) {
                 break;
             }
             // switch para controlar las funciones del menu
@@ -56,13 +56,14 @@ public class Ejercicio_6 {
                         // Muestra el SubMenu Principal/Productos
                         sm.show(new Menu(mP, "Menu de Productos: "));
                         // Si es la opción de salida lanza break al DO
-                        if (sm.getResultado() == mP.length) {
+                        if (sm.esSalir()) {
                             break;
                         }
                         // consulta si no se cargaron productos y si la opcion 
                         //  es distino de 1(Carga de Productos nuevos) informa y retorna al encabezado del DO 
                         if (!sp.hayProductos(productos) && sm.getResultado() != 1) {
                             System.out.println("No se ingresaron Productos - Elija opción 1 o 5.");
+                            sm.esperaTecla();
                             continue;
                         }
                         // switch para controlar las funciones del menu
@@ -72,12 +73,16 @@ public class Ejercicio_6 {
                                     // Muestra el Submenu Principal/Productos/Cargar
                                     sm.show(new Menu(mC, "Carga de Productos"));
                                     // si el resultado es mC.length (ultima opción del menu) sale del DO
-                                    if (sm.getResultado() == mC.length) {
+                                    if (sm.esSalir()) {
                                         break;
                                     }
                                     if (sm.getResultado() == 1) {
                                         //Cargar 1 Producto
-                                        sp.cargarProducto(productos);
+                                        if (sp.cargarProducto(productos)) {
+                                            System.out.printf("Se cargo el producto.%n Cantidad de Productos cargados: %3d.%n",productos.size());
+                                            sm.esperaTecla();
+                                            
+                                        }
                                     } else // carga varios Productos
                                     {
                                         sp.cargarProductos(productos);
@@ -85,7 +90,35 @@ public class Ejercicio_6 {
                                 } while (true);
                                 break;
                             case 2:// Opción Modificar Precio
-
+                                // Muestra el Submenu Principal/Productos/Modificar Precio
+                                do{
+                                    sm.show(new Menu(mMP,"Modificar precio de Productos "));
+                                    // si el resultado es mC.length (ultima opción del menu) sale del DO
+                                    if (sm.esSalir()) {
+                                        break;
+                                    }
+                                    switch (sm.getResultado()) {
+                                        case 1:// Opcion modificar 1 precio
+                                            if (sm.preguntaSN("¿Desea ver la lista de productos? ")) {
+                                                sp.mostrar(productos);
+                                                sm.esperaTecla();
+                                                sp.modificaPrecio(productos);
+                                            }
+                                            break;
+                                        case 2: // Opción Modifica todos los precios por porcentaje
+                                            sp.mostrar(productos);
+                                            sp.actulizaPrecios(productos);
+                                            System.out.println("");
+                                            System.out.println("Lista de precios actualizada:");
+                                            System.out.println("");
+                                            sp.mostrar(productos);
+                                            sm.esperaTecla();
+                                            
+                                        default:
+                                            throw new AssertionError();
+                                    }
+                                } while (true);
+                                break;
                         }
                     } while (true);
                     break;
@@ -96,3 +129,18 @@ public class Ejercicio_6 {
 
     }
 }
+
+/* lista de productos
+Caramelo
+2.5
+Chicle
+4.8
+Masitas dulces
+180.7
+Alfajor de chocolate
+140
+Alfajor de dulce de leche
+200
+Caramelás masticables
+12.5
+*/
