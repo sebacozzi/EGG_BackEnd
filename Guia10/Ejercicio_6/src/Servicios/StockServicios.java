@@ -12,6 +12,7 @@ import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 
 /**
  *
@@ -87,9 +88,8 @@ public class StockServicios {
      *
      * @param productos
      */
-    
     public void mostrar(Stock productos) {
-        int l = maxNombre(productos.getStock());
+        int l = maxNombre(productos.getStock().keySet());
         String st = "| %04d | %-" + l + "s | $ %6.2f |%n";
         int cont = 1;
         String encab = String.format("|  ID  | %-" + l + "s | Precio   |", "Descripcion");
@@ -100,7 +100,7 @@ public class StockServicios {
             cont++;
         }
         System.out.println(multString("-", encab.length()));
-       
+
     }
 
     /**
@@ -137,13 +137,16 @@ public class StockServicios {
     }
 
     /**
+     * Metodo que elimina un producto de la lista, llama a verifica nombre que
+     * retorna un nombre valido de producto
      *
-     * @param productos
+     * @param productos Objeto Stock con el HashMap de productos
      */
     public void eliminarProducto(Stock productos) {
         String nombre;
         System.out.println(" Eliminar producto: ");
         System.out.println(multString("-", " Eliminar producto: ".length()));
+
         productos.getStock().remove(verificaNombre(productos, "Ingrese el nombre del producto a eliminar: "));
 
     }
@@ -160,11 +163,23 @@ public class StockServicios {
         return !productos.isEmpty();
     }
 
+    /**
+     * Metodo que permite eliminar varios productos en un solo metodo. <br>
+     * primero solicita los nombres de productos almacenandolos en un ArrayList
+     * y luego elimina todos juntos
+     *
+     * @param productos Objeto Stock con la lista de Productos
+     */
     public void eliminarVarios(Stock productos) {
+        // ArrayList de String donde se van a ir almacenando los nombres de los 
+        // productos a eliminar
         ArrayList<String> lista = new ArrayList();
+        // variable donde se van almacenando los nombres ingresados
         String nombre;
         System.out.println(" Eliminar Varios Productos: ");
         System.out.println(multString("-", " Eliminar Varios Productos: ".length()));
+        // Bucle que se utiliza para llenar el ArrayList con los nombres.
+        //  Sale cuando nombre está vacio
         do {
             nombre = verificaNombre(productos, "Ingrese los nombres de los productos (no escribir nada para salir): ", true);
             if (nombre.trim().isEmpty()) {
@@ -172,13 +187,14 @@ public class StockServicios {
             }
             lista.add(nombre);
         } while (true);
+        // Verifica si se cargo algun nombre
         if (lista.isEmpty()) {
             System.out.println("No se ingreso ningun producto para eliminar.");
             return;
         }
+        // Bucle que recorre el ArrayList de nombres y va eliminando los items
         for (String string : lista) {
             productos.getStock().remove(string);
-
         }
     }
 
@@ -190,28 +206,85 @@ public class StockServicios {
     public void eliminarTodos(Stock productos) {
         productos.getStock().clear();
     }
-/**
- * Metodo que te pide un producto y te muestra una tabla con ese producto, la cantidad el precio del producto
- * y abajo el total de la venta
- * @param productos 
- */
-     public void venderProducto(Stock productos) {
-         System.out.println("No implementado");
+
+    /**
+     * Metodo que te pide un producto y te muestra una tabla con ese producto,
+     * la cantidad el precio del producto y abajo el total de la venta
+     *
+     * @param productos
+     * @return
+     */
+    public void venderProducto(Stock productos) {
+        Double[] detalle = new Double[2];
+        String nombre;
+        HashMap<String, Double[]> items = new HashMap();
+        System.out.println(" Venta de producto unico:");
+        System.out.println("--------------------------");
+        nombre = verificaNombre(productos, "Ingrese el nombre del producto a vender (dejar en vacio para salir) : ", true);
+        if (nombre.trim().isEmpty()) {
+            System.out.println("No se ingreso un nombre, saliendo de venta...");
+            return;
+        }
+        System.out.print("Ingrese la cantidad a vender: ");
+        detalle[0] = leer.nextDouble();
+        detalle[1] = productos.getStock().get(nombre);
+        items.put(nombre, detalle);
+        System.out.println("");
+        mostrarVenta(items);
+        System.out.println("");
+        //System.out.println("No implementado");
     }
 
     public void venderProductos(Stock productos) {
-        System.out.println("No implementado");
-    }
-    private void mostrarVenta(HashMap<String,Double> productos,ArrayList cantidades){
-        int l =maxNombre(productos);
-        Double total = 0.0; 
-        if (!productos.isEmpty()) {
-            
+        String nombre;
+        HashMap<String, Double[]> items = new HashMap();
+        System.out.println(" Venta de productos:");
+        System.out.println("--------------------------");
+        do{
+        nombre = verificaNombre(productos, "Ingrese el nombre del producto a vender (dejar en vacio para salir) : ", true);
+        if (nombre.trim().isEmpty()) {
+            if(items.isEmpty()){
+                System.out.println("No se ingreso un nombre, saliendo de venta...");
+                return;
+            }
+            System.out.println("Venta finalizada.");
+            System.out.println(" Detalle de Venta:");
+            System.out.println("-------------------");
+            mostrarVenta(items);
+            return;
         }
-        
-        
-         System.out.printf("         %" + (l-1) + "s   $ %6.2f  %n",total);
+        System.out.print("Ingrese la cantidad a vender: ");
+        items.put(nombre, new Double[]{leer.nextDouble(),productos.getStock().get(nombre)});
+        System.out.println("");
+        mostrarVenta(items);
+        System.out.println("");
+        } while (true);
+        //System.out.println("No implementado");
     }
+
+    private void mostrarVenta(HashMap<String, Double[]> productos) {
+        int l = maxNombre(productos.keySet());
+        Double total = 0.0;
+        if (!productos.isEmpty()) {
+
+        }
+        if (l < 11) {
+            l = 11;
+        }
+        String st = "| %5s | %-" + l + "s | $ %6.2f |%n";
+        String encab = String.format("| Cant  | %-" + l + "s | Precio   |", "Descripcion");
+        System.out.println(encab);
+        System.out.println(multString("-", encab.length()));
+        for (Map.Entry<String, Double[]> producto : productos.entrySet()) {
+            System.out.printf(st, String.format("%3.2f", producto.getValue()[0]), producto.getKey(), producto.getValue()[1]);
+            total += producto.getValue()[0] * producto.getValue()[1];
+        }
+        System.out.println(multString("-", encab.length()));
+
+        System.out.printf("         %" + l + "s    $ %6.2f  %n", "Total:", total);
+
+    }
+
     /**
      * Metodo que se ingresa un nombre de producto y sale cuando sea un nombre
      * valido
@@ -262,9 +335,9 @@ public class StockServicios {
         return r;
     }
 
-    private int maxNombre(HashMap<String, Double> stock) {
+    private int maxNombre(Set<String> nombres) {
         int res = 0;
-        for (String producto : stock.keySet()) {
+        for (String producto : nombres) {
             if (producto.length() > res) {
                 res = producto.length();
             }
@@ -272,5 +345,4 @@ public class StockServicios {
         return res;
     }
 
-   
 }
