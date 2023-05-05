@@ -44,14 +44,4 @@ public class Stock {
     public boolean isEmpty(){
         return this.stock.isEmpty();
     }
-    
-    public int maxNombre(){
-        int res=0;
-        for (String producto : this.stock.keySet()) {
-            if (producto.length()>res) {
-                res= producto.length();
-            }
-        }
-        return res;
-    }
 }
