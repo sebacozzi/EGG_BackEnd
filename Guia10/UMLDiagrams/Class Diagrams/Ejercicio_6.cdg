@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="Ejercicio_6">
+  <ClassDiagramComponents>
+    <Class name="Ejercicio_6" package="ejercicio_6" visibility="public" xPosition="20.0" yPosition="20.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="main" returnType="void" visibility="public" isStatic="true">
+          <Argument type="String[]" name="args"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Stock" package="Entidades" visibility="public" xPosition="320.0" yPosition="20.0">
+      <Fields>
+        <Field name="stock" type="HashMap&lt;String, Double&gt;" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="HashMap&lt;String, Double&gt;" name="stock"/>
+        </Constructor>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="getStock" returnType="HashMap&lt;String, Double&gt;" visibility="public"/>
+        <Method name="setStock" returnType="void" visibility="public">
+          <Argument type="HashMap&lt;String, Double&gt;" name="stock"/>
+        </Method>
+        <Method name="ingresaProducto" returnType="void" visibility="public">
+          <Argument type="String" name="nombre"/>
+          <Argument type="Double" name="precio"/>
+        </Method>
+        <Method name="size" returnType="int" visibility="public"/>
+        <Method name="isEmpty" returnType="boolean" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Menu" package="menudeopciones" visibility="public" xPosition="659.0" yPosition="20.0">
+      <Fields>
+        <Field name="items" type="String[]" visibility="private"/>
+        <Field name="titulo" type="String" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="String[]" name="items"/>
+          <Argument type="String" name="titulo"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="setItems" returnType="void" visibility="public">
+          <Argument type="String[]" name="items"/>
+        </Method>
+        <Method name="setTitulo" returnType="void" visibility="public">
+          <Argument type="String" name="titulo"/>
+        </Method>
+        <Method name="getItems" returnType="String[]" visibility="public"/>
+        <Method name="toString" returnType="String" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="ServiciosMenu" package="menudeopciones" visibility="public" xPosition="675.0" yPosition="314.0">
+      <Fields>
+        <Field name="leer" type="Scanner" visibility="package"/>
+        <Field name="resultado" type="int" visibility="private"/>
+        <Field name="esSalir" type="boolean" visibility="private"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="getResultado" returnType="int" visibility="public"/>
+        <Method name="esSalir" returnType="boolean" visibility="public"/>
+        <Method name="show" returnType="void" visibility="public">
+          <Argument type="Menu" name="menu"/>
+        </Method>
+        <Method name="preguntaSN" returnType="boolean" visibility="public">
+          <Argument type="String" name="texto"/>
+        </Method>
+        <Method name="esperaTecla" returnType="void" visibility="public"/>
+        <Method name="cls" returnType="void" visibility="private" isStatic="true"/>
+      </Methods>
+    </Class>
+    <Class name="test" package="menudeopciones" visibility="public" xPosition="20.0" yPosition="153.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="main" returnType="void" visibility="public" isStatic="true">
+          <Argument type="String[]" name="args"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="StockServicios" package="Servicios" visibility="public" xPosition="165.0" yPosition="296.0">
+      <Fields>
+        <Field name="leer" type="Scanner" visibility="package"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="cargarProducto" returnType="boolean" visibility="public">
+          <Argument type="Stock" name="productos"/>
+        </Method>
+        <Method name="cargarProductos" returnType="void" visibility="public">
+          <Argument type="Stock" name="productos"/>
+        </Method>
+        <Method name="mostrar" returnType="void" visibility="public">
+          <Argument type="Stock" name="productos"/>
+        </Method>
+        <Method name="modificaPrecio" returnType="void" visibility="public">
+          <Argument type="Stock" name="productos"/>
+        </Method>
+        <Method name="actulizaPrecios" returnType="void" visibility="public">
+          <Argument type="Stock" name="productos"/>
+        </Method>
+        <Method name="eliminarProducto" returnType="void" visibility="public">
+          <Argument type="Stock" name="productos"/>
+        </Method>
+        <Method name="hayProductos" returnType="boolean" visibility="public">
+          <Argument type="Stock" name="productos"/>
+        </Method>
+        <Method name="eliminarVarios" returnType="void" visibility="public">
+          <Argument type="Stock" name="productos"/>
+        </Method>
+        <Method name="eliminarTodos" returnType="void" visibility="public">
+          <Argument type="Stock" name="productos"/>
+        </Method>
+        <Method name="venderProducto" returnType="void" visibility="public">
+          <Argument type="Stock" name="productos"/>
+        </Method>
+        <Method name="venderProductos" returnType="void" visibility="public">
+          <Argument type="Stock" name="productos"/>
+        </Method>
+        <Method name="mostrarVenta" returnType="void" visibility="private">
+          <Argument type="HashMap&lt;String, Double[]&gt;" name="productos"/>
+        </Method>
+        <Method name="verificaNombre" returnType="String" visibility="private">
+          <Argument type="Stock" name="productos"/>
+          <Argument type="String" name="textoAMostrar"/>
+          <Argument type="boolean" name="devuelveVacio"/>
+        </Method>
+        <Method name="verificaNombre" returnType="String" visibility="private">
+          <Argument type="Stock" name="productos"/>
+          <Argument type="String" name="textoAMostrar"/>
+        </Method>
+        <Method name="multString" returnType="String" visibility="private">
+          <Argument type="String" name="s"/>
+          <Argument type="int" name="multi"/>
+        </Method>
+        <Method name="maxNombre" returnType="int" visibility="private">
+          <Argument type="Set&lt;String&gt;" name="nombres"/>
+        </Method>
+      </Methods>
+    </Class>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations>
+    <UseRelation source="Servicios.StockServicios" target="Entidades.Stock" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="menudeopciones.ServiciosMenu" target="menudeopciones.Menu" sourceCardinality="1..1" targetCardinality="1..1"/>
+  </ClassDiagramRelations>
+</ClassDiagram>
