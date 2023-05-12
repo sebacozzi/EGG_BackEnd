@@ -8,7 +8,6 @@ package Servicios;
 import Entidades.Stock;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Scanner;
@@ -348,7 +347,7 @@ public class StockServicios {
             // Cierre del recuadro de detalle
         System.out.println(multString("-", encab.length()));
             // Muestra el total de la venta
-        System.out.printf("         %" + l + "s    $ %6.2f  %n", "Total:", total);
+        System.out.printf("%" + l+8 + "s    $ %6.2f  %n", "Total:", total);
 
     }
 
@@ -364,16 +363,23 @@ public class StockServicios {
      * @return String con el nombre validado
      */
     private String verificaNombre(Stock productos, String textoAMostrar, boolean devuelveVacio) {
+            // Variable donde se almacena el nombre
         String nombre = "";
+            // Bucle usado para volver a perdir un nombre hasta que se encuentre en 
+            // productos o no se ingrese ningun valor
         do {
+                // Muestra el mensaje pasado por parametro
             System.out.print(textoAMostrar);
+                //solicita el ingreso del nombre
             nombre = leer.next();
+                // si esta vacio sale(con devuelveVacio = true) o muestra mensaje (con devuelveVacio = false)
             if (nombre.trim().isEmpty()) {
                 if (devuelveVacio) {
                     break;
                 } else {
                     System.out.println("No se ingreso ningun nombre de producto.");
                 }
+                // else i
             } else if (!productos.getStock().containsKey(nombre)) {
                 System.out.printf("El producto %s no existe.%n", nombre);
             } else {
