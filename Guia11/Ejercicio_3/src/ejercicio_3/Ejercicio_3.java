@@ -18,6 +18,9 @@ luego se llama al método, este no mostrara esa primera carta.
  */
 package ejercicio_3;
 
+import Entidades.Baraja;
+import Servicios.BarajaServicios;
+
 /**
  *
  * @author Sebastian Cozzi
@@ -29,6 +32,10 @@ public class Ejercicio_3 {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-    }
+        BarajaServicios bs = new BarajaServicios(); 
+        
+        Baraja baraja = bs.crearBaraja();
+        System.out.println(baraja.toStringMaso());
+                }
     
 }
