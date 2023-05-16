@@ -37,7 +37,7 @@ public class Revolver {
         carga = (int)(Math.random()*6);
     }
     
-    public boolean mojar(Revolver gun){
+    public boolean mojar(){
         return carga== posicion;
     }
     

@@ -18,9 +18,9 @@ public class Jugador {
     public Jugador() {
     }
 
-    public Jugador(int id, String nombre) {
+    public Jugador(int id) {
         this.id = id;
-        this.nombre = nombre;
+        this.nombre = "Jugador "+String.valueOf(id);
         this.mojado = false;
     }
 
@@ -56,6 +56,6 @@ public class Jugador {
         } else {
             estado = "Seco";
         }
-        return String.format("%s %d - Estado: %s.", nombre, id, estado);
+        return String.format("ID: %d - %s  - Estado: %s.", id, nombre, estado);
     }
 }

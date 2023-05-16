@@ -35,6 +35,9 @@ Pensar la lógica necesaria para realizar esto, usando los atributos de la clase
  */
 package ejercicio_2;
 
+import Entidades.Juego;
+import Servicios.JuegoServicios;
+
 /**
  *
  * @author Sebastián Cozzi
@@ -46,6 +49,11 @@ public class Ejercicio_2 {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        JuegoServicios jugar = new JuegoServicios();
+        Juego jugada = jugar.crearJuego();
+        jugar.estadoJugadores(jugada);
+        
+        
     }
     
 }
