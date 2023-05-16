@@ -12,12 +12,13 @@ import java.util.HashSet;
  * @author Sebastián Cozzi
  */
 public class Baraja {
-    private HashSet<Carta> maso; 
+
+    private HashSet<Carta> maso;
     private HashSet<Carta> dadas;
 
     public Baraja() {
-        this.maso= new HashSet();
-        this.dadas= new HashSet();
+        this.maso = new HashSet();
+        this.dadas = new HashSet();
     }
 
     public Baraja(HashSet<Carta> maso) {
@@ -40,27 +41,35 @@ public class Baraja {
     public void setDadas(HashSet<Carta> dadas) {
         this.dadas = dadas;
     }
-    public void agregaCarta(Carta carta){
+
+    public void agregaCarta(Carta carta) {
         this.maso.add(carta);
     }
-    
-    public Carta darCarta(Carta carta){
-        if (maso.remove(carta)){
+
+    public Carta darCarta(Carta carta) {
+        if (maso.remove(carta)) {
             return null;
         }
-        if (dadas.add(carta)){
+        if (dadas.add(carta)) {
             return null;
         }
         return carta;
     }
 
     public String toStringMaso() {
-        return "Baraja{" + "maso=\n" + maso + '}';
+        String resultado = "Baraja{maso}\n";
+        for (Carta carta : maso) {
+            resultado = resultado.concat("  " + carta.toString() + "\n");
+        }
+        return resultado;
     }
-    
+
     public String toStringDadas() {
-        return "Baraja{" + "maso=\n" + dadas + '}';
+        String resultado = "Baraja{dadas}\n";
+        for (Carta carta : dadas) {
+            resultado = resultado.concat("  " + carta.toString() + "\n");
+        }
+        return resultado;
     }
-    
-    
+
 }
