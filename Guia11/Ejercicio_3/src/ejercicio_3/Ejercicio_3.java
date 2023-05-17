@@ -32,10 +32,14 @@ public class Ejercicio_3 {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        BarajaServicios bs = new BarajaServicios(); 
-        
-        Baraja baraja = bs.crearBaraja();
-        System.out.println(baraja.toStringMaso());
+        BarajaServicios bs = new BarajaServicios();
+        Baraja baraja=new Baraja();
+        bs.juego(baraja);
+//        Baraja baraja = bs.crearBaraja();
+//        System.out.println(baraja.toStringMaso());
+//        bs.barajar(baraja);
+//        System.out.println("Baraja mesclada.");
+//        System.out.println(baraja.toStringMaso());
                 }
     
 }

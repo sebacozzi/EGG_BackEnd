@@ -5,7 +5,7 @@
  */
 package Entidades;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 
 /**
  *
@@ -13,33 +13,33 @@ import java.util.HashSet;
  */
 public class Baraja {
 
-    private HashSet<Carta> maso;
-    private HashSet<Carta> dadas;
+    private ArrayList<Carta> maso;
+    private ArrayList<Carta> monton;
 
     public Baraja() {
-        this.maso = new HashSet();
-        this.dadas = new HashSet();
+        this.maso = new ArrayList();
+        this.monton = new ArrayList();
     }
 
-    public Baraja(HashSet<Carta> maso) {
+    public Baraja(ArrayList<Carta> maso) {
         this.maso = maso;
-        this.dadas = new HashSet();
+        this.monton = new ArrayList();
     }
 
-    public HashSet<Carta> getmaso() {
+    public ArrayList<Carta> getmaso() {
         return maso;
     }
 
-    public void setCartas(HashSet<Carta> maso) {
+    public void setCartas(ArrayList<Carta> maso) {
         this.maso = maso;
     }
 
-    public HashSet<Carta> getDadas() {
-        return dadas;
+    public ArrayList<Carta> getMonton() {
+        return monton;
     }
 
-    public void setDadas(HashSet<Carta> dadas) {
-        this.dadas = dadas;
+    public void setDadas(ArrayList<Carta> monton) {
+        this.monton = monton;
     }
 
     public void agregaCarta(Carta carta) {
@@ -47,10 +47,10 @@ public class Baraja {
     }
 
     public Carta darCarta(Carta carta) {
-        if (maso.remove(carta)) {
+        if (!maso.remove(carta)) {
             return null;
         }
-        if (dadas.add(carta)) {
+        if (!monton.add(carta)) {
             return null;
         }
         return carta;
@@ -64,9 +64,9 @@ public class Baraja {
         return resultado;
     }
 
-    public String toStringDadas() {
+    public String toStringMonton() {
         String resultado = "Baraja{dadas}\n";
-        for (Carta carta : dadas) {
+        for (Carta carta : monton) {
             resultado = resultado.concat("  " + carta.toString() + "\n");
         }
         return resultado;
