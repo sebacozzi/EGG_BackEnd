@@ -25,7 +25,7 @@ public class BarajaServicios {
         baraja = crearBaraja();
         
         do {
-            menu.show(new Menu(items, "Juego de Baraja Españolas"));
+            menu.show(new Menu(items, "Juego de Baraja Española"));
             switch (menu.getResultado()) {
                 case 1://Barajar
                     System.out.println("Mesclando la baraja....");
@@ -73,12 +73,11 @@ public Baraja crearBaraja(){
     }
     
     public Carta siguienteCarta(Baraja baraja){
-        Carta carta= baraja.darCarta(baraja.getmaso().get(0));
-       if (carta == null){
-           System.out.println("Se termino el maso. No hay mas cartas para repartir.");
-           return null;
-       }
-       return carta;
+        if (0 == baraja.getmaso().size()){
+            System.out.println("Se termino el maso. No hay mas cartas para repartir.");
+            return null;
+        }
+       return  baraja.darCarta(baraja.getmaso().get(0));
     }
     
     public boolean darCartas(Baraja baraja,int dar){
