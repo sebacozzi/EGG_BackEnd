@@ -66,7 +66,11 @@ public class PersonaServicios {
 
         System.out.printf("Se agregaron %d personas a la lista.\n", personas.size() - inicial);
     }
-
+/**
+ * 
+ * @param persona
+ * @param mostraMascota 
+ */
     public void mostrarPersona(Persona persona, boolean mostraMascota) {
         if (persona == null) {
             System.out.println("No se puede mostrar la persona.");
@@ -87,5 +91,5 @@ public class PersonaServicios {
             mostrarPersona(persona, mostrarMascotas);
         }
     }
-
+    
 }
