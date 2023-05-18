@@ -71,12 +71,17 @@ public class PerroServicios {
             return;
         }
 
+        if (adoptado){
         for (Perro perro : perros) {
-            if (perro.getAdpotado().equals(adoptado)) {
+            if (perro.getAdpotado()) {
+                muestraPerros(perro);        
+            }
+        }
+        } else {
+            for (Perro perro : perros) {
+                if (!perro.getAdpotado()){
                 muestraPerros(perro);
-
-            } else {
-                muestraPerros(perro);
+                }
             }
             System.out.println("-----------------------------------");
         }
@@ -97,6 +102,7 @@ public class PerroServicios {
             System.out.println("-----------------------------------");
         }
     }
+    
 
     public void adoptar(Persona persona, Perro perro) {
 

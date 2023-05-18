@@ -12,6 +12,7 @@ package extra_1;
 import Entidades.Perro;
 import Entidades.Persona;
 import Servicios.PerroServicios;
+import Servicios.PersonaServicios;
 import java.util.ArrayList;
 import menudeopciones.Menu;
 import menudeopciones.ServiciosMenu;
@@ -30,7 +31,8 @@ public class Extra_1 {
         // Servicios
         PerroServicios ps = new PerroServicios();
         ServiciosMenu sm = new ServiciosMenu();
-
+        PersonaServicios pS= new PersonaServicios();
+        
         // Caracteristicas Menu
         String[] main
                 = {"Mascotas",
@@ -114,20 +116,27 @@ public class Extra_1 {
                         switch (sm.getResultado()) {
                             case 1:
                                 // Principal/Persona/Agregar persona
+                                 
+                                    pS.crearPersona();
+                                break;
+                            case 2:
+                                // Principal/Persona/Agreagar varias Personas
+                                
+                                pS.crearPersonas(listaDePersonas);
+                                break;
+                            case 3:
+                                // Principal/Persona/Mostrar todas las personas
+
                                 
                                 break;
-                            case 1:
-                                // Principal/Persona/Agreagar varias Personas",
-                    case 1:
-                                // Principal/Persona/Mostrar todas las personas",
-                    case 1:
-                                // Principal/Persona/Mostrar la personas con mascota",
-                    case 1:
+                            case 4:
+                                // Principal/Persona/Mostrar la personas con mascota
+
+                                break;
+                            case 5:
                                 // Principal/Persona/Mostrar las personas sin mascota",
 
                                 break;
-                            default:
-                                throw new AssertionError();
                         }
                         if (!sm.esSalir()) {
                             ServiciosMenu.esperaTecla();

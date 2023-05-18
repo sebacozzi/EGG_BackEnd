@@ -15,7 +15,7 @@ public class Perro {
     private String raza;
     private String tamaño;
     private Integer edad;
-    private Boolean adpotado;
+    private boolean adpotado;
 
     public Perro() {
     }
@@ -60,11 +60,11 @@ public class Perro {
         this.edad = edad;
     }
 
-    public Boolean getAdpotado() {
+    public boolean getAdpotado() {
         return adpotado;
     }
 
-    public void setAdpotado(Boolean adpotado) {
+    public void setAdpotado(boolean adpotado) {
         this.adpotado = adpotado;
     }
 

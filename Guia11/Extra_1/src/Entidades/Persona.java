@@ -85,5 +85,16 @@ public class Persona {
         }
         return resultado;
     }
-
+    public String datosPersona() {
+        String resultado = "Datos de la persona:\n"
+                + "   Nombre y Apellido: " + nombre + " " + apellido + ".\n"
+                + "   Documento: " + documento + ".\n"
+                + "   Edad: " + edad + ".\n";
+        if (perro == null) {
+            resultado = resultado.concat("Perro:\n   Aun no adopto ningun perro.");
+        } else {
+            resultado = resultado.concat("Perro:\n   Ya adopto un perro.");
+        }
+        return resultado;
+    }
 }
