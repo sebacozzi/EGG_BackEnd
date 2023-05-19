@@ -14,6 +14,7 @@ import Entidades.Persona;
 import Servicios.PerroServicios;
 import Servicios.PersonaServicios;
 import java.util.ArrayList;
+import java.util.List;
 import menudeopciones.Menu;
 import menudeopciones.ServiciosMenu;
 
@@ -40,28 +41,6 @@ public class Extra_1 {
                     "Adopción",
                     "Salir"};
 
-        String[] menuMascotas
-                = {"Agregar perro",
-                    "Cargar varios perros",
-                    "Mostrar todos los perros",
-                    "Mostrar los perros adoptados",
-                    "Mostrar los perros no adoptados",
-                    "Salir"};
-
-        String[] menuPersonas
-                = {"Agregar persona",
-                    "Agreagar varias Personas",
-                    "Mostrar todas las personas",
-                    "Mostrar la personas con mascota",
-                    "Mostrar las personas sin mascota",
-                    "Salir"};
-
-        String[] menuAdopcion
-                = {"Adoptar Perro",
-                    "Mostrar Familias nuevas",
-                    "Mostrar perros disponibles y adoptar",
-                    "Salir"};
-
         // Variables de almasenaje
         ArrayList<Perro> listaDePerros = new ArrayList<>();
         ArrayList<Persona> listaDePersonas = new ArrayList<>();
@@ -73,94 +52,17 @@ public class Extra_1 {
                 case 1:
                     // Principal/Mascotas
 
-                    do {
-                        sm.show(new Menu(menuMascotas, "Opciones para los perros:"));
-                        switch (sm.getResultado()) {
-                            case 1:
-                                // Principal/Mascotas/Agregar Perro
-
-                                listaDePerros.add(ps.crearPerro());
-                                break;
-                            case 2:
-                                // Principal/Mascotas/Cargar varios Perros
-
-                                ps.crearPerros(listaDePerros);
-                                break;
-                            case 3:
-                                // Principal/Mascotas/Mostrar todos los Perros
-
-                                ps.muestraPerros(listaDePerros);
-                                break;
-                            case 4:
-                                // Principal/Mascotas/Mostrar los perros adoptados
-
-                                ps.muestraPerros(listaDePerros, true);
-                                break;
-                            case 5:
-                                // Principal/Mascotas/Mostrar los perros no adoptados
-
-                                ps.muestraPerros(listaDePerros, false);
-                        }
-
-                        if (sm.getResultado() == 6) {
-                            break;
-                        } else {
-                            ServiciosMenu.esperaTecla();
-                        }
-                    } while (!sm.esSalir());
-
+                    menuMascotas( listaDePerros, ps);
                     break;
                 case 2:
                     // Principal/Personas
 
-                    do {
-                        sm.show(new Menu(menuPersonas, "Opciones de personas "));
-                        switch (sm.getResultado()) {
-                            case 1:
-                                // Principal/Persona/Agregar persona
-
-                                perServicios.crearPersona();
-                                break;
-                            case 2:
-                                // Principal/Persona/Agreagar varias Personas
-
-                                perServicios.crearPersonas(listaDePersonas);
-                                break;
-                            case 3:
-                                // Principal/Persona/Mostrar todas las personas
-
-                                break;
-                            case 4:
-                                // Principal/Persona/Mostrar la personas con mascota
-
-                                break;
-                            case 5:
-                                // Principal/Persona/Mostrar las personas sin mascota",
-
-                                break;
-                        }
-                        if (sm.getResultado() == 6) {
-                            break;
-                        } else {
-                            ServiciosMenu.esperaTecla();
-                        }
-                    } while (true);
-
+                    menuPersonas(listaDePersonas, perServicios);
                     break;
                 case 3:
-                    // Principal/Adpoción
+                // Principal/Adpoción
 
-                    do {
-                        sm.show(new Menu(menuAdopcion, "Opciones de adopción:"));
-
-                        if (sm.esSalir()) {
-                            break;
-                        } else {
-                            ServiciosMenu.esperaTecla();
-                            continue;
-                        }
-                    } while (true);
-
+                    menuAdopcion(listaDePersonas, listaDePerros, ps, perServicios);
             }
             if (sm.getResultado() == 4) {
                 System.out.println(" ***** GRACIAS POR USAR EL SISTEMA DE ADOPCIÓN *****");
@@ -177,7 +79,124 @@ public class Extra_1 {
 //        ps.muestraPerros(listaDePerros);
     }
 
+    private static void menuMascotas( List<Perro> listaDePerros, PerroServicios ps) {
+        String[] opcionesMenu
+                = {"Agregar perro",
+                    "Cargar varios perros",
+                    "Mostrar todos los perros",
+                    "Mostrar los perros adoptados",
+                    "Mostrar los perros no adoptados",
+                    "Salir"};
+        ServiciosMenu sm = new ServiciosMenu();
+        do {
+            sm.show(new Menu(opcionesMenu, "Opciones para los perros:"));
+            switch (sm.getResultado()) {
+                case 1:
+                    // Principal/Mascotas/Agregar Perro
+
+                    listaDePerros.add(ps.crearPerro());
+                    break;
+                case 2:
+                    // Principal/Mascotas/Cargar varios Perros
+
+                    ps.crearPerros(listaDePerros);
+                    break;
+                case 3:
+                    // Principal/Mascotas/Mostrar todos los Perros
+
+                    ps.muestraPerros(listaDePerros);
+                    break;
+                case 4:
+                    // Principal/Mascotas/Mostrar los perros adoptados
+
+                    ps.muestraPerros(listaDePerros, true);
+                    break;
+                case 5:
+                    // Principal/Mascotas/Mostrar los perros no adoptados
+
+                    ps.muestraPerros(listaDePerros, false);
+            }
+
+            if (sm.getResultado() == 6) {
+                break;
+            } else {
+                ServiciosMenu.esperaTecla();
+            }
+        } while (!sm.esSalir());
+    }
+
+    private static void menuPersonas(List<Persona> listaDePersonas, PersonaServicios perServicios) {
+        String[] opcionesMenu
+                = {"Agregar persona",
+                    "Agreagar varias Personas",
+                    "Mostrar todas las personas",
+                    "Mostrar la personas con mascota",
+                    "Mostrar las personas sin mascota",
+                    "Salir"};
+        ServiciosMenu sm = new ServiciosMenu();
+        do {
+            sm.show(new Menu(opcionesMenu, "Opciones de personas "));
+            switch (sm.getResultado()) {
+                case 1:
+                    // Principal/Persona/Agregar persona
+
+                    perServicios.crearPersona();
+                    break;
+                case 2:
+                    // Principal/Persona/Agreagar varias Personas
+
+                    perServicios.crearPersonas(listaDePersonas);
+                    break;
+                case 3:
+                    // Principal/Persona/Mostrar todas las personas
+
+                    perServicios.mostrarPersonasYMascotas(listaDePersonas, false);
+                    break;
+                case 4:
+                    // Principal/Persona/Mostrar la personas con mascota
+
+                    perServicios.mostrarPersonasYMascotas(listaDePersonas, true);
+                    break;
+                case 5:
+                    // Principal/Persona/Mostrar las personas sin mascota",
+
+                    perServicios.mostrarPersonasSinMascotas(listaDePersonas);
+                    break;
+            }
+            if (sm.getResultado() == 6) {
+                break;
+            } else {
+                ServiciosMenu.esperaTecla();
+            }
+        } while (true);
+    }
+
+    private static void menuAdopcion(List<Persona> listaDePersonas, List<Perro> listaDePerros, PerroServicios ps, PersonaServicios perServicios) {
+        String[] opcionesMenu
+                = {"Adoptar Perro",
+                    "Mostrar Familias nuevas",
+                    "Mostrar perros disponibles y adoptar",
+                    "Salir"};
+
+        ServiciosMenu sm = new ServiciosMenu();
+        do {
+            sm.show(new Menu(opcionesMenu, "Opciones de adopción:"));
+            switch (sm.getResultado()) {
+                case 1:
+
+                    break;
+               
+            }
+            if (sm.esSalir()) {
+                break;
+            } else {
+                ServiciosMenu.esperaTecla();
+              
+            }
+        } while (true);
+    }
 }
+
 /*
 
 Personas

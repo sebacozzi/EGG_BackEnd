@@ -16,6 +16,7 @@ public class Perro {
     private String tamaño;
     private Integer edad;
     private boolean adpotado;
+    private Persona adoptadoPor;
 
     public Perro() {
     }
@@ -68,18 +69,32 @@ public class Perro {
         this.adpotado = adpotado;
     }
 
+    public Persona getAdoptadoPor() {
+        return adoptadoPor;
+    }
+
+    public void setAdoptadoPor(Persona adoptadoPor) {
+        this.adoptadoPor = adoptadoPor;
+    }
+
     @Override
     public String toString() {
-        String estado =  "Aun no lo adoptaron";
+        
+        String estado = "Adpotado: Aun no lo adoptaron";
         if (adpotado) {
-            estado = "Ya fue adoptado";
+            estado = "Adpotado por:\n"
+                    + "   Nombre y Apellido: " + adoptadoPor.getNombre() + " " + adoptadoPor.getApellido() + ".\n"
+                    + "   Documento: " + adoptadoPor.getDocumento() + ".\n"
+                    + "   Edad: " + adoptadoPor.getEdad() + ".\n";;
         }
         return "Perro:\n"
                 + "   Nombre: " + nombre + ".\n"
                 + "   Raza: " + raza + ".\n"
                 + "   Tamaño: " + tamaño + ".\n"
                 + "   Edad: " + edad + ".\n"
-                + "   Adpotado: " + estado + ".";
+                + "   " + estado + ".";
+
+      
     }
 
 }

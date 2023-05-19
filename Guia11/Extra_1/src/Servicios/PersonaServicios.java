@@ -12,6 +12,7 @@ import java.util.Scanner;
 /**
  *
  * @author Sebastián Cozzi
+ * @param <T>
  */
 public class PersonaServicios {
 
@@ -66,11 +67,12 @@ public class PersonaServicios {
 
         System.out.printf("Se agregaron %d personas a la lista.\n", personas.size() - inicial);
     }
-/**
- * 
- * @param persona
- * @param mostraMascota 
- */
+
+    /**
+     *
+     * @param persona
+     * @param mostraMascota
+     */
     public void mostrarPersona(Persona persona, boolean mostraMascota) {
         if (persona == null) {
             System.out.println("No se puede mostrar la persona.");
@@ -91,5 +93,16 @@ public class PersonaServicios {
             mostrarPersona(persona, mostrarMascotas);
         }
     }
-    
+
+    public void mostrarPersonasSinMascotas(List<Persona> personas) {
+        if (personas.isEmpty()) {
+            System.out.println("***** No hay personas para mostrar. *****");
+            return;
+        }
+        for (Persona persona : personas) {
+            if (persona.getPerro() == null) {
+                mostrarPersona(persona, false);
+            }
+        }
+    }
 }

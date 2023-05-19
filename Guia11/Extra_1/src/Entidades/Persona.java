@@ -81,10 +81,20 @@ public class Persona {
         if (perro == null) {
             resultado = resultado.concat("Perro:\n   Aun no adopto ningun perro.");
         } else {
-            resultado = resultado.concat(perro.toString());
+            String estado = "Aun no lo adoptaron";
+            if (perro.getAdpotado()) {
+                estado = "Ya fue adoptado";
+            }
+            resultado = resultado.concat("Perro:\n"
+                    + "   Nombre: " + perro.getNombre() + ".\n"
+                    + "   Raza: " + perro.getRaza() + ".\n"
+                    + "   Tamaño: " + perro.getTamaño() + ".\n"
+                    + "   Edad: " + perro.getEdad() + ".\n"
+                    + "   Adpotado: " + estado + ".");
         }
         return resultado;
     }
+
     public String datosPersona() {
         String resultado = "Datos de la persona:\n"
                 + "   Nombre y Apellido: " + nombre + " " + apellido + ".\n"
