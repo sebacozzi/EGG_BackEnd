@@ -31,8 +31,8 @@ public class Extra_1 {
         // Servicios
         PerroServicios ps = new PerroServicios();
         ServiciosMenu sm = new ServiciosMenu();
-        PersonaServicios pS= new PersonaServicios();
-        
+        PersonaServicios perServicios = new PersonaServicios();
+
         // Caracteristicas Menu
         String[] main
                 = {"Mascotas",
@@ -102,7 +102,9 @@ public class Extra_1 {
                                 ps.muestraPerros(listaDePerros, false);
                         }
 
-                        if (!sm.esSalir()) {
+                        if (sm.getResultado() == 6) {
+                            break;
+                        } else {
                             ServiciosMenu.esperaTecla();
                         }
                     } while (!sm.esSalir());
@@ -116,18 +118,17 @@ public class Extra_1 {
                         switch (sm.getResultado()) {
                             case 1:
                                 // Principal/Persona/Agregar persona
-                                 
-                                    pS.crearPersona();
+
+                                perServicios.crearPersona();
                                 break;
                             case 2:
                                 // Principal/Persona/Agreagar varias Personas
-                                
-                                pS.crearPersonas(listaDePersonas);
+
+                                perServicios.crearPersonas(listaDePersonas);
                                 break;
                             case 3:
                                 // Principal/Persona/Mostrar todas las personas
 
-                                
                                 break;
                             case 4:
                                 // Principal/Persona/Mostrar la personas con mascota
@@ -138,24 +139,37 @@ public class Extra_1 {
 
                                 break;
                         }
-                        if (!sm.esSalir()) {
+                        if (sm.getResultado() == 6) {
+                            break;
+                        } else {
                             ServiciosMenu.esperaTecla();
                         }
-                    } while (!sm.esSalir());
+                    } while (true);
 
                     break;
                 case 3:
-                // Principal/Adpoción
+                    // Principal/Adpoción
+
+                    do {
+                        sm.show(new Menu(menuAdopcion, "Opciones de adopción:"));
+
+                        if (sm.esSalir()) {
+                            break;
+                        } else {
+                            ServiciosMenu.esperaTecla();
+                            continue;
+                        }
+                    } while (true);
 
             }
-            if (sm.esSalir()) {
+            if (sm.getResultado() == 4) {
                 System.out.println(" ***** GRACIAS POR USAR EL SISTEMA DE ADOPCIÓN *****");
                 break;
             }
         } while (true);
 
 //        Perro p1 = ps.crearPerro();
-//        
+//
 //        ps.crearPerros(listaDePerros);
 //        System.out.println("");
 //        System.out.println(p1);
@@ -165,17 +179,19 @@ public class Extra_1 {
 
 }
 /*
+
+Personas
+
+Perros
+
 Fernando
 Beagle
-1
 2
 Furco
 Ovejero Alemán
-2
 3
 Chiquita
 Mastin Napolitano
-3
 1
 
  */
