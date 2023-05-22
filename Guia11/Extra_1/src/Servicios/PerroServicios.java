@@ -7,6 +7,8 @@ package Servicios;
 
 import Entidades.Perro;
 import Entidades.Persona;
+import Enumeradores.Raza;
+import Enumeradores.Tamaño;
 import java.util.List;
 import java.util.Scanner;
 import menudeopciones.ServiciosMenu;
@@ -26,8 +28,15 @@ public class PerroServicios {
     }
 
     public Perro crearPerro() {
-        String[] op = {"Pequeño", "Mediano", "Grande"};
+        
+        String[] op = new String[Tamaño.values().length];
 
+        int cont =0;
+        
+        for (Tamaño r : Tamaño.values()) {
+            op[cont]=r.getDescripcion();
+            cont++;
+        }
         System.out.println("  Ingresar los datos del perro:");
         System.out.println("---------------------------------");
         System.out.print("*** Nombre (dejar vacio para salir): ");
@@ -50,8 +59,9 @@ public class PerroServicios {
             Perro perro = crearPerro();
             if (perro == null) {
                 break;
-            }
+            }else{
             listaDePerros.add(perro);
+            }
             System.out.println("--------------------------------------------------");
         } while (true);
         System.out.println("--------------------------------------------------");
@@ -66,7 +76,7 @@ public class PerroServicios {
         System.out.println("  Lista de Perros:");
         System.out.println("--------------------");
 
-        if (perros.size() == 0) {
+        if (perros.isEmpty()) {
             System.out.println("NO HAY PERROS PARA MOSTRAR.");
             return;
         }
