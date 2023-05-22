@@ -182,8 +182,9 @@ public class Extra_1 {
         do {
             sm.show(new Menu(opcionesMenu, "Opciones de adopción:"));
             switch (sm.getResultado()) {
-                case 1:
+                case 1://"Adoptar Perro"
 
+                    System.out.println("");
                     break;
                
             }

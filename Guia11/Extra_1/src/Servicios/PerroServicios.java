@@ -114,17 +114,17 @@ public class PerroServicios {
     }
     
 
-    public void adoptar(Persona persona, Perro perro) {
+    public boolean adoptar(Persona persona, Perro perro) {
 
         if (persona.getPerro() != null) {
             System.out.printf("%s ya adopto un perro.\n", persona.getNombreCompleto());
             System.out.println(persona.getPerro());
-            return;
+            return false;
         }
         perro.setAdpotado(true);
         persona.setPerro(perro);
         System.out.printf("Perro adoptado por %s....\n", persona.getNombreCompleto());
         System.out.println(persona);
+        return true;
     }
-
-}
+    }
