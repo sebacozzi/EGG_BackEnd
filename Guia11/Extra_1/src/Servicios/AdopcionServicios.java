@@ -24,7 +24,7 @@ public class AdopcionServicios {
     public void personaAdoptaPerro(Persona persona, List<Perro> perros) {
         boolean adopto = false;
         PerroServicios ps = new PerroServicios();
-        String nombre = "";
+        String nombre;
         System.out.println("  Sistema de Adpción:");
         System.out.println("***********************");
         do {
@@ -32,29 +32,37 @@ public class AdopcionServicios {
                     + "(para listar los disponibles ingresa -h o vacio para salir) ", persona.getNombreCompleto());
             nombre = leer.next();
             if (!nombre.trim().isEmpty()) {
-                if (nombre.trim().equals("-h")) {
+                if (nombre.trim().equals("-h")) { ////Ayuda
                     ps.muestraPerros(perros, false);
                     continue;
                 }
+                System.out.println("Buscando si el perro está disponible para adoptar....");
                 for (Perro perro : perros) {
                     if (!perro.getAdpotado()) {
                         if (perro.getNombre().equalsIgnoreCase(nombre)) {
                             System.out.println("Adoptaste a " + perro.getNombre());
                             persona.setPerro(perro);
                             perro.setAdoptadoPor(persona);
-                            adopto=true;
+                            perro.setAdpotado(true);
+                            adopto = true;
                             break;
                         }
+                    } else {
+                        
+                        System.out.println("El perro ya fue adoptado.");
+                        break;
                     }
+
                 }
-                System.out.printf("No se encontro ningun perro con el nombre de %s.\n", nombre);
-                
-                System.out.print("¿Queres volver a ingresar el nombre? s/n");
-                if (leer.next().charAt(0)=='s') {
-                    continue;
+                if (!adopto) {
+                    System.out.printf("No se encontro ningun perro con el nombre de %s.\n", nombre);
+
+                    System.out.print("¿Queres volver a ingresar el nombre? s/n");
+                    if (leer.next().charAt(0) == 's') {
+                        continue;
+                    }
+                    break;
                 }
-                break;
-                
             } else {
                 break;
             }
@@ -71,7 +79,5 @@ public class AdopcionServicios {
         }
     }
 
-    public void perroAdoptaPersona(Perro perro, List<Persona> personas) {
-
-    }
+    
 }

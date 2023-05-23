@@ -11,10 +11,12 @@ package extra_1;
 
 import Entidades.Perro;
 import Entidades.Persona;
+import Servicios.AdopcionServicios;
 import Servicios.PerroServicios;
 import Servicios.PersonaServicios;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import menudeopciones.Menu;
 import menudeopciones.ServiciosMenu;
 
@@ -52,7 +54,7 @@ public class Extra_1 {
                 case 1:
                     // Principal/Mascotas
 
-                    menuMascotas( listaDePerros, ps);
+                    menuMascotas(listaDePerros, ps);
                     break;
                 case 2:
                     // Principal/Personas
@@ -60,7 +62,7 @@ public class Extra_1 {
                     menuPersonas(listaDePersonas, perServicios);
                     break;
                 case 3:
-                // Principal/Adpoción
+                    // Principal/Adpoción
 
                     menuAdopcion(listaDePersonas, listaDePerros, ps, perServicios);
             }
@@ -79,14 +81,14 @@ public class Extra_1 {
 //        ps.muestraPerros(listaDePerros);
     }
 
-    private static void menuMascotas( List<Perro> listaDePerros, PerroServicios ps) {
+    private static void menuMascotas(List<Perro> listaDePerros, PerroServicios ps) {
         String[] opcionesMenu
                 = {"Agregar perro",
                     "Cargar varios perros",
                     "Mostrar todos los perros",
                     "Mostrar los perros adoptados",
                     "Mostrar los perros no adoptados",
-                    "Salir"};
+                    "Volver"};
         ServiciosMenu sm = new ServiciosMenu();
         do {
             sm.show(new Menu(opcionesMenu, "Opciones para los perros:"));
@@ -132,7 +134,7 @@ public class Extra_1 {
                     "Mostrar todas las personas",
                     "Mostrar la personas con mascota",
                     "Mostrar las personas sin mascota",
-                    "Salir"};
+                    "Volver"};
         ServiciosMenu sm = new ServiciosMenu();
         do {
             sm.show(new Menu(opcionesMenu, "Opciones de personas "));
@@ -172,27 +174,40 @@ public class Extra_1 {
     }
 
     private static void menuAdopcion(List<Persona> listaDePersonas, List<Perro> listaDePerros, PerroServicios ps, PersonaServicios perServicios) {
+        Scanner leer = new Scanner(System.in, "ISO-8859-1").useDelimiter("\n");
         String[] opcionesMenu
                 = {"Adoptar Perro",
                     "Mostrar Familias nuevas",
                     "Mostrar perros disponibles y adoptar",
-                    "Salir"};
-
+                    "Volver"};
+        String nombre;
+        AdopcionServicios as= new AdopcionServicios();
         ServiciosMenu sm = new ServiciosMenu();
         do {
             sm.show(new Menu(opcionesMenu, "Opciones de adopción:"));
             switch (sm.getResultado()) {
                 case 1://"Adoptar Perro"
-
-                    System.out.println("");
+                    System.out.println("Adopción:");
+                        for (Persona persona : listaDePersonas) {
+                            if (persona.getPerro()==null){
+                                as.personaAdoptaPerro(persona, listaDePerros);
+                    } 
+                        }
                     break;
-               
+                case 2:
+                    perServicios.mostrarPersonasYMascotas(listaDePersonas, true);
+                    break;
+                    
+                case 3:
+                    break;
+                    
+          
             }
             if (sm.esSalir()) {
                 break;
             } else {
                 ServiciosMenu.esperaTecla();
-              
+
             }
         } while (true);
     }
