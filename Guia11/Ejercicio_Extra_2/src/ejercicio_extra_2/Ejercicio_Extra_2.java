@@ -28,6 +28,12 @@ cada asiento o solo las X y espacios vacíos.
 package ejercicio_extra_2;
 
 import Entidades.Cine;
+import Entidades.Expectador;
+import Entidades.Pelicula;
+import Servicios.CineServicios;
+import java.util.ArrayList;
+import menudeopciones.Menu;
+import menudeopciones.ServiciosMenu;
 
 /**
  *
@@ -40,8 +46,47 @@ public class Ejercicio_Extra_2 {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        Cine cine= new Cine();
-        System.out.println(cine.toString());
+        String[] menu = {"Crear Personas","Llenar Sala","Vaciar Sala","Mostrar Personas","Mostrar Expectadores","Mostrar Sala","Mostrar Pelicula","Salir"};
+        ServiciosMenu sm = new ServiciosMenu();
+        CineServicios cs = new CineServicios();
+        Cine cine= new Cine(new Pelicula(),Math.random()*400);
+        ArrayList<Expectador> expectadores = new ArrayList();
+        
+        do {
+            sm.show(new Menu(menu,"                    *****************************\n"
+                                + "                     *****************************\n"
+                                + "                     **  BIENVENIDOS A CINEEGG  **\n"
+                                + "                     *****************************\n"
+                                + "                     *****************************\n"));
+            switch (sm.getResultado()) {
+                case 1: // CrearPersonas
+                    cs.crearExpectadores(expectadores);
+                    break;
+                case 2: // LLenarSala
+                    cs.LlenarSala(expectadores, cine);
+                    break;
+                case 3: // Vaciar Sala
+                    cs.vaciarSala(cine,expectadores);
+                    break;
+                case 4: //Mostrar Personas
+                    cs.mostrarPersonas(expectadores);
+                    break;
+                case 5: //Mostrar Expectadores
+                    cs.listarExpectadoresEnSala(cine);
+                    break;
+                case 6: //Mostrar Sala
+                    cs.mostrarSala(cine);    
+                    break;
+                case 7: //Mostrar Pelicula
+                cs.mostrarPelicula(cine);
+            }
+            if (sm.esSalir()) {
+                System.out.println("\nGracias por utilizar el cine EGG!!\n");
+                break;
+            }else{
+               ServiciosMenu.esperaTecla();
+            }
+        } while (true);
     }
     
 }
