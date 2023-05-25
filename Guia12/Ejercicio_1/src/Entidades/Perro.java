@@ -11,14 +11,16 @@ package Entidades;
  */
 public class Perro extends Animal{
 
-    public Perro() {
-    }
-
     public Perro(String nombre, String alimento, Integer edad, String raza) {
         super(nombre, alimento, edad, raza);
     }
     
+    /**alimentarse
+     */
+    
+    @Override
     public void alimentarse(){
-        System.out.println("Se alimenta de "+ alimento+'.');
+        System.out.println(this.getClass());
+        System.out.println("El perro "+ nombre +" se alimenta de "+ alimento+'.');
     }
 }

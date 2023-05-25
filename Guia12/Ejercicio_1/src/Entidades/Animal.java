@@ -15,10 +15,10 @@ public class Animal {
     protected Integer edad;
     protected String raza;
 
-    protected Animal() {
+    public Animal() {
     }
 
-    protected Animal(String nombre, String alimento, Integer edad, String raza) {
+    public Animal(String nombre, String alimento, Integer edad, String raza) {
         this.nombre = nombre;
         this.alimento = alimento;
         this.edad = edad;
@@ -55,6 +55,11 @@ public class Animal {
 
     public void setRaza(String raza) {
         this.raza = raza;
+    }
+
+    public void alimentarse() {
+       System.out.println(this.getClass());
+        System.out.println("El animal "+nombre+" se alimenta de "+ alimento+'.');
     }
     
 }

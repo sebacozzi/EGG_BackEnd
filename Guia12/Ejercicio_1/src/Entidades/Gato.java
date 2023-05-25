@@ -18,8 +18,10 @@ public class Gato extends Animal{
         super(nombre, alimento, edad, raza);
     }
     
+    @Override
     public void alimentarse(){
-        System.out.println("Se alimenta de "+ alimento+'.');
+        System.out.println(this.getClass());
+        System.out.println("El gato "+nombre+" se alimenta de "+ alimento+'.');
     }
     
 }
