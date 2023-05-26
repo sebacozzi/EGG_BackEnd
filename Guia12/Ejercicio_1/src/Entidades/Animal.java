@@ -9,7 +9,7 @@ package Entidades;
  *
  * @author Sebastian Cozzi
  */
-public class Animal {
+public abstract class Animal {
     protected String nombre;
     protected String alimento;
     protected Integer edad;
@@ -57,9 +57,6 @@ public class Animal {
         this.raza = raza;
     }
 
-    public void alimentarse() {
-       System.out.println(this.getClass());
-        System.out.println("El animal "+nombre+" se alimenta de "+ alimento+'.');
-    }
+    public abstract void alimentarse();
     
 }
