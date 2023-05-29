@@ -19,6 +19,8 @@ precio final de su alquiler.
  */
 package ejercicio_extra_1;
 
+import Entidades.Alquiler;
+
 /**
  *
  * @author Sebastian Cozzi
@@ -30,6 +32,9 @@ public class Ejercicio_Extra_1 {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        Alquiler alquiler = new Alquiler();
+        alquiler.crearAlquiler();
+        System.out.printf("\nCosto de alquiler: $ %.2f.\nPara un total de %d días.",alquiler.calculoAlquiler(),alquiler.getDiasAlquiler());
     }
     
 }

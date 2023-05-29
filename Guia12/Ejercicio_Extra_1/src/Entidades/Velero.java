@@ -33,7 +33,7 @@ public class Velero extends Barco{
 
     @Override
     public Double valorModuloBarco() {
-        return super.valorModuloBarco()+mastiles;
+        return super.valorModuloBarco()+ mastiles;
     }
 
     @Override
