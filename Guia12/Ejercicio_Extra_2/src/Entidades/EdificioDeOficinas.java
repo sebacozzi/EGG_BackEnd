@@ -90,6 +90,7 @@ public class EdificioDeOficinas extends Edificio {
 
     public void cantPersonas(){
         System.out.printf("En el edificio pueden trabajar %d personas.\n",cantidadOficinas*cantidadPersonasXOficina);
+        
         System.out.printf("%.0f son las personas que trabajan en cada piso.\n", (cantidadPersonasXOficina*cantidadOficinas)/cantidadDePisos);
     }
     

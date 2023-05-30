@@ -12,7 +12,7 @@ package Entidades;
 public class Polideportivo extends Edificio{
     private Boolean abierto;
     private String nombre;
-
+    private String tipo;
     public Polideportivo() {
     }
 
@@ -54,6 +54,10 @@ public class Polideportivo extends Edificio{
     
     public void setAbierto(Boolean abierto) {
         this.abierto = abierto;
+        if (abierto) {
+            this.tipo ="Abierto";
+        }else
+            this.tipo = "Techado";
     }
 
     public String getNombre() {
@@ -65,10 +69,7 @@ public class Polideportivo extends Edificio{
     }
 
     public String getTipo(){
-        if (abierto) {
-            return "Abierto";
-        }else
-            return "Techado";
+            return tipo;
     }
     
     @Override

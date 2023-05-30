@@ -14,7 +14,7 @@ import java.util.Scanner;
  */
 public class Electrodomestico {
 
-    private final String[] COLORVALIDO = {"BLANCO", "NEGRO", "ROJO", "AZUL", "GRIS"};
+   // private final String[] COLORVALIDO = {"BLANCO", "NEGRO", "ROJO", "AZUL", "GRIS"};
     private final String CONSUMOVALIDO = "ABCDEF";
 
     protected Double precio;
@@ -71,7 +71,7 @@ public class Electrodomestico {
             return 'F';
         }
     }
-
+    private final String[] COLORVALIDO = {"BLANCO", "NEGRO", "ROJO", "AZUL", "GRIS"};
     private String comprobarColor(String color) {
         if (Arrays.asList(COLORVALIDO).contains(color.toUpperCase())) {
             return Character.toUpperCase(color.charAt(0)) + color.substring(1, color.length());
