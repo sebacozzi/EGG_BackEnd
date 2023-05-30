@@ -12,8 +12,23 @@ package Entidades;
 public abstract class Edificio {
     protected Double ancho;
     protected Double alto;
-    private Double largo;
+    protected Double largo;
+
+    public Edificio() {
+    }
+
     
+    /**
+     * Metodo encargado de calcular la superficie del edificio
+     * @return Double con el valor de la superficie
+     */
+    public abstract Double calcularSuperficie();
+    
+    /**
+     * Metodo encargado de calcular el volumen del edificio
+     * @return Double con el calculo del volumen
+     */
+    public abstract Double calcularVolumen();    
     
     
 }

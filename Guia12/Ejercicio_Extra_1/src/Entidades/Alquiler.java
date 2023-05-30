@@ -89,18 +89,24 @@ public class Alquiler {
 
     public Double calculoAlquiler() {
         int dias = getDiasAlquiler();
+
+        if (this.barco instanceof YateDeLujo) {
+            YateDeLujo b1 = (YateDeLujo) this.barco;
+            return b1.valorModuloBarco() * dias;
+        }
+        if (this.barco instanceof Velero) {
+            Velero b1 = (Velero) this.barco;
+            return b1.valorModuloBarco() * dias;
+        }
         if (this.barco instanceof BarcoAMotor) {
             BarcoAMotor b1 = (BarcoAMotor) this.barco;
             return b1.valorModuloBarco() * dias;
-        } else if (this.barco instanceof Velero) {
-            Velero b1 = (Velero) this.barco;
-            return b1.valorModuloBarco() * dias;
-        } else if (this.barco instanceof YateDeLujo) {
-            YateDeLujo b1 = (YateDeLujo) this.barco;
-            return b1.valorModuloBarco() * dias;
-        } else {
+        }
+        if (this.barco instanceof Barco) {
+            Barco b1 = (Barco) this.barco;
             return this.barco.valorModuloBarco() * dias;
         }
+        return 0d;
     }
 
     public void crearAlquiler() {
