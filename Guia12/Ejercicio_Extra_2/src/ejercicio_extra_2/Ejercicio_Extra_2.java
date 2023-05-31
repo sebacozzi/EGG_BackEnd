@@ -28,6 +28,7 @@ import Entidades.Edificio;
 import Entidades.EdificioDeOficinas;
 import Entidades.Polideportivo;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -42,14 +43,37 @@ public class Ejercicio_Extra_2 {
     public static void main(String[] args) {
         // TODO code application logic here
         ArrayList<Edificio> edificios = new ArrayList();
+        int contAbierto =0;
+        int contTechado =0;
         creaEdificios(edificios);
-        
+        Iterator it = edificios.iterator();
+
+        while (it.hasNext()) {
+            Edificio ed = (Edificio) it.next();
+            System.out.printf("La superficie del %s es: %.3f.\n",
+                    ed.getClass().toString().substring(ed.getClass().toString().indexOf(".") + 1),
+                    ed.calcularSuperficie());
+            if (ed.calcularVolumen() != 0) {
+                System.out.printf("El volumen del %s es: %.3f.\n",
+                        ed.getClass().toString().substring(ed.getClass().toString().indexOf(".") + 1),
+                        ed.calcularVolumen());
+                contTechado++;
+            } else contAbierto++;
+            System.out.println("");
+        }
+        System.out.printf("De los polideportivos hay %d techados y %d abiertos.\n", contTechado, contAbierto);
+        for (Edificio edificio : edificios) {
+            if (edificio instanceof EdificioDeOficinas) {
+                EdificioDeOficinas eofi = (EdificioDeOficinas) edificio;
+                eofi.cantPersonas();
+            }
+        }
     }
 
     private static void creaEdificios(List<Edificio> edif) {
-        for (int i = 0; i < 4; i++) {
-            if (i%2 == 0) {
-                Polideportivo p = new Polideportivo(Math.round(Math.random())==1., "Polideportivo N° " + i, 150d * i, 2.58 * i, 37d * i);
+        for (int i = 1; i < 5; i++) {
+            if (i % 2 == 0) {
+                Polideportivo p = new Polideportivo(Math.round(Math.random()) == 1., "Polideportivo N° " + i, 150d * i, 2.58 * i, 37d * i);
                 edif.add(p);
 
             } else {

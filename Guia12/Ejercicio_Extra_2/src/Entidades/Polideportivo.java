@@ -80,6 +80,7 @@ public class Polideportivo extends Edificio{
     @Override
     public Double calcularVolumen() {
         if (abierto) {
+            System.out.println("De este polideportivo no tiene volumen porque es Abierto.");
             return 0d;
         }
         return super.alto*super.ancho*super.largo;

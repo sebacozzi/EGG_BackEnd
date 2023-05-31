@@ -18,6 +18,7 @@ import Entidades.Lavadora;
 import Entidades.Televisor;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Ejercicio_3 {
 
@@ -26,20 +27,9 @@ public class Ejercicio_3 {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        String[] colores={"BLANCO", "NEGRO", "ROJO", "AZUL", "GRIS"};
-        char[] consumos={'A','B','C','D','E','F'};
+        
         ArrayList<Electrodomestico> arrayElectro = new ArrayList();
-        for (int i = 0; i < 4; i++) {
-            if (Math.round(Math.random())==1) {
-                arrayElectro.add(new Lavadora(Math.random()*40, Math.random()*10000, 
-                        colores[(int)Math.random()*colores.length], 
-                        consumos[(int)Math.random()*consumos.length], Math.random()*95));
-            }else{
-                arrayElectro.add(new Televisor(Math.random()*75,Math.round(Math.random())==1,
-                        Math.random()*15000,colores[(int) (Math.random() * colores.length - 1)], 
-                        consumos[(int) (Math.random() * consumos.length - 1)], Math.random()*95));
-            }
-        }
+        crearElectrodomesticos(arrayElectro);
         Double  sumaPrecios=0d;
         for (Electrodomestico electrodomestico : arrayElectro) {
             if (electrodomestico instanceof Lavadora) {
@@ -55,5 +45,19 @@ public class Ejercicio_3 {
         System.out.println("");
         System.out.printf("Precio total de los electrodomesticos: $ %.3f.-\n", sumaPrecios);
     }
-    
+    private static void crearElectrodomesticos(List<Electrodomestico> arrayElectro){
+        String[] colores={"BLANCO", "NEGRO", "ROJO", "AZUL", "GRIS"};
+        char[] consumos={'A','B','C','D','E','F'};
+        for (int i = 0; i < 4; i++) {
+            if (Math.round(Math.random())==1) {
+                arrayElectro.add(new Lavadora(Math.random()*40, Math.random()*10000, 
+                        colores[(int)Math.random()*colores.length], 
+                        consumos[(int)Math.random()*consumos.length], Math.random()*95));
+            }else{
+                arrayElectro.add(new Televisor(Math.random()*75,Math.round(Math.random())==1,
+                        Math.random()*15000,colores[(int) (Math.random() * colores.length - 1)], 
+                        consumos[(int) (Math.random() * consumos.length - 1)], Math.random()*95));
+            }
+        }
+    }
 }
