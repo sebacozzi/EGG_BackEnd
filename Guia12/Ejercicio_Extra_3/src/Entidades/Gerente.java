@@ -9,7 +9,7 @@ package Entidades;
  *
  * @author Sebastián Cozzi
  */
-class Gerente {
+public class Gerente {
 
     private String nombre;
     private long dni;
@@ -59,8 +59,9 @@ class Gerente {
     public void crearAzar() {
 
         this.nombre = randNombre() + " " + randApellido();
-        this.dni = Math.round(Math.random()*2800000)+12000000;
-        this.edad = 25;
+        this.dni = Math.round(Math.random()*28000000)+12000000;
+        this.edad = 70-Math.round(dni/1000000);
+        System.out.println(Math.round(dni/1000000));
     }
 
     private String randNombre() {
@@ -69,5 +70,10 @@ class Gerente {
 
     private String randApellido() {
         return apellidos[(int) Math.round(Math.random() * (nombres.length - 1))];
+    }
+
+    @Override
+    public String toString() {
+        return "Gerente{" + "nombre=" + nombre + ", dni=" + dni + ", edad=" + edad + '}';
     }
 }

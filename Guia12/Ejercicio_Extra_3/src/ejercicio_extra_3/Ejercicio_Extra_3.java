@@ -46,7 +46,7 @@ Realizar un sistema de consulta que le permite al usuario consultar por diferent
 • todos las residencias que tienen descuento.
  */
 package ejercicio_extra_3;
-
+import Entidades.Gerente;
 /**
  *
  * @author Sebastián Cozzi
@@ -58,6 +58,10 @@ public class Ejercicio_Extra_3 {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        Gerente g = new Gerente();
+        g.crearAzar();
+        System.out.println(g);
+        
     }
     
 }
