@@ -47,6 +47,7 @@ Realizar un sistema de consulta que le permite al usuario consultar por diferent
  */
 package ejercicio_extra_3;
 import Entidades.Gerente;
+import Entidades.Hotel5E;
 /**
  *
  * @author Sebastián Cozzi
@@ -61,6 +62,7 @@ public class Ejercicio_Extra_3 {
         Gerente g = new Gerente();
         g.crearAzar();
         System.out.println(g);
+        Hotel5E h5 = new Hotel5E();
         
     }
     

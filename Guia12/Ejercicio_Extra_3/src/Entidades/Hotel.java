@@ -17,16 +17,16 @@ public class Hotel {
     protected int cantidadHabitaciones;
     protected int numeroCamas;
     protected int cantidadPisos;
-    protected double precioHabitacion;
+    protected int precioHabitacion;
 
     public Hotel() {
     }
 
-    public Hotel(int cantidadHabitaciones, int numeroCamas, int cantidadPisos, double precioHabitacion) {
+    public Hotel(int cantidadHabitaciones, int numeroCamas, int cantidadPisos) {
         this.cantidadHabitaciones = cantidadHabitaciones;
         this.numeroCamas = numeroCamas;
         this.cantidadPisos = cantidadPisos;
-        this.precioHabitacion = precioHabitacion;
+        //this.precioHabitacion = precioHabitacion;
     }
 
     public int getCantidadHabitaciones() {
@@ -53,11 +53,11 @@ public class Hotel {
         this.cantidadPisos = cantidadPisos;
     }
 
-    public double getPrecioHabitacion() {
-        return precioHabitacion;
+    public int getPrecioHabitacion() {
+        return 50+this.numeroCamas;
     }
 
-    public void setPrecioHabitacion(double precioHabitacion) {
+    public void setPrecioHabitacion(int precioHabitacion) {
         this.precioHabitacion = precioHabitacion;
     }
     
@@ -67,11 +67,9 @@ public class Hotel {
         
         System.out.print("Ingrese la cantidad de habitaciones: ");
         this.cantidadHabitaciones = leer.nextInt();
-        System.out.print("Ingrese la cantidad de camas: ");
+        System.out.print("Ingrese la cantidad de camas en el hotel: ");
         this.numeroCamas = leer.nextInt();
         System.out.print("Ingrese la cantidad de pisos: ");
         this.cantidadPisos = leer.nextInt();
-        System.out.print("Ingrese el precio de la habitación: ");
-        this.precioHabitacion = leer.nextDouble();
     }
 }

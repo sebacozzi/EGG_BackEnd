@@ -5,6 +5,7 @@
  */
 package Entidades;
 
+import Enumeradores.TipoGimnasio;
 import java.util.Scanner;
 
 /**
@@ -12,25 +13,32 @@ import java.util.Scanner;
  * @author Sebastian Cozzi
  */
 public class Hotel4E extends Hotel{
-    private boolean gimnasio;
-    private String nombreRestaurante;
-    private int capacidadRestaurante;
+    protected TipoGimnasio gimnasio;
+    protected String nombreRestaurante;
+    protected int capacidadRestaurante;
 
     public Hotel4E() {
     }
 
-    public Hotel4E(boolean gimnasio, String nombreRestaurante, int capacidadRestaurante, int cantidadHabitaciones, int numeroCamas, int cantidadPisos, double precioHabitacion) {
-        super(cantidadHabitaciones, numeroCamas, cantidadPisos, precioHabitacion);
+    public Hotel4E(TipoGimnasio gimnasio, String nombreRestaurante, int capacidadRestaurante,
+            int cantidadHabitaciones, int numeroCamas, int cantidadPisos) {
+        super(cantidadHabitaciones, numeroCamas, cantidadPisos);
         this.gimnasio = gimnasio;
         this.nombreRestaurante = nombreRestaurante;
         this.capacidadRestaurante = capacidadRestaurante;
     }
 
-    public boolean tieneGimnasio() {
+    @Override
+    public int getPrecioHabitacion() {
+        
+        return super.getPrecioHabitacion()+this.gimnasio.getPrecio();
+    }
+
+    public TipoGimnasio getGimnasio() {
         return gimnasio;
     }
 
-    public void setGimnasio(boolean gimnasio) {
+    public void setGimnasio(TipoGimnasio gimnasio) {
         this.gimnasio = gimnasio;
     }
 
@@ -55,18 +63,25 @@ public class Hotel4E extends Hotel{
         super.crearHotel();
         Scanner leer = new Scanner(System.in, "ISO-8859-1").useDelimiter("\n");
         
-        System.out.print("¿Tiene gimnasio? <(S)i/(N)o>\n");
+        System.out.print("¿Que tipo de gimnasio tiene?\n"
+                + "   1) Gimnasio Clase \"A\".\n"
+                + "   2) Gimnasio Clase \"B\".\n");
+        boolean continuar;
         do {
+            continuar = false;
             System.out.print(" -> ");
-            if (leer.next().toUpperCase().charAt(0)=='S') {
-                this.gimnasio = true;
-                break;
-            }else if (leer.next().toUpperCase().charAt(0)=='n') {
-               this.gimnasio= false;
-               break;
-            }else
-                System.out.println("Opcion incorrecta. Ingresar S o N.");
-        } while (true);
+            switch (leer.nextInt()) {
+                case 1:
+                    this.gimnasio= TipoGimnasio.CLASEA;
+                    break;
+                case 2:
+                    this.gimnasio= TipoGimnasio.CLASEB;
+                    break;
+                default:
+                System.out.println("Opcion incorrecta. Ingresar 1 o 2.");
+                continuar = true;
+            }
+        } while (continuar);
         
         System.out.print("Ingresar el nombre del restaurante: ");
         this.nombreRestaurante = leer.next();
