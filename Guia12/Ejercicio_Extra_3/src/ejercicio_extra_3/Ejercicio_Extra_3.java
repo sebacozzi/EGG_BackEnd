@@ -46,8 +46,12 @@ Realizar un sistema de consulta que le permite al usuario consultar por diferent
 • todos las residencias que tienen descuento.
  */
 package ejercicio_extra_3;
+import Entidades.Camping;
 import Entidades.Gerente;
+import Entidades.Hotel;
+import Entidades.Hotel4E;
 import Entidades.Hotel5E;
+import Entidades.Residencia;
 /**
  *
  * @author Sebastián Cozzi
@@ -62,8 +66,27 @@ public class Ejercicio_Extra_3 {
         Gerente g = new Gerente();
         g.crearAzar();
         System.out.println(g);
-        Hotel5E h5 = new Hotel5E();
         
+        Hotel h4 = new Hotel4E();
+        
+        Hotel h5 = new Hotel5E();
+        Camping c = new Camping();
+        Residencia r = new Residencia();
+        r.crearAlAzar();
+        c.crearAlAzar();
+        h4.HotelAlAzar();
+        h5.HotelAlAzar();
+        System.out.println("");
+        System.out.println(h4);
+        
+        System.out.println("");
+        System.out.println(h5);
+        
+        System.out.println("");
+        System.out.println(c);
+        
+        System.out.println("");
+        System.out.println(r);
     }
     
 }

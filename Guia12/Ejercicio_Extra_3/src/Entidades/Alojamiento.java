@@ -14,7 +14,7 @@ public class Alojamiento <T> {
     private String direccion;
     private String localidad;
     private Gerente gerente;
-    private Class<T> alojamiento;
+    private T alojamiento;
 
     public String getNombre() {
         return nombre;
@@ -48,15 +48,15 @@ public class Alojamiento <T> {
         this.gerente = gerente;
     }
 
-    public Class<T> getAlojamiento() {
+    public T getAlojamiento() {
         return alojamiento;
     }
 
-    public void setAlojamiento(Class<T> alojamiento) {
+    public void setAlojamiento(T alojamiento) {
         this.alojamiento = alojamiento;
     }
 
-    public Alojamiento(String nombre, String direccion, String localidad, Gerente gerente, Class<T> alojamiento) {
+    public Alojamiento(String nombre, String direccion, String localidad, Gerente gerente, T alojamiento) {
         this.nombre = nombre;
         this.direccion = direccion;
         this.localidad = localidad;
@@ -66,5 +66,6 @@ public class Alojamiento <T> {
 
     public Alojamiento() {
     }
+    
     
 }

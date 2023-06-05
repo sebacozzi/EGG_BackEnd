@@ -9,21 +9,21 @@ package Enumeradores;
  *
  * @author Sebastián Cozzi
  */
-public enum TipoGimnasio {
+public enum Gimnasio {
 
     CLASEA('A', "Gimnasio Completo", 50),
-    CLASEB('B', "Gimnasio Básico", 30),
-    NOTIENE(' ', "No tiene Gimnasio", 0);
+    CLASEB('B', "Gimnasio Básico", 30);
     private char tipo;
     private String descripcion;
     private int precio;
 
-    private TipoGimnasio() {
+    private Gimnasio() {
     }
 
-    private TipoGimnasio(char tipo, String descripcion, int precio) {
+    private Gimnasio(char tipo, String descripcion, int precio) {
         this.tipo = tipo;
         this.descripcion = descripcion;
+        this.precio = precio;
     }
 
     public int getPrecio() {

@@ -7,17 +7,15 @@ package Entidades;
 
 import java.util.Scanner;
 
-
-
 /**
  *
  * @author Sebastian Cozzi
  */
-public class Hotel {
+public class Hotel extends Lugar {
+
     protected int cantidadHabitaciones;
     protected int numeroCamas;
     protected int cantidadPisos;
-    protected int precioHabitacion;
 
     public Hotel() {
     }
@@ -37,6 +35,10 @@ public class Hotel {
         this.cantidadHabitaciones = cantidadHabitaciones;
     }
 
+    public String estrellas() {
+        return "";
+    }
+
     public int getNumeroCamas() {
         return numeroCamas;
     }
@@ -51,20 +53,34 @@ public class Hotel {
 
     public void setCantidadPisos(int cantidadPisos) {
         this.cantidadPisos = cantidadPisos;
+
     }
 
-    public int getPrecioHabitacion() {
-        return 50+this.numeroCamas;
+    @Override
+    public String toString() {
+        return "Datos del Hotel:\n"
+                + "Tipo de Hotel: Hotel " + estrellas() + " estrellas.\n"
+                + "Cantidad de Habitaciones: " + cantidadHabitaciones
+                + ".\nNúmero de Camas: " + numeroCamas
+                + ".\nCantidad de Pisos: " + cantidadPisos
+                + ".\nPrecio de la Habitacion: " + PrecioHabitacion() + ".\n";
     }
 
-    public void setPrecioHabitacion(int precioHabitacion) {
-        this.precioHabitacion = precioHabitacion;
+    public int PrecioHabitacion() {
+        return 50 + numeroCamas;
     }
-    
-    public void crearHotel(){
+
+    @Override
+    public void crearAlAzar() {
+        this.cantidadPisos = (int) Math.round(Math.random() * 15 + 1);
+        this.cantidadHabitaciones = (int) Math.round(cantidadPisos * Math.random() * 6 + 1);
+        this.numeroCamas = (int) Math.round(cantidadHabitaciones * Math.random() * 5 + 1);
+    }
+
+    @Override
+    public void cargarDatos() {
         Scanner leer = new Scanner(System.in, "ISO-8859-1").useDelimiter("\n");
         System.out.println("Datos del Hotel:");
-        
         System.out.print("Ingrese la cantidad de habitaciones: ");
         this.cantidadHabitaciones = leer.nextInt();
         System.out.print("Ingrese la cantidad de camas en el hotel: ");
@@ -72,4 +88,5 @@ public class Hotel {
         System.out.print("Ingrese la cantidad de pisos: ");
         this.cantidadPisos = leer.nextInt();
     }
+
 }
