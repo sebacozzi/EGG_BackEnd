@@ -30,10 +30,10 @@ public class Ejercicio_4 {
 
             System.out.print("Ingrese el segundo número: ");
             n2 = leer.next();
-
+           // int n4=leer.nextInt();
             dn.setN1(Integer.parseInt(n1));
             dn.setN2(Integer.parseInt(n2));
-            double n3 = dn.getN1()/dn.getN2();
+            //double n3 = dn.getN1()/dn.getN2();
             System.out.println(dn.division());
 
         } catch (InputMismatchException e) {
@@ -42,8 +42,9 @@ public class Ejercicio_4 {
             
 
         } catch (NumberFormatException e) {
-            System.out.println(e);
+            System.out.println(e.getMessage());
             System.out.println(n1 + " o " + n2 + " no son números enteros.");
+            e.printStackTrace();
 
         } catch (ArithmeticException e) {
             System.out.println(e.getMessage());

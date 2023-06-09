@@ -38,7 +38,8 @@ public class DivisionNumero {
         this.n2 = n2;
     }
 
-    public double division() {
+    public double division()  {
+        if(n2 ==0) throw new ArithmeticException("No se puede dividir por 0");
         return (double) n1 / n2;
     }
 

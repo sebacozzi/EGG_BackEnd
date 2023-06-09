@@ -20,16 +20,17 @@ public class Ejercicio_3 {
     public static void main(String[] args) {
         DivisionNumero dn=new DivisionNumero();
         Scanner leer = new Scanner(System.in, "ISO-8859-1").useDelimiter("\n");
-        
+       
         System.out.print("Ingrese el primer número: ");
         String n1 = leer.next();
         System.out.print("Ingrese el segundo número: ");
         String n2 = leer.next();
-        
+       
         dn.setN1(Integer.parseInt(n1));
         dn.setN2(Integer.parseInt(n2));
         
         System.out.println(dn.division());
+       
         
     }
     
