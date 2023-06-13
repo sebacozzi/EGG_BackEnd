@@ -9,16 +9,19 @@ package Piezas;
  *
  * @author Sebastián Cozzi
  */
-public class Guante extends Pieza{
+public class Casco extends Pieza{
 
+    
+    
+    
     @Override
     public void cargar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 
     @Override
     public void inicializarPieza() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("No Implementado, carga los valores iniciales de la pieza."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

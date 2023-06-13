@@ -9,6 +9,16 @@ package Piezas;
  *
  * @author Sebastián Cozzi
  */
-public class Cuerpo {
+public class Cuerpo extends Pieza{
+
+    @Override
+    public void cargar() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void inicializarPieza() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

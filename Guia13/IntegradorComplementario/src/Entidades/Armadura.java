@@ -5,10 +5,9 @@
  */
 package Entidades;
 
+
 import Enums.Color;
-import Piezas.Bota;
-import Piezas.Cuerpo;
-import Piezas.Guante;
+import Piezas.*;
 
 /**
  *
@@ -21,6 +20,24 @@ public class Armadura {
     private Cuerpo cuerpo;
     private Bota botaDerecha;
     private Bota botaIzquierda;
+    private Casco casco;
+    private Generador generador;
     private Color colorPrimario;
     private Color colorSecundario;
+
+    public Armadura() {
+    }
+
+    public Armadura(Guante guanteIzquierdo, Guante guanteDerecho, Cuerpo cuerpo, Bota botaDerecha, Bota botaIzquierda, Casco casco, Color colorPrimario, Color colorSecundario) {
+        this.guanteIzquierdo = guanteIzquierdo;
+        this.guanteDerecho = guanteDerecho;
+        this.cuerpo = cuerpo;
+        this.botaDerecha = botaDerecha;
+        this.botaIzquierda = botaIzquierda;
+        this.casco = casco;
+        this.colorPrimario = colorPrimario;
+        this.colorSecundario = colorSecundario;
+    }
+    
+    public void caminar()
 }
