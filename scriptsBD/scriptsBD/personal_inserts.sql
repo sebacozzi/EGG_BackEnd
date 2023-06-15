@@ -137,6 +137,7 @@ select * from departamentos where lower(nombre_depto) not in ('ventas', 'investi
 select max(sal_emp) as Salario_Maximo from empleados;
 
 -- 22. Mostrar el nombre del último empleado de la lista por orden alfabético.
+<<<<<<< HEAD
 select nombre from empleados order by nombre DESC limit 1;
 
 -- 23. Hallar el salario más alto, el más bajo y la diferencia entre ellos.
@@ -172,3 +173,42 @@ select id_emp,nombre,sex_emp,fec_nac,fec_incorporacion,sal_emp,comision_emp,carg
 inner join departamentos on empleados.id_depto = departamentos.id_depto 
 where empleados.sal_emp >= (select avg(sal_emp) from empleados)
 order by nombre_depto;
+=======
+select nombre from empleados
+order by nombre desc
+limit 1;
+
+-- 23. Hallar el salario más alto, el más bajo y la diferencia entre ellos.
+select Max(sal_emp)-min(sal_emp) as diferencia from empleados;
+
+-- 24. Hallar el salario promedio por departamento. 
+select avg(empleados.sal_emp), departamentos.nombre_depto from empleados,departamentos
+where empleados.id_depto = departamentos.id_depto
+group by nombre_depto;
+
+-- Consultas con Having
+-- 25. Hallar los departamentos que tienen más de tres empleados. Mostrar el número de empleados de esos departamentos.
+select count(empleados.nombre) as Cantidad_Empleados, departamentos.nombre_depto from empleados, departamentos
+where empleados.id_depto = departamentos.id_depto
+group by empleados.id_depto
+having Cantidad_Empleados >3;
+
+-- 26. Hallar los departamentos que no tienen empleados
+select count(empleados.nombre) as Cantidad_Empleados, departamentos.nombre_depto from empleados, departamentos
+where empleados.id_depto = departamentos.id_depto
+group by empleados.id_depto
+having Cantidad_Empleados =0;
+
+-- Consulta Multitabla (Uso de la sentencia JOIN/LEFT JOIN/RIGHT JOIN)
+-- 27. Mostrar la lista de empleados, con su respectivo departamento y el jefe de cada departamento.
+select empleados.*,nombre_depto, nombre_jefe_depto from empleados
+inner join departamentos on empleados.id_depto = departamentos.id_depto;
+
+-- Consulta con Subconsulta
+-- 28. Mostrar la lista de los empleados cuyo salario es mayor o igual que el promedio de la empresa. Ordenarlo por departamento.
+select id_emp, nombre,sex_emp,fec_nac, fec_incorporacion,sal_emp,comision_emp,cargo_emp,nombre_depto from empleados
+inner join departamentos on empleados.id_depto = departamentos.id_depto
+where sal_emp >= (select avg(sal_emp) from empleados);
+select avg(sal_emp) from empleados;
+select count(*) from empleados;
+>>>>>>> 5997b48ef64f412088969fbea2843bd21e095168
