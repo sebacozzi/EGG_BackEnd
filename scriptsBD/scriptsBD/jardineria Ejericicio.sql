@@ -160,17 +160,37 @@ inner join cliente on pedido.codigo_cliente = cliente.codigo_cliente;
 /*Consultas multitabla (Composición externa)
 Resuelva todas las consultas utilizando las cláusulas LEFT JOIN, RIGHT JOIN, JOIN.*/
 -- 1. Devuelve un listado que muestre solamente los clientes que no han realizado ningún pago.
-select distinct cliente.codigo_cliente from pago
+select distinct cliente.codigo_cliente, cliente.nombre_cliente, pago.fecha_pago from pago
  right join cliente on cliente.codigo_cliente = pago.codigo_cliente
+ where pago.codigo_cliente is null
  order by codigo_cliente;
 
 -- 2. Devuelve un listado que muestre solamente los clientes que no han realizado ningún pedido.
+select distinct cliente.nombre_cliente, pedido.fecha_pedido from pedido
+ right join cliente on cliente.codigo_cliente = pedido.codigo_cliente
+ where pedido.codigo_cliente is null
+ order by nombre_cliente;
+
 -- 3. Devuelve un listado que muestre los clientes que no han realizado ningún pago y los que
  -- no han realizado ningún pedido.
+ select distinct cliente.codigo_cliente, cliente.nombre_cliente, pedido.fecha_pedido, pago.fecha_pago from pedido
+ right join cliente on cliente.codigo_cliente = pedido.codigo_cliente
+ left join	pago on cliente.codigo_cliente = pago.codigo_cliente
+ where pedido.codigo_cliente is null
+ order by codigo_cliente;
+
 -- 4. Devuelve un listado que muestre solamente los empleados que no tienen una oficina asociada.
+select * from empleado
+where empleado.codigo_oficina is null;
+
 --  5. Devuelve un listado que muestre solamente los empleados que no tienen un cliente asociado.
+select * from empleado
+left join cliente on cliente.codigo_empleado_rep_ventas = empleado.codigo_empleado
+where codigo_cliente is null;
+
 -- 6. Devuelve un listado que muestre los empleados que no tienen una oficina asociada y los
  -- que no tienen un cliente asociado.
+
 -- 7. Devuelve un listado de los productos que nunca han aparecido en un pedido.
 -- 8. Devuelve las oficinas donde no trabajan ninguno de los empleados que hayan sido los
  -- representantes de ventas de algún cliente que haya realizado la compra de algún producto
