@@ -93,22 +93,77 @@ codigo_empleado_rep_ventas in (11,30);
 /*Consultas multitabla (Composición interna)
 Las consultas se deben resolver con INNER JOIN.*/
 -- 1. Obtén un listado con el nombre de cada cliente y el nombre y apellido de su representante de ventas.
+select cliente.nombre_cliente, concat(empleado.nombre,' ', empleado.apellido1) as Nombre_Apellido from cliente 
+inner join empleado on cliente.codigo_empleado_rep_ventas = empleado.codigo_empleado;
+
 -- 2. Muestra el nombre de los clientes que hayan realizado pagos junto con el nombre de sus representantes de ventas.
+select cliente.nombre_cliente, concat(empleado.nombre,' ', empleado.apellido1) as Nombre_Apellido from cliente 
+inner join empleado on cliente.codigo_empleado_rep_ventas = empleado.codigo_empleado
+where cliente.codigo_cliente in (select pago.codigo_cliente from pago);
+
 -- 3. Muestra el nombre de los clientes que no hayan realizado pagos junto con el nombre de sus representantes de ventas.
--- 4. Devuelve el nombre de los clientes que han hecho pagos y el nombre de sus representantes 
+select cliente.nombre_cliente, concat(empleado.nombre,' ', empleado.apellido1) as Nombre_Apellido from cliente 
+inner join empleado on cliente.codigo_empleado_rep_ventas = empleado.codigo_empleado
+where cliente.codigo_cliente not in (select pago.codigo_cliente from pago);
+
+-- 4. Devuelve el nombre de los clientes que han hecho pagos y el nombre de sus representantes
  -- junto con la ciudad de la oficina a la que pertenece el representante.
+select cliente.nombre_cliente, concat(empleado.nombre,' ', empleado.apellido1) as Nombre_y_Apellido, oficina.ciudad from cliente 
+inner join empleado on cliente.codigo_empleado_rep_ventas = empleado.codigo_empleado
+inner join oficina on empleado.codigo_oficina = oficina.codigo_oficina
+where cliente.codigo_cliente in (select pago.codigo_cliente from pago);
+ 
 -- 5. Devuelve el nombre de los clientes que no hayan hecho pagos y el nombre de sus
  -- representantes junto con la ciudad de la oficina a la que pertenece el representante.
+ select cliente.nombre_cliente, concat(empleado.nombre,' ', empleado.apellido1) as Nombre_y_Apellido, oficina.ciudad from cliente 
+inner join empleado on cliente.codigo_empleado_rep_ventas = empleado.codigo_empleado
+inner join oficina on empleado.codigo_oficina = oficina.codigo_oficina
+where cliente.codigo_cliente not in (select pago.codigo_cliente from pago);
+
 -- 6. Lista la dirección de las oficinas que tengan clientes en Fuenlabrada.
+SELECT 
+    oficina.linea_direccion1
+FROM
+    oficina
+        INNER JOIN
+    empleado ON oficina.codigo_oficina IN (SELECT 
+            empleado.codigo_oficina
+        FROM
+            oficina
+                INNER JOIN
+            cliente ON cliente.codigo_empleado_rep_ventas = empleado.codigo_empleado
+        WHERE
+            cliente.ciudad = 'Fuenlabrada');
+
+
 -- 7. Devuelve el nombre de los clientes y el nombre de sus representantes junto con la ciudad
  -- de la oficina a la que pertenece el representante.
+select cliente.nombre_cliente, concat(empleado.nombre,' ', empleado.apellido1) as representante, oficina.ciudad from cliente
+inner join empleado on cliente.codigo_empleado_rep_ventas = empleado.codigo_empleado
+inner join oficina on empleado.codigo_oficina = oficina.codigo_oficina;
+ 
 -- 8. Devuelve un listado con el nombre de los empleados junto con el nombre de sus jefes.
+select concat(empleado.nombre,' ', empleado.apellido1) as empleado, concat(jefe.nombre,' ', jefe.apellido1) as jefe from empleado
+inner join empleado as jefe on jefe.codigo_empleado = empleado.codigo_jefe;
+
 -- 9. Devuelve el nombre de los clientes a los que no se les ha entregado a tiempo un pedido.
+select distinct nombre_cliente from cliente
+inner join pedido on cliente.codigo_cliente = pedido.codigo_cliente
+where pedido.fecha_esperada <> fecha_entrega;
+
 -- 10. Devuelve un listado de las diferentes gamas de producto que ha comprado cada cliente.
+select distinct cliente.nombre_cliente, producto.gama from producto
+inner join detalle_pedido on detalle_pedido.codigo_producto = producto.codigo_producto
+inner join pedido on detalle_pedido.codigo_pedido = pedido.codigo_pedido
+inner join cliente on pedido.codigo_cliente = cliente.codigo_cliente;
 
 /*Consultas multitabla (Composición externa)
 Resuelva todas las consultas utilizando las cláusulas LEFT JOIN, RIGHT JOIN, JOIN.*/
 -- 1. Devuelve un listado que muestre solamente los clientes que no han realizado ningún pago.
+select distinct cliente.codigo_cliente from pago
+ right join cliente on cliente.codigo_cliente = pago.codigo_cliente
+ order by codigo_cliente;
+
 -- 2. Devuelve un listado que muestre solamente los clientes que no han realizado ningún pedido.
 -- 3. Devuelve un listado que muestre los clientes que no han realizado ningún pago y los que
  -- no han realizado ningún pedido.
