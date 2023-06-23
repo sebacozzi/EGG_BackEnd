@@ -1,28 +1,59 @@
 -- 1. Devuelve un listado con el código de oficina y la ciudad donde hay oficinas.
-SELECT codigo_oficina, ciudad from oficina;
+SELECT 
+    codigo_oficina, ciudad
+FROM
+    oficina;
 
 -- 2. Devuelve un listado con la ciudad y el teléfono de las oficinas de España.
-select ciudad, telefono from oficina
-where pais = 'Espana';
+SELECT 
+    ciudad, telefono
+FROM
+    oficina
+WHERE
+    pais = 'Espana';
 
 -- 3. Devuelve un listado con el nombre, apellidos y email de los empleados cuyo jefe tiene un código de jefe igual a 7.
-select nombre, concat(apellido1,' ', apellido2) as apellidos, email from empleado
-where codigo_jefe = 7;
+SELECT 
+    nombre,
+    CONCAT(apellido1, ' ', apellido2) AS apellidos,
+    email
+FROM
+    empleado
+WHERE
+    codigo_jefe = 7;
 
 -- 4. Devuelve el nombre del puesto, nombre, apellidos y email del jefe de la empresa.
-select puesto, nombre, concat(apellido1, ' ', apellido2) apellidos, email from empleado
-where codigo_jefe is null;
+SELECT 
+    puesto,
+    nombre,
+    CONCAT(apellido1, ' ', apellido2) apellidos,
+    email
+FROM
+    empleado
+WHERE
+    codigo_jefe IS NULL;
 
 -- 5. Devuelve un listado con el nombre, apellidos y puesto de aquellos empleados que no sean representantes de ventas.
-select	nombre, concat(apellido1, ' ', apellido2) apellidos, puesto from empleado
-where upper(puesto)  <> 'REPRESENTANTE VENTAS';
+SELECT 
+    nombre, CONCAT(apellido1, ' ', apellido2) apellidos, puesto
+FROM
+    empleado
+WHERE
+    UPPER(puesto) <> 'REPRESENTANTE VENTAS';
 
 -- 6. Devuelve un listado con el nombre de los todos los clientes españoles.
-select nombre_cliente from cliente
-where upper(pais)  = 'SPAIN';
+SELECT 
+    nombre_cliente
+FROM
+    cliente
+WHERE
+    UPPER(pais) = 'SPAIN';
 
 -- 7. Devuelve un listado con los distintos estados por los que puede pasar un pedido.
-select distinct estado from pedido;
+SELECT DISTINCT
+    estado
+FROM
+    pedido;
 
 -- 8. Devuelve un listado con el código de cliente de aquellos clientes que realizaron algún pago en 2008. Tenga 
  -- en cuenta que deberá eliminar aquellos códigos de cliente que aparezcan repetidos. 
@@ -30,95 +61,187 @@ select distinct estado from pedido;
 	-- o Utilizando la función YEAR de MySQL.
 	-- o Utilizando la función DATE_FORMAT de MySQL.
 	-- o Sin utilizar ninguna de las funciones anteriores.
-select codigo_cliente from pago
-where year(fecha_pago) = 2008;
+SELECT 
+    codigo_cliente
+FROM
+    pago
+WHERE
+    YEAR(fecha_pago) = 2008;
 
-select codigo_cliente from pago
-where date_format(fecha_pago,'%Y') = 2008;
+SELECT 
+    codigo_cliente
+FROM
+    pago
+WHERE
+    DATE_FORMAT(fecha_pago, '%Y') = 2008;
 
-select codigo_cliente from pago
-where fecha_pago >= '2008-01-01' and fecha_pago <= '2008-12-31' ;
+SELECT 
+    codigo_cliente
+FROM
+    pago
+WHERE
+    fecha_pago >= '2008-01-01'
+        AND fecha_pago <= '2008-12-31';
 
 -- 9. Devuelve un listado con el código de pedido, código de cliente, fecha esperada y fecha de
  -- entrega de los pedidos que no han sido entregados a tiempo.
-select codigo_pedido,codigo_cliente, fecha_esperada, fecha_entrega from pedido
-where fecha_entrega> fecha_esperada;
+SELECT 
+    codigo_pedido, codigo_cliente, fecha_esperada, fecha_entrega
+FROM
+    pedido
+WHERE
+    fecha_entrega > fecha_esperada;
 
 -- 10. Devuelve un listado con el código de pedido, código de cliente, fecha esperada y fecha de
  -- entrega de los pedidos cuya fecha de entrega ha sido al menos dos días antes de la fecha esperada.
 	-- o Utilizando la función ADDDATE de MySQL.
 	-- o Utilizando la función DATEDIFF de MySQL.
-select codigo_pedido, codigo_cliente, fecha_esperada, fecha_entrega from pedido
-where (adddate( fecha_entrega, interval 2 day)) < fecha_esperada;
+SELECT 
+    codigo_pedido, codigo_cliente, fecha_esperada, fecha_entrega
+FROM
+    pedido
+WHERE
+    (ADDDATE(fecha_entrega, INTERVAL 2 DAY)) < fecha_esperada;
 
-select codigo_pedido, codigo_cliente, fecha_esperada, fecha_entrega from pedido
-where (datediff(fecha_esperada,fecha_entrega)) > 2;
+SELECT 
+    codigo_pedido, codigo_cliente, fecha_esperada, fecha_entrega
+FROM
+    pedido
+WHERE
+    (DATEDIFF(fecha_esperada, fecha_entrega)) > 2;
     
 -- 11. Devuelve un listado de todos los pedidos que fueron rechazados en 2009.
-select * from pedido
-where upper(estado) = 'RECHAZADO';
+SELECT 
+    *
+FROM
+    pedido
+WHERE
+    UPPER(estado) = 'RECHAZADO';
 
 -- 12. Devuelve un listado de todos los pedidos que han sido entregados en el mes de enero de cualquier año.
-select * from pedido
-where month(fecha_entrega) = 1
-and Upper(estado) = 'ENTREGADO'; 
+SELECT 
+    *
+FROM
+    pedido
+WHERE
+    MONTH(fecha_entrega) = 1
+        AND UPPER(estado) = 'ENTREGADO'; 
 
 -- 13. Devuelve un listado con todos los pagos que se realizaron en el año 2008 mediante Paypal.
  -- Ordene el resultado de mayor a menor.
-select * from pago
-where upper(forma_pago) = 'PAYPAL'
- and year(fecha_pago) = 2008
- order by total desc;
+SELECT 
+    *
+FROM
+    pago
+WHERE
+    UPPER(forma_pago) = 'PAYPAL'
+        AND YEAR(fecha_pago) = 2008
+ORDER BY total DESC;
 
 -- 14. Devuelve un listado con todas las formas de pago que aparecen en la tabla pago. Tenga en
  -- cuenta que no deben aparecer formas de pago repetidas.
-select distinct forma_pago from pago;
+SELECT DISTINCT
+    forma_pago
+FROM
+    pago;
  
 -- 15. Devuelve un listado con todos los productos que pertenecen a la gama Ornamentales y que
  -- tienen más de 100 unidades en stock. El listado deberá estar ordenado por su precio de
  -- venta, mostrando en primer lugar los de mayor precio.
- select * from 
- producto
- where upper(gama) = 'ORNAMENTALES' and
- cantidad_en_stock > 100
- order by precio_venta desc;
+ SELECT 
+    *
+FROM
+    producto
+WHERE
+    UPPER(gama) = 'ORNAMENTALES'
+        AND cantidad_en_stock > 100
+ORDER BY precio_venta DESC;
  
 -- 16. Devuelve un listado con todos los clientes que sean de la ciudad de Madrid y cuyo
  -- representante de ventas tenga el código de empleado 11 o 30.
-select * from cliente
-where ciudad = 'Madrid' and
-codigo_empleado_rep_ventas in (11,30);
+SELECT 
+    *
+FROM
+    cliente
+WHERE
+    ciudad = 'Madrid'
+        AND codigo_empleado_rep_ventas IN (11 , 30);
 
 
 /*Consultas multitabla (Composición interna)
 Las consultas se deben resolver con INNER JOIN.*/
 -- 1. Obtén un listado con el nombre de cada cliente y el nombre y apellido de su representante de ventas.
-select cliente.nombre_cliente, concat(empleado.nombre,' ', empleado.apellido1) as Nombre_Apellido from cliente 
-inner join empleado on cliente.codigo_empleado_rep_ventas = empleado.codigo_empleado;
+SELECT 
+    cliente.nombre_cliente,
+    CONCAT(empleado.nombre, ' ', empleado.apellido1) AS Nombre_Apellido
+FROM
+    cliente
+        INNER JOIN
+    empleado ON cliente.codigo_empleado_rep_ventas = empleado.codigo_empleado;
 
 -- 2. Muestra el nombre de los clientes que hayan realizado pagos junto con el nombre de sus representantes de ventas.
-select cliente.nombre_cliente, concat(empleado.nombre,' ', empleado.apellido1) as Nombre_Apellido from cliente 
-inner join empleado on cliente.codigo_empleado_rep_ventas = empleado.codigo_empleado
-where cliente.codigo_cliente in (select pago.codigo_cliente from pago);
+SELECT 
+    cliente.nombre_cliente,
+    CONCAT(empleado.nombre, ' ', empleado.apellido1) AS Nombre_Apellido
+FROM
+    cliente
+        INNER JOIN
+    empleado ON cliente.codigo_empleado_rep_ventas = empleado.codigo_empleado
+WHERE
+    cliente.codigo_cliente IN (SELECT 
+            pago.codigo_cliente
+        FROM
+            pago);
 
 -- 3. Muestra el nombre de los clientes que no hayan realizado pagos junto con el nombre de sus representantes de ventas.
-select cliente.nombre_cliente, concat(empleado.nombre,' ', empleado.apellido1) as Nombre_Apellido from cliente 
-inner join empleado on cliente.codigo_empleado_rep_ventas = empleado.codigo_empleado
-where cliente.codigo_cliente not in (select pago.codigo_cliente from pago);
+SELECT 
+    cliente.nombre_cliente,
+    CONCAT(empleado.nombre, ' ', empleado.apellido1) AS Nombre_Apellido
+FROM
+    cliente
+        INNER JOIN
+    empleado ON cliente.codigo_empleado_rep_ventas = empleado.codigo_empleado
+WHERE
+    cliente.codigo_cliente NOT IN (SELECT 
+            pago.codigo_cliente
+        FROM
+            pago);
 
 -- 4. Devuelve el nombre de los clientes que han hecho pagos y el nombre de sus representantes
  -- junto con la ciudad de la oficina a la que pertenece el representante.
-select cliente.nombre_cliente, concat(empleado.nombre,' ', empleado.apellido1) as Nombre_y_Apellido, oficina.ciudad from cliente 
-inner join empleado on cliente.codigo_empleado_rep_ventas = empleado.codigo_empleado
-inner join oficina on empleado.codigo_oficina = oficina.codigo_oficina
-where cliente.codigo_cliente in (select pago.codigo_cliente from pago);
+SELECT 
+    cliente.nombre_cliente,
+    CONCAT(empleado.nombre, ' ', empleado.apellido1) AS Nombre_y_Apellido,
+    oficina.ciudad
+FROM
+    cliente
+        INNER JOIN
+    empleado ON cliente.codigo_empleado_rep_ventas = empleado.codigo_empleado
+        INNER JOIN
+    oficina ON empleado.codigo_oficina = oficina.codigo_oficina
+WHERE
+    cliente.codigo_cliente IN (SELECT 
+            pago.codigo_cliente
+        FROM
+            pago);
  
 -- 5. Devuelve el nombre de los clientes que no hayan hecho pagos y el nombre de sus
  -- representantes junto con la ciudad de la oficina a la que pertenece el representante.
- select cliente.nombre_cliente, concat(empleado.nombre,' ', empleado.apellido1) as Nombre_y_Apellido, oficina.ciudad from cliente 
-inner join empleado on cliente.codigo_empleado_rep_ventas = empleado.codigo_empleado
-inner join oficina on empleado.codigo_oficina = oficina.codigo_oficina
-where cliente.codigo_cliente not in (select pago.codigo_cliente from pago);
+ SELECT 
+    cliente.nombre_cliente,
+    CONCAT(empleado.nombre, ' ', empleado.apellido1) AS Nombre_y_Apellido,
+    oficina.ciudad
+FROM
+    cliente
+        INNER JOIN
+    empleado ON cliente.codigo_empleado_rep_ventas = empleado.codigo_empleado
+        INNER JOIN
+    oficina ON empleado.codigo_oficina = oficina.codigo_oficina
+WHERE
+    cliente.codigo_cliente NOT IN (SELECT 
+            pago.codigo_cliente
+        FROM
+            pago);
 
 -- 6. Lista la dirección de las oficinas que tengan clientes en Fuenlabrada.
 SELECT 
@@ -138,32 +261,53 @@ FROM
 
 -- 7. Devuelve el nombre de los clientes y el nombre de sus representantes junto con la ciudad
  -- de la oficina a la que pertenece el representante.
-select cliente.nombre_cliente, concat(empleado.nombre,' ', empleado.apellido1) as representante, oficina.ciudad from cliente
-inner join empleado on cliente.codigo_empleado_rep_ventas = empleado.codigo_empleado
-inner join oficina on empleado.codigo_oficina = oficina.codigo_oficina;
+SELECT 
+    cliente.nombre_cliente,
+    CONCAT(empleado.nombre, ' ', empleado.apellido1) AS representante,
+    oficina.ciudad
+FROM
+    cliente
+        INNER JOIN
+    empleado ON cliente.codigo_empleado_rep_ventas = empleado.codigo_empleado
+        INNER JOIN
+    oficina ON empleado.codigo_oficina = oficina.codigo_oficina;
  
 -- 8. Devuelve un listado con el nombre de los empleados junto con el nombre de sus jefes.
-select concat(empleado.nombre,' ', empleado.apellido1) as empleado, concat(jefe.nombre,' ', jefe.apellido1) as jefe from empleado
-inner join empleado as jefe on jefe.codigo_empleado = empleado.codigo_jefe;
+SELECT 
+    CONCAT(empleado.nombre, ' ', empleado.apellido1) AS empleado,
+    CONCAT(jefe.nombre, ' ', jefe.apellido1) AS jefe
+FROM
+    empleado
+        INNER JOIN
+    empleado AS jefe ON jefe.codigo_empleado = empleado.codigo_jefe;
 
 -- 9. Devuelve el nombre de los clientes a los que no se les ha entregado a tiempo un pedido.
-select distinct nombre_cliente from cliente
-inner join pedido on cliente.codigo_cliente = pedido.codigo_cliente
-where pedido.fecha_esperada <> fecha_entrega;
+SELECT DISTINCT
+    nombre_cliente
+FROM
+    cliente
+        INNER JOIN
+    pedido ON cliente.codigo_cliente = pedido.codigo_cliente
+WHERE
+    pedido.fecha_esperada <> fecha_entrega;
 
 -- 10. Devuelve un listado de las diferentes gamas de producto que ha comprado cada cliente.
-select distinct cliente.nombre_cliente, producto.gama from producto
-inner join detalle_pedido on detalle_pedido.codigo_producto = producto.codigo_producto
-inner join pedido on detalle_pedido.codigo_pedido = pedido.codigo_pedido
-inner join cliente on pedido.codigo_cliente = cliente.codigo_cliente;
+SELECT DISTINCT
+    cliente.nombre_cliente, producto.gama
+FROM
+    producto
+        INNER JOIN
+    detalle_pedido ON detalle_pedido.codigo_producto = producto.codigo_producto
+        INNER JOIN
+    pedido ON detalle_pedido.codigo_pedido = pedido.codigo_pedido
+        INNER JOIN
+    cliente ON pedido.codigo_cliente = cliente.codigo_cliente;
 
 /*Consultas multitabla (Composición externa)
 Resuelva todas las consultas utilizando las cláusulas LEFT JOIN, RIGHT JOIN, JOIN.*/
 -- 1. Devuelve un listado que muestre solamente los clientes que no han realizado ningún pago.
 SELECT DISTINCT
-    c.codigo_cliente,
-    c.nombre_cliente,
-    p.fecha_pago
+    c.codigo_cliente, c.nombre_cliente, p.fecha_pago
 FROM
     pago p
         RIGHT JOIN
@@ -432,9 +576,11 @@ SELECT
     (SUM(d.cantidad * d.precio_unidad) + (SUM(d.cantidad * d.precio_unidad) * 0.21)) AS total_ventas,
     p.nombre
 FROM
-    detalle_pedido d, producto p
-where d.codigo_producto = p.codigo_producto
-group by d.codigo_producto ;
+    detalle_pedido d,
+    producto p
+WHERE
+    d.codigo_producto = p.codigo_producto
+GROUP BY d.codigo_producto;
     
 -- 17. La misma información que en la pregunta anterior, pero agrupada por código de producto
  -- filtrada por los códigos que empiecen por OR.
@@ -495,13 +641,25 @@ LIMIT 1;
  -- que tendrá que calcular cuál es el número total de unidades que se han vendido de cada
  -- producto a partir de los datos de la tabla detalle_pedido. Una vez que sepa cuál es el código
  -- del producto, puede obtener su nombre fácilmente.)
- select nombre from producto
- where codigo_producto = (select codigo_producto, sum(cantidad) as none from detalle_pedido limit 1 );
- 
- 
+ SELECT 
+    (SELECT 
+            nombre
+        FROM
+            producto p
+        WHERE
+            dp.codigo_producto = p.codigo_producto) AS nombre
+FROM
+    detalle_pedido dp
+GROUP BY dp.codigo_producto
+ORDER BY SUM(dp.cantidad) DESC
+LIMIT 1;
  
 -- 4. Los clientes cuyo límite de crédito sea mayor que los pagos que haya realizado. (Sin utilizar INNER JOIN).
+
+
 -- 5. Devuelve el producto que más unidades tiene en stock.
+
+
 -- 6. Devuelve el producto que menos unidades tiene en stock.
 -- 7. Devuelve el nombre, los apellidos y el email de los empleados que están a cargo de Alberto Soria.
 
