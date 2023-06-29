@@ -37,4 +37,16 @@ public class Fabricante {
         this.nombre = nombre;
     }
     
+    public String getValue(String nombreColumna){
+        switch (nombreColumna.toLowerCase()) {
+            case "codigo":
+                
+                return Integer.toString(codigo);
+            case "nombre":
+                return nombre;
+            default:
+                throw new AssertionError();
+        }
+    }
+    
 }

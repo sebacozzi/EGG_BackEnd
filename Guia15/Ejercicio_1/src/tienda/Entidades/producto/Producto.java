@@ -10,6 +10,7 @@ package tienda.Entidades.producto;
  * @author Sebastian Cozzi
  */
 public class Producto {
+
     private int codigo;
     private String nombre;
     private Double precio;
@@ -56,5 +57,21 @@ public class Producto {
     public void setCodigoFabricante(int codigoFabricante) {
         this.codigoFabricante = codigoFabricante;
     }
-    
+
+    public String getValue(String nombreColumna) {
+        switch (nombreColumna.toLowerCase()) {
+            case "codigo":
+                return Integer.toString(codigo);
+            case "nombre":
+                return nombre;
+            case "precio":
+                return Double.toString(precio);
+            case "codigo_fabricante":
+                return Integer.toString(codigoFabricante);
+            default:
+                throw new AssertionError();
+        }
+
+    }
+
 }

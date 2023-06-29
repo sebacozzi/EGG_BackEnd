@@ -19,7 +19,7 @@ public abstract class DAO {
 
     private final String USER = "root";
     private final String PASSWORD = "root";
-    private final String DRIVER = "com.mysql.jdbc.Driver";
+    private final String DRIVER = "com.mysql.cj.jdbc.Driver";//com.mysql.jdbc.Driver";
     private final String DATABASE = "tienda";
     private final String URL = "jdbc:mysql://localhost:3306/%s?useSSL=false";
 
@@ -71,5 +71,35 @@ public abstract class DAO {
         } catch (ClassNotFoundException | SQLException ex) {
             throw ex;
         }
+    }
+
+    protected String columnaTipos(int id) {
+        switch (id) {
+            case 1:// CHARECTER
+                return "c";
+            case -5:// BIGINT
+            case -6:// TINYINT
+            case -7:// BIT
+            case 4:// INTEGER
+            case 5:// SMALLINT
+                return "d";
+            case 2:// NUMERIC
+            case 3:// DECIMAL
+            case 6:// FLOAT
+            case 7:// REAL
+            case 8:// DOUBLE
+                return "f";
+            case -1:// LONGVARCHAR
+            case 12:// VARCHAR
+            case 2004:// BLOB
+                return "s";
+            case 16:// BOOLEAN
+                return "b";
+            case 91:// TIME
+                return "t";
+            case 92:// DATE
+                return "t";
+        }
+        return "s";
     }
 }
