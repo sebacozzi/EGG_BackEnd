@@ -5,11 +5,13 @@
  */
 package tienda.Entidades.fabricante;
 
+import tienda.Entidades.Interfaces.baseEntidad;
+
 /**
  *
  * @author Sebastian Cozzi
  */
-public class Fabricante {
+public class Fabricante implements baseEntidad{
     private int codigo;
     private String nombre;
 
@@ -37,6 +39,7 @@ public class Fabricante {
         this.nombre = nombre;
     }
     
+    @Override
     public String getValue(String nombreColumna){
         switch (nombreColumna.toLowerCase()) {
             case "codigo":
@@ -48,6 +51,7 @@ public class Fabricante {
                 throw new AssertionError();
         }
     }
+    @Override
     public void setValue(String nombreColumna,Integer valor){
         switch (nombreColumna.toLowerCase()) {
             case "codigo":
@@ -58,6 +62,7 @@ public class Fabricante {
         }
     }
     
+    @Override
     public void setValue(String nombreColumna,String valor){
         switch (nombreColumna.toLowerCase()) {
             case "nombre":
@@ -66,6 +71,11 @@ public class Fabricante {
             default:
                 throw new AssertionError();
         }
+    }
+
+    @Override
+    public void setValue(String nombreColumna, Double valor) {
+        throw new UnsupportedOperationException("No es requerido para está Clase."); //To change body of generated methods, choose Tools | Templates.
     }
    
 }

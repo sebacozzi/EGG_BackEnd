@@ -28,8 +28,7 @@ public class FabricanteServicios {
             if (fDAO.buscarFabricantePorNombre(nombre) != null) {
                 throw new Exception(String.format("El fabricante %s ya existe. Ingrese otro.", nombre));
             }
-            Fabricante f = new Fabricante();
-            f.setNombre(nombre);
+            fDAO.agregarFabricante(nombre);
             return fDAO.buscarFabricantePorNombre(nombre);
         } catch (Exception e) {
             throw e;

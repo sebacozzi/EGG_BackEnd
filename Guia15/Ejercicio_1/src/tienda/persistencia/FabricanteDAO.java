@@ -14,27 +14,22 @@ import tienda.Entidades.fabricante.Fabricante;
  * @author Sebastián Cozzi
  */
 public final class FabricanteDAO extends DAO {
-
-    public String[] listaColumnas;
-    public int[] anchos;
-    public int colCount;
-    public String[] tipoColumnas;
-
-    public void agregarFabricante(Fabricante fabricante) throws Exception {
+    
+    public void agregarFabricante(String nombre) throws Exception {
         try {
-            existe(fabricante);
+            existe(nombre);
             String sql = String.format("INSERT INTO fabricante (nombre) VALUES ('%s');",
-                    fabricante.getNombre());
+                    nombre);
             iME(sql);
         } catch (Exception e) {
             throw e;
         }
     }
 
-    public void eliminarFabricante(Fabricante fabricante) throws Exception {
+    public void eliminarFabricante(int codigo) throws Exception {
         try {
-            existe(fabricante);
-            String sql = String.format("DELETE FROM fabricante WHERE codigo = %d;", fabricante.getCodigo());
+            existe(codigo);
+            String sql = String.format("DELETE FROM fabricante WHERE codigo = %d;", codigo);
             iME(sql);
         } catch (Exception e) {
             throw e;
@@ -53,7 +48,11 @@ public final class FabricanteDAO extends DAO {
 
     public Fabricante buscarFabricantePorNombre(String nombre) throws Exception {
         try {
-            return ((ArrayList<Fabricante>)consultaFabricantes(" * "," WHERE nombre = '"+nombre+"';")).get(0);
+            ArrayList<Fabricante> lista =(ArrayList<Fabricante>)consultaFabricantes(" * "," WHERE nombre = '"+nombre+"'");
+            if (lista.isEmpty()) {
+                return null;
+            }
+            return lista.get(0);
         } catch (Exception e) {
             desconectar();
             throw e;
@@ -71,6 +70,7 @@ public final class FabricanteDAO extends DAO {
         return consultaFabricantes(columnas, "");
 
     }
+    
 
     private Collection<Fabricante> consultaFabricantes(String columnas, String subConsultas) throws Exception {
         try {
@@ -145,10 +145,10 @@ public final class FabricanteDAO extends DAO {
         }
     }
 
-    public int idDelFabricante(String fabricante) throws Exception {
+    public int idDelFabricante(String nombre) throws Exception {
         try {
             int id = -1;
-            String sql = "SELECT codigo FROM fabricante WHERE nombre = '" + fabricante + "';";
+            String sql = "SELECT codigo FROM fabricante WHERE nombre = '" + nombre + "';";
             consulta(sql);
             while (resultado.next()) {
                 id = resultado.getInt(1);
@@ -161,8 +161,21 @@ public final class FabricanteDAO extends DAO {
         }
     }
 
+    
+    /// Control de datos pasados
+    
+    private void existe(String fabricante) throws Exception {
+        if (fabricante.trim().isEmpty()) {
+            throw new Exception("Debe pasar un fabricante. El nombre está vacio.");
+        }
+    }
+    private void existe(int codigo) throws Exception {
+        if (codigo<1) {
+            throw new Exception("Debe pasar un fabricante. Codigo o Id incorrecto.");
+        }
+    }
     private void existe(Fabricante fabricante) throws Exception {
-        if (fabricante != null) {
+        if (fabricante == null) {
             throw new Exception("Debe pasar un fabricante.");
         }
     }

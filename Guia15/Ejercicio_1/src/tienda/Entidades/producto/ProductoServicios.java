@@ -7,6 +7,7 @@ package tienda.Entidades.producto;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import tienda.Emuns.Precio;
 import tienda.persistencia.ProductoDAO;
 
 /**
@@ -21,6 +22,29 @@ public class ProductoServicios {
         pDAO = new ProductoDAO();
     }
 
+    public Producto nuevoProducto(String nombre, Double precio, int codigo_fabricante) throws Exception {
+        try {
+            if (pDAO.buscarProductoPorNombre(nombre) != null) {
+                throw new Exception("Ya existe un producto con ese nombre.");
+            }
+            
+            pDAO.agregarProducto(nombre, precio, codigo_fabricante);
+
+            return pDAO.buscarProductoPorNombre(nombre);
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+    
+    public Producto ActualizaProducto(int codigo,String nombre,Double precio, int codigo_fabricante)throws Exception{
+        try {
+            pDAO.actualizaProducto(codigo,nombre,precio,codigo_fabricante);
+            return pDAO.buscarProductoPorCodigo(codigo);
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
     public Collection<Producto> obtenerProductos() throws Exception {
         try {
             return pDAO.listaDeProductos();
@@ -30,6 +54,23 @@ public class ProductoServicios {
 
     }
     
+    public Producto productoPorCodigo(int codigo) throws Exception{
+        try {
+            return pDAO.buscarProductoPorCodigo(codigo);
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+    
+    public Collection<Producto> productosConRangoDePrecios(Double minPrecio, Double maxPrecio) throws Exception {
+        try {
+
+            return pDAO.buscarRangoPrecios(minPrecio, maxPrecio);
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
     public Collection<Producto> nombresProductos() throws Exception {
         try {
             return pDAO.nombresProductos();
@@ -38,6 +79,7 @@ public class ProductoServicios {
         }
 
     }
+
     public Collection<Producto> nombresYPreciosProductos() throws Exception {
         try {
             return pDAO.nombresYPreciosProductos();
@@ -47,10 +89,38 @@ public class ProductoServicios {
 
     }
 
-    
-    public void mostrarProductos(ArrayList<Producto> prods) {
+    public Producto productoMasBarato() throws Exception {
         try {
+            return ((ArrayList<Producto>) pDAO.productosOrdenadosPor("precio", Precio.MENOR,"nombre, precio")).get(0);
+        } catch (Exception e) {
+            throw e;
+        }
+    }
 
+    public Collection<Producto> productosPorFiltroEnNombre(String filtroNombre) throws Exception {
+        try {
+            return pDAO.productosFiltroLike("nombre", filtroNombre);
+        } catch (Exception e) {
+            throw e;
+        }
+
+    }
+
+    /**
+     * Metodo encargado de mostrar la información de la tabla representado por
+     * titulos y detalles
+     *
+     * @param prods Colección de Productos
+     * @throws Exception
+     */
+    public void mostrarProductos(Collection<Producto> prods) throws Exception {
+        try {
+            if (prods == null) {
+                throw new Exception("La colección no fue iniciada.");
+            }
+            if (prods.isEmpty()) {
+                throw new Exception("La coleccíon está vacia.");
+            }
             int[] anchos = new int[pDAO.colCount + 1];
 
             // Define el ancho final de las columnas
@@ -73,8 +143,8 @@ public class ProductoServicios {
                 linea = String.format(linea, pDAO.listaColumnas[i]);
             }
             System.out.print(" ");
-            int lS=linea.length()-2;
-            for (int i = 0; i < lS ; i++) {
+            int lS = linea.length() - 2;
+            for (int i = 0; i < lS; i++) {
                 System.out.print("_");
             }
             System.out.println("");
@@ -99,6 +169,16 @@ public class ProductoServicios {
                 System.out.print("-");
             }
             System.out.println("");
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
+    public void mostrarProducto(Producto producto) throws Exception{
+        try {
+            Collection<Producto> ps = new ArrayList();
+            ps.add(producto);
+            mostrarProductos(ps);
         } catch (Exception e) {
             throw e;
         }

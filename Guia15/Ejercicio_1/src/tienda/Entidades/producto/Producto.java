@@ -5,11 +5,13 @@
  */
 package tienda.Entidades.producto;
 
+import tienda.Entidades.Interfaces.baseEntidad;
+
 /**
  *
  * @author Sebastian Cozzi
  */
-public class Producto {
+public class Producto implements baseEntidad{
 
     private int codigo;
     private String nombre;
@@ -58,6 +60,7 @@ public class Producto {
         this.codigoFabricante = codigoFabricante;
     }
 
+    @Override
     public String getValue(String nombreColumna) {
         switch (nombreColumna.toLowerCase()) {
             case "codigo":
@@ -73,6 +76,7 @@ public class Producto {
         }
 
     }
+    @Override
     public void setValue(String nombreColumna,Integer valor){
         switch (nombreColumna.toLowerCase()) {
             case "codigo":
@@ -86,6 +90,7 @@ public class Producto {
         }
     }
     
+    @Override
     public void setValue(String nombreColumna,String valor){
         switch (nombreColumna.toLowerCase()) {
             case "nombre":
@@ -95,6 +100,7 @@ public class Producto {
                 throw new AssertionError();
         }
     }
+    @Override
     public void setValue(String nombreColumna,Double valor){
         switch (nombreColumna.toLowerCase()) {
             case "precio":

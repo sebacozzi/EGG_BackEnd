@@ -13,6 +13,12 @@ import java.sql.*;
  */
 public abstract class DAO {
 
+    public String[] listaColumnas;
+    public int[] anchos;
+    public int colCount;
+    public String[] tipoColumnas;
+    
+    
     protected Connection conexion = null;
     protected Statement stmt = null;
     protected ResultSet resultado = null;
@@ -20,13 +26,19 @@ public abstract class DAO {
     private final String USER = "root";
     private final String PASSWORD = "root";
     private final String DRIVER = "com.mysql.jdbc.Driver";
+    private final String DRIVER2 = "com.mysql.cj.jdbc.Driver";
     private final String DATABASE = "tienda";
     private final String URL = "jdbc:mysql://localhost:3306/%s?useSSL=false";
 
     protected void conectar() throws ClassNotFoundException, SQLException {
         try {
             
-            Class.forName(DRIVER);
+            try {
+                Class.forName(DRIVER2);
+            } catch (Exception e)  {
+              Class.forName(DRIVER);  
+            }
+ 
             String URLs = String.format(URL, DATABASE);
             conexion = DriverManager.getConnection(URLs, USER, PASSWORD);
         } catch (ClassNotFoundException | SQLException ex) {
@@ -75,6 +87,7 @@ public abstract class DAO {
     }
 
     protected String columnaTipos(int id) {
+        
         switch (id) {
             case 1:// CHARECTER
                 return "c";
