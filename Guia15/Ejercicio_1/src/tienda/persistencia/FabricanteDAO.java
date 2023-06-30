@@ -53,15 +53,7 @@ public final class FabricanteDAO extends DAO {
 
     public Fabricante buscarFabricantePorNombre(String nombre) throws Exception {
         try {
-            String sql = String.format("SELECT * FROM fabricante WHERE nombre = '%s'", nombre);
-            consulta(sql);
-            Fabricante f = null;
-            while (resultado.next()) {
-                f = new Fabricante(resultado.getInt(1), resultado.getString(2));
-            }
-
-            desconectar();
-            return f;
+            return ((ArrayList<Fabricante>)consultaFabricantes(" * "," WHERE nombre = '"+nombre+"';")).get(0);
         } catch (Exception e) {
             desconectar();
             throw e;
@@ -69,14 +61,31 @@ public final class FabricanteDAO extends DAO {
     }
 
     public Collection<Fabricante> listaDeFabricantes() throws Exception {
+
+        return consultaFabricantes("*");
+
+    }
+
+    private Collection<Fabricante> consultaFabricantes(String columnas) throws Exception {
+
+        return consultaFabricantes(columnas, "");
+
+    }
+
+    private Collection<Fabricante> consultaFabricantes(String columnas, String subConsultas) throws Exception {
         try {
             Collection<Fabricante> fs = new ArrayList();
-            String sql = String.format("SELECT * FROM fabricante;");
+            String sql = "SELECT " + columnas + " FROM fabricante " + subConsultas + ';';
             consulta(sql);
             Fabricante f;
             int cols = resultado.getMetaData().getColumnCount();
             int[] an = new int[cols + 1];
             String[] colD = new String[cols + 1];
+            String[] lis = new String[cols + 1];
+            for (int i = 1; i <= cols; i++) {
+                lis[i] = resultado.getMetaData().getColumnLabel(i);
+                colD[i] = columnaTipos(resultado.getMetaData().getColumnType(i));
+            }
             while (resultado.next()) {
                 for (int i = 1; i <= cols; i++) {
                     if (resultado.getString(i).length() > an[i]) {
@@ -84,23 +93,51 @@ public final class FabricanteDAO extends DAO {
                     }
                 }
 
-                f = new Fabricante(resultado.getInt(1), resultado.getString(2));
+                f = new Fabricante();
+
+                for (int i = 1; i <= cols; i++) {
+                    switch (resultado.getMetaData().getColumnType(i)) {
+                        case 1:// CHARECTER
+                        //return "c";
+                        case -5:// BIGINT
+                        case -6:// TINYINT
+                        case -7:// BIT
+                        case 4:// INTEGER
+                        case 5:// SMALLINT
+                            f.setValue(lis[i], resultado.getInt(i));
+                            break;
+                        case 2:// NUMERIC
+                        case 3:// DECIMAL
+                        case 6:// FLOAT
+                        case 7:// REAL
+                        case 8:// DOUBLE
+                            //f.setValue(lis[i], resultado.getDouble(i));
+                            break;
+                        case -1:// LONGVARCHAR
+                        case 12:// VARCHAR
+                        case 2004:// BLOB
+                            f.setValue(lis[i], resultado.getString(i));
+                            break;
+                        case 16:// BOOLEAN
+                        //return "b";
+                        case 91:// TIME
+                        //return "t";
+                        case 92:// DATE
+                            //p.setValue(lis[i], resultado.getDate(i));
+                            break;
+                    }
+                }
 
                 fs.add(f);
 
             }
-           
-            String[] lis = new String[cols + 1];
 
-            for (int i = 1; i <= cols; i++) {
-                lis[i] = resultado.getMetaData().getColumnLabel(i);
-                colD[i]= columnaTipos(resultado.getMetaData().getColumnType(i));
-            }
             desconectar();
             listaColumnas = lis;
             anchos = an;
             colCount = cols;
             tipoColumnas = colD;
+
             return fs;
         } catch (Exception e) {
             desconectar();

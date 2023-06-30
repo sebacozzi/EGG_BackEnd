@@ -19,12 +19,13 @@ public abstract class DAO {
 
     private final String USER = "root";
     private final String PASSWORD = "root";
-    private final String DRIVER = "com.mysql.cj.jdbc.Driver";//com.mysql.jdbc.Driver";
+    private final String DRIVER = "com.mysql.jdbc.Driver";
     private final String DATABASE = "tienda";
     private final String URL = "jdbc:mysql://localhost:3306/%s?useSSL=false";
 
     protected void conectar() throws ClassNotFoundException, SQLException {
         try {
+            
             Class.forName(DRIVER);
             String URLs = String.format(URL, DATABASE);
             conexion = DriverManager.getConnection(URLs, USER, PASSWORD);

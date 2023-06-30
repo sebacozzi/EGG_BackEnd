@@ -5,6 +5,7 @@
  */
 package tienda.Entidades.fabricante;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Scanner;
@@ -91,12 +92,30 @@ public class FabricanteServicios {
         }
     }
 
+    public void mostrarFabricantes(Fabricante f)  {
+        try {
+            Collection<Fabricante> cf = new ArrayList();
+            cf.add(f);
+            mostrarFabricantes(cf);
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+    
     public Collection<Fabricante> obtenerFabricantes() throws Exception {
         try {
             return fDAO.listaDeFabricantes();
         } catch (Exception e) {
             throw e;
         }
+    }
 
+    public Fabricante obtenerFabricantePorNombre(String nombre) throws Exception {
+        try {
+                        return fDAO.buscarFabricantePorNombre(nombre);
+        } catch (Exception e) {
+            throw e;
+        }
+            
     }
 }

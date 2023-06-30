@@ -28,8 +28,12 @@ public class Tienda {
      */
     public static void main(String[] args) throws Exception {
         // TODO code application logic here
+        
+        
         ArrayList<Fabricante> ftes = null;
         FabricanteServicios fs = new FabricanteServicios();
+        Fabricante f= fs.obtenerFabricantePorNombre("Lenovo");
+        fs.mostrarFabricantes(f);
         try{
         ftes = (ArrayList<Fabricante>) fs.obtenerFabricantes();
         fs.mostrarFabricantes(ftes);

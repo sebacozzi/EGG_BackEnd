@@ -73,5 +73,35 @@ public class Producto {
         }
 
     }
-
+    public void setValue(String nombreColumna,Integer valor){
+        switch (nombreColumna.toLowerCase()) {
+            case "codigo":
+                this.codigo = valor;
+                break;
+            case "codigo_fabricante":
+                this.codigoFabricante = valor;
+                break;
+            default:
+                throw new AssertionError();
+        }
+    }
+    
+    public void setValue(String nombreColumna,String valor){
+        switch (nombreColumna.toLowerCase()) {
+            case "nombre":
+                this.nombre = valor;
+                break;
+            default:
+                throw new AssertionError();
+        }
+    }
+    public void setValue(String nombreColumna,Double valor){
+        switch (nombreColumna.toLowerCase()) {
+            case "precio":
+                this.precio = valor;
+                break;
+            default:
+                throw new AssertionError();
+        }
+    }
 }
