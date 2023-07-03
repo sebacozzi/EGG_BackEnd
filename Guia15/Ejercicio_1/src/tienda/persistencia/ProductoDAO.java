@@ -8,7 +8,7 @@ package tienda.persistencia;
 import java.util.ArrayList;
 import java.util.Collection;
 import tienda.Emuns.Precio;
-import tienda.Entidades.producto.Producto;
+import tienda.Producto.Producto;
 
 /**
  *
@@ -130,17 +130,16 @@ public final class ProductoDAO extends DAO {
         try {
             Collection<Producto> prods = new ArrayList();
             String sql = "SELECT " + columnas + " FROM producto " + subConsultas + ';';
-            System.out.println(sql);
             consulta(sql);
             int cols = resultado.getMetaData().getColumnCount();
             int[] an = new int[cols + 1];
-            String[] colD = new String[cols + 1];
+            String[] tiposCols = new String[cols + 1];
             Producto p = null;
-            String[] lis = new String[cols + 1];
+            String[] listaTitulos = new String[cols + 1];
 
             for (int i = 1; i <= cols; i++) {
-                lis[i] = resultado.getMetaData().getColumnLabel(i);
-                colD[i] = columnaTipos(resultado.getMetaData().getColumnType(i));
+                listaTitulos[i] = resultado.getMetaData().getColumnLabel(i);
+                tiposCols[i] = columnaTipos(resultado.getMetaData().getColumnType(i));
             }
             while (resultado.next()) {
                 for (int i = 1; i <= cols; i++) {
@@ -159,19 +158,19 @@ public final class ProductoDAO extends DAO {
                         case -7:// BIT
                         case 4:// INTEGER
                         case 5:// SMALLINT
-                            p.setValue(lis[i], resultado.getInt(i));
+                            p.setValue(listaTitulos[i], resultado.getInt(i));
                             break;
                         case 2:// NUMERIC
                         case 3:// DECIMAL
                         case 6:// FLOAT
                         case 7:// REAL
                         case 8:// DOUBLE
-                            p.setValue(lis[i], resultado.getDouble(i));
+                            p.setValue(listaTitulos[i], resultado.getDouble(i));
                             break;
                         case -1:// LONGVARCHAR
                         case 12:// VARCHAR
                         case 2004:// BLOB
-                            p.setValue(lis[i], resultado.getString(i));
+                            p.setValue(listaTitulos[i], resultado.getString(i));
                             break;
                         case 16:// BOOLEAN
                         //return "b";
@@ -187,10 +186,10 @@ public final class ProductoDAO extends DAO {
             }
 
             desconectar();
-            listaColumnas = lis;
-            anchos = an;
+            listaColumnas = listaTitulos;
+            anchoColumnas = an;
             colCount = cols;
-            tipoColumnas = colD;
+            tipoColumnas = tiposCols;
             return prods;
         } catch (Exception e) {
             throw e;

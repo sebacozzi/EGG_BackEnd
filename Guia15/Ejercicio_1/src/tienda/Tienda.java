@@ -13,12 +13,14 @@ package tienda;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-import menudeopciones.Menu;
-import menudeopciones.ServiciosMenu;
-import tienda.Entidades.fabricante.Fabricante;
-import tienda.Entidades.fabricante.FabricanteServicios;
-import tienda.Entidades.producto.Producto;
-import tienda.Entidades.producto.ProductoServicios;
+import Utilidades.Menu.Menu;
+import Utilidades.Menu.ServiciosMenu;
+import Utilidades.Utils.Inputs;
+import Utilidades.Utils.Utils;
+import tienda.Fabricante.Fabricante;
+import tienda.Fabricante.FabricanteServicios;
+import tienda.Producto.Producto;
+import tienda.Producto.ProductoServicios;
 
 /**
  *
@@ -59,7 +61,7 @@ public class Tienda {
             "Agregar Fabricante",
             "Editar Fabricante",
             "Volver"};
-
+        
         do {
             sm.show(new Menu(menuPrincipal, "Menu de Tienda"));
             switch (sm.getResultado()) {
@@ -119,40 +121,36 @@ public class Tienda {
                         break;
                     case 6://             "Agregar Producto"
 
-                        
                         System.out.println("*********** Agregar Producto ***********");
-                        
 
                         System.out.print("Ingrese el nombre del producto: ");
                         nombre = leer.next();
-                        System.out.print("Ingrese el precio del Producto: ");
-                        do {
-                        try{
-                        precio = leer.nextDouble();
-                        } catch (Exception e) {
-                            System.out.println("Debe ingresar un número.");
-                            System.out.print("-> ");
-                            continue;
-                        }
-                        break;
-                        } while (true);
                         
-                        String h = "0";
+                        precio = Inputs.inputDouble("Ingrese el precio del Producto: ");
+
+                        String h;
+
+                        System.out.print("Ingrese el codigo del fabricante (h - para ver lista de fabricantes): ");
+                        codigo_fabricante = 0;
                         do {
-                            System.out.print("Ingrese el codigo del fabricante (h - para ver lista de proveedores): ");
-                            h = leer.next();
-                            if (h.equalsIgnoreCase("h")) {
-                                fs.mostrarFabricantes(fs.obtenerFabricantes());
-                            } else {
-                                try {
-                                    codigo_fabricante = Integer.getInteger(h);
+                            try {
+                                h = leer.next();
+                                if (h.equalsIgnoreCase("h")) {
+                                    fs.mostrarFabricantes(fs.obtenerFabricantes());
+                                    System.out.print("-> ");
+                                } else {
+                                    codigo_fabricante = Integer.parseInt(h);
                                     break;
-                                } catch (Exception e) {
-                                    System.out.println("No se ingreso un entero.");
                                 }
 
+                            } catch (Exception e) {
+                                System.out.println(e.getClass());
+                                System.out.println("No se ingreso un entero o \"h\".");
+                                System.out.print("-> ");
                             }
+
                         } while (true);
+
                         ps.mostrarProducto(ps.nuevoProducto(nombre, precio, codigo_fabricante));
 
                         break;
@@ -162,13 +160,14 @@ public class Tienda {
 
                         System.out.println("*********** Modificar Producto ***********");
 
-                        System.out.print("Ingrese el codigo del producto: ");
-                        int codigo = leer.nextInt();
+                        int codigo = Inputs.inputI("Ingrese el codigo del producto: ");
+
                         Producto p = ps.productoPorCodigo(codigo);
 
                         System.out.println("Actual: " + p.getCodigoFabricante() + ". (poner \"0\" para no cambiar)");
-                        System.out.print("Ingrese el nuevo codigo del fabricante: ");
-                        codigo_fabricante = leer.nextInt();
+                        
+                        codigo_fabricante = Inputs.inputI("Ingrese el nuevo codigo del fabricante: ");
+
                         if (codigo_fabricante == 0) {
                             codigo_fabricante = p.getCodigoFabricante();
                         }
@@ -181,24 +180,23 @@ public class Tienda {
                         }
 
                         System.out.println("Actual: " + p.getPrecio().toString() + ". (poner\"0\" para no cambiar)");
-                        System.out.print("Ingrese el nuevo precio del Producto: ");
-                        precio = leer.nextDouble();
+                        
+                        precio = Inputs.inputDouble("Ingrese el nuevo precio del Producto: ");
+
                         if (precio == 0) {
                             precio = p.getPrecio();
                         }
 
                         ps.mostrarProducto(ps.ActualizaProducto(codigo, nombre, precio, codigo_fabricante));
-
-                        break;
                 }
                 if (sm.esSalir()) { //             "Volver"
                     break;
                 } else {
-                    sm.esperaTecla();
+                   Utils.esperaTecla();
                 }
             } catch (Exception e) {
                 System.out.println(e.getMessage());
-                sm.esperaTecla();
+                Utils.esperaTecla();
             }
         } while (true);
 
@@ -225,18 +223,30 @@ public class Tienda {
 
                         break;
                     case 3://            "Editar Fabricante"
+                        fs.mostrarFabricantes(fs.obtenerFabricantes());
 
-                        break;
+                        System.out.println("*********** Modificar Fabricante ***********");
+
+                        int codigo = Inputs.inputI("Ingrese el codigo del fabricante: ");
+
+                        Fabricante f = fs.fabricantePorCodigo(codigo);
+                        System.out.println("Actual: " + f.getNombre() + ". (dejar vacio para no cambiar)");
+                        System.out.print("Ingrese el nuevo nombre del producto: ");
+                        nombre = leer.next();
+                        if (!nombre.trim().isEmpty()) {
+                            f.setNombre(nombre);
+                        }
+                        fs.mostrarFabricantes(fs.modificaFabricante(f));
                 }
                 if (sm.esSalir()) { //             "Volver"
                     break;
                 } else {
-                    sm.esperaTecla();
+                    Utils.esperaTecla();
                 }
             } catch (Exception e) {
                 System.out.println(e.getMessage());
                 e.printStackTrace();
-                sm.esperaTecla();
+                Utils.esperaTecla();
             }
         } while (true);
 

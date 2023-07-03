@@ -3,12 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tienda.Entidades.fabricante;
+package tienda.Fabricante;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.Scanner;
 import tienda.persistencia.FabricanteDAO;
 
 /**
@@ -35,23 +33,31 @@ public class FabricanteServicios {
         }
     }
 
+    public Fabricante modificaFabricante(Fabricante fabricante) throws Exception {
+        try {
+            return fDAO.actualizaFabricante(fabricante);
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+    
     public void mostrarFabricantes(Collection<Fabricante> fs) {
         try {
-            
+
             int[] anchos = new int[fDAO.colCount + 1];
 
             // Define el ancho final de las columnas
             for (int i = 1; i <= fDAO.colCount; i++) {
-                if (fDAO.anchos[i] < fDAO.listaColumnas[i].length()) {
+                if (fDAO.anchoColumnas[i] < fDAO.listaColumnas[i].length()) {
                     anchos[i] = fDAO.listaColumnas[i].length();
                 } else {
-                    anchos[i] = fDAO.anchos[i];
+                    anchos[i] = fDAO.anchoColumnas[i];
                 }
                 if (fDAO.tipoColumnas[i].equalsIgnoreCase("s")) {
                     anchos[i] = anchos[i] * -1;
                 }
             }
-            
+
             // Genera encabezado
             String linea = "|";
             for (int i = 1; i <= fDAO.colCount; i++) {
@@ -60,7 +66,7 @@ public class FabricanteServicios {
                 linea = String.format(linea, fDAO.listaColumnas[i]);
             }
             System.out.print(" ");
-            int lS= linea.length() -2;
+            int lS = linea.length() - 2;
             for (int i = 0; i < lS; i++) {
                 System.out.print("_");
             }
@@ -91,7 +97,7 @@ public class FabricanteServicios {
         }
     }
 
-    public void mostrarFabricantes(Fabricante f)  {
+    public void mostrarFabricantes(Fabricante f) {
         try {
             Collection<Fabricante> cf = new ArrayList();
             cf.add(f);
@@ -100,7 +106,7 @@ public class FabricanteServicios {
             throw e;
         }
     }
-    
+
     public Collection<Fabricante> obtenerFabricantes() throws Exception {
         try {
             return fDAO.listaDeFabricantes();
@@ -111,10 +117,19 @@ public class FabricanteServicios {
 
     public Fabricante obtenerFabricantePorNombre(String nombre) throws Exception {
         try {
-                        return fDAO.buscarFabricantePorNombre(nombre);
+            return fDAO.buscarFabricantePorNombre(nombre);
         } catch (Exception e) {
             throw e;
         }
-            
     }
+    public Fabricante fabricantePorCodigo(int codigo) throws Exception {
+        try {
+            return fDAO.fabricanteDelCodigo(codigo);
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
+    
+    
 }

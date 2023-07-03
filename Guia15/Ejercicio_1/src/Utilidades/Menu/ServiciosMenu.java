@@ -1,13 +1,8 @@
-package menudeopciones;
+package Utilidades.Menu;
 
+import Utilidades.Utils.Utils;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import java.awt.AWTException;
-import java.awt.Robot;
-import java.awt.event.KeyEvent;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * @author Sebasti�n Cozzi
@@ -43,7 +38,7 @@ public class ServiciosMenu {
         boolean salida, error;
 
         do {
-            cls();// limpia el output
+            Utils.cls();// limpia el output
             System.out.print(menu.toString());
             salida = true;
             error = true;
@@ -54,17 +49,18 @@ public class ServiciosMenu {
                 System.out.printf("Debe ingresar un número. Ingreso %s.\n", resultado);
                 leer.next();
                 error = false;
-                esperaTecla();
+                Utils.esperaTecla();
             }
             if (resultado > 0 && resultado <= menu.getItems().length) {
                 salida = false;
             } else if (error) {
                 System.out.println("ingrese un número del 1 al " + menu.getItems().length + ".");
-                esperaTecla();
+                Utils.esperaTecla();
             }
         } while (salida);
     }
 
+    
     public int preguntaInt(String texto) {
         boolean salida = false;
         do {
@@ -96,30 +92,5 @@ public class ServiciosMenu {
             }
         } while (true);
 
-    }
-
-    public void esperaTecla() {
-        Scanner leer = new Scanner(System.in);
-        System.out.println("Precione Enter/Intro para continuar.");
-        leer.nextLine();
-    }
-
-    private static void cls() {
-        if (System.console() != null) {// en CMD
-            try {
-                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-            } catch (IOException | InterruptedException e) {
-            }
-        } else {// En consola de netbeans
-            try {
-                Robot robot = new Robot();
-                robot.keyPress(KeyEvent.VK_CONTROL);
-                robot.keyPress(KeyEvent.VK_L);
-                robot.keyRelease(KeyEvent.VK_L);
-                robot.keyRelease(KeyEvent.VK_CONTROL);
-                robot.delay(100);
-            } catch (AWTException e) {
-            }
-        }
     }
 }

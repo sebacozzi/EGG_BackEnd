@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tienda.Entidades.producto;
+package tienda.Producto;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -125,10 +125,10 @@ public class ProductoServicios {
 
             // Define el ancho final de las columnas
             for (int i = 1; i <= pDAO.colCount; i++) {
-                if (pDAO.anchos[i] < pDAO.listaColumnas[i].length()) {
+                if (pDAO.anchoColumnas[i] < pDAO.listaColumnas[i].length()) {
                     anchos[i] = pDAO.listaColumnas[i].length();
                 } else {
-                    anchos[i] = pDAO.anchos[i];
+                    anchos[i] = pDAO.anchoColumnas[i];
                 }
                 if (pDAO.tipoColumnas[i].equalsIgnoreCase("s")) {
                     anchos[i] = anchos[i] * -1;

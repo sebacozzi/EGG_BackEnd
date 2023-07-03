@@ -2,7 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package menudeopciones;
+package Utilidades.Menu;
+
+import Utilidades.Utils.Utils;
 
 /**
  *
@@ -45,10 +47,10 @@ public class Menu {
     @Override
     public String toString() {
         String temp = "";
-        temp = temp.concat(" " + this.titulo + "\n");
-        for (int i = 0; i < titulo.length(); i++) {
-        temp = temp.concat("-");
-        }
+        temp = temp.concat(Utils.titulo(this.titulo,25));
+//        for (int i = 0; i < titulo.length(); i++) {
+//        temp = temp.concat("-");
+//        }
         temp = temp.concat("\n");
         for (int i = 0; i < items.length; i++) {
             temp = temp.concat(String.format(" %d) %s.",(i + 1), items[i]) + "\n");

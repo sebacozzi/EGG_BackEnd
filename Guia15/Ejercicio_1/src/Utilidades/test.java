@@ -1,5 +1,9 @@
 
-package menudeopciones;
+package Utilidades;
+
+import Utilidades.Menu.Menu;
+import Utilidades.Menu.ServiciosMenu;
+import Utilidades.Utils.Utils;
 
 
 /**
@@ -54,7 +58,7 @@ public class test {
                                 case 6:
                                     System.out.println("Volver al menu principal");
                             }
-                            sm.esperaTecla();
+                            Utils.esperaTecla();
                             if (sm.getResultado() == 6) {
                                 break;
                             }
@@ -63,14 +67,14 @@ public class test {
                     case 2:
                         sm.show(new Menu(op2, "Menu Opción 2"));
                         System.out.println("Los resultados de las opciones no estan controladas... vuelve al menu principal.");
-                        sm.esperaTecla();
+                        Utils.esperaTecla();
                         break;
                     case 3:
                         salida = false;
                 }
             } else{
                 System.out.println("Inicie opción 1 - "+((sm.getResultado()!=1 || sm.getResultado() != op0.length))+hola);
-                sm.esperaTecla();
+                Utils.esperaTecla();
             }
         } while (salida);
 

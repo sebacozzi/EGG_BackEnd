@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tienda.Entidades.producto;
+package tienda.Producto;
 
-import tienda.Entidades.Interfaces.baseEntidad;
+import tienda.Interfaces.baseEntidad;
 
 /**
  *

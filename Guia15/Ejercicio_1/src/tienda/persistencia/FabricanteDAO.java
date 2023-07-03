@@ -7,7 +7,7 @@ package tienda.persistencia;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import tienda.Entidades.fabricante.Fabricante;
+import tienda.Fabricante.Fabricante;
 
 /**
  *
@@ -36,11 +36,16 @@ public final class FabricanteDAO extends DAO {
         }
     }
 
-    public void actualizaFabricante(Fabricante fabricante) throws Exception {
+    public Fabricante actualizaFabricante(Fabricante fabricante) throws Exception {
         try {
             existe(fabricante);
             String sql = String.format("UPDATE fabricante SET nombre = '%s' WHERE codigo = %d;", fabricante.getNombre(), fabricante.getCodigo());
             iME(sql);
+            ArrayList<Fabricante> lista = (ArrayList<Fabricante>) consultaFabricantes("*", "WHERE nombre = '"+fabricante.getNombre()+"'");
+            if (lista.isEmpty()) {
+                throw new Exception("El fabricante no se actualizo.");
+            }
+            return lista.get(0);
         } catch (Exception e) {
             throw e;
         }
@@ -134,7 +139,7 @@ public final class FabricanteDAO extends DAO {
 
             desconectar();
             listaColumnas = lis;
-            anchos = an;
+            anchoColumnas = an;
             colCount = cols;
             tipoColumnas = colD;
 
@@ -145,20 +150,17 @@ public final class FabricanteDAO extends DAO {
         }
     }
 
-    public int idDelFabricante(String nombre) throws Exception {
+    public Fabricante fabricanteDelCodigo(int codigo) throws Exception {
         try {
-            int id = -1;
-            String sql = "SELECT codigo FROM fabricante WHERE nombre = '" + nombre + "';";
-            consulta(sql);
-            while (resultado.next()) {
-                id = resultado.getInt(1);
+            ArrayList<Fabricante> lista = (ArrayList<Fabricante>) consultaFabricantes("*", "WHERE codigo = " + codigo + ";");
+            if (lista.isEmpty()) {
+                throw new Exception("No se encontro el fabricante con el código "+codigo+".");
             }
-            desconectar();
-            return id;
+            return lista.get(0);
         } catch (Exception e) {
-            desconectar();
             throw e;
         }
+        
     }
 
     

@@ -14,7 +14,7 @@ import java.sql.*;
 public abstract class DAO {
 
     public String[] listaColumnas;
-    public int[] anchos;
+    public int[] anchoColumnas;
     public int colCount;
     public String[] tipoColumnas;
     
@@ -86,11 +86,11 @@ public abstract class DAO {
         }
     }
 
-    protected String columnaTipos(int id) {
+     protected String columnaTipos(int id) {
         
         switch (id) {
             case 1:// CHARECTER
-                return "c";
+                return "s";
             case -5:// BIGINT
             case -6:// TINYINT
             case -7:// BIT
