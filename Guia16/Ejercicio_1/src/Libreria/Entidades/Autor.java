@@ -15,7 +15,7 @@ import javax.persistence.Id;
  * @author Sebastian Cozzi
  */
 @Entity
-public class Autor {
+public class Autor extends Entidad{
 
     @Id
     @GeneratedValue(generator = "uuid")
@@ -61,5 +61,15 @@ public class Autor {
     @Override
     public String toString() {
         return "Autor{" + "id=" + id + ", nombre=" + nombre + ", alta=" + alta + '}';
+    }
+
+    @Override
+    public String campoListaSimple() {
+       return "nombre";
+    }
+
+    @Override
+    public String campoDescripcion() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

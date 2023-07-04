@@ -104,7 +104,7 @@ public class ServiciosMenu {
        /// dibuja opciones
         System.out.println(titulo);
         for (String opcion : opciones) {
-            System.out.printf("%d) %s.\n",indice,opcion);
+            System.out.printf("%"+ ((int) Math.log(opciones.size()))+"d) %s.\n",indice,opcion);
             indice++;
         }
         System.out.print("Elija una opción: ");

@@ -82,4 +82,12 @@ public class Utils {
             throw e;
         }
     }
+    
+     public static String mChar(char c,int largo){
+        String r = " ";
+        for (int i = 0; i < largo; i++) {
+            r = r+ c;
+        }
+        return r;
+    }
 }

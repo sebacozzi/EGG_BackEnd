@@ -44,21 +44,14 @@ public class AutorDAO extends DAO<Autor> {
         super.eliminar(autor);
     }
 
-    /**
-     * Metodo encargado de listar los Autores recibidos de la base de datos
-     *
-     * @return List de tipo Autor con los objetos obtenidos
-     */
-    public List<Autor> ListaCompleta() throws Exception {
+    public Autor buscarAutor(String id){
         try {
             conectar();
-            List<Autor> lista = em.createQuery("SELECT a FROM Autor a").getResultList();
+            Autor a= em.find(Autor.class, id);
             desconectar();
-            if (lista.isEmpty()) {
-                throw new Exception("La tabla de autores esta vacia.");
-            }
-            return lista;
+            return a;
         } catch (Exception e) {
+            desconectar();
             throw e;
         }
     }
@@ -78,5 +71,41 @@ public class AutorDAO extends DAO<Autor> {
         Autor autor = (Autor) em.createQuery("SELECT a FROM Autor a WHERE a.nombre LIKE :nombre ").setParameter("nombre", nombre).getSingleResult();
         desconectar();
         return autor;
+    }
+
+    @Override
+    public List<String> listaUnCampo() {
+        try {
+            Autor a = new Autor();
+            conectar();
+            List<String> l = em.createQuery("SELECT e."+a.campoListaSimple()+" FROM Editorial e ORDER BY e."+a.campoListaSimple()).getResultList();
+            desconectar();
+            return l;
+        } catch (Exception e) {
+            desconectar();
+            throw e;
+        }
+    }
+    
+    /**
+     * Metodo encargado de listar los Autores recibidos de la base de datos
+     *
+     * @return List de tipo Autor con los objetos obtenidos
+     * @throws java.lang.Exception
+     */
+    @Override
+    public List<Autor> listaCompleta() throws Exception {
+         try {
+            conectar();
+            List<Autor> lista = em.createQuery("SELECT a FROM Autor a").getResultList();
+            desconectar();
+            if (lista.isEmpty()) {
+                throw new Exception("La tabla de autores esta vacia.");
+            }
+            return lista;
+        } catch (Exception e) {
+            desconectar();
+            throw e;
+        }
     }
 }

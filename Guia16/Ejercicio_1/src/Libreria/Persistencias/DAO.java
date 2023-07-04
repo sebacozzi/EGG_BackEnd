@@ -5,6 +5,8 @@
  */
 package Libreria.Persistencias;
 
+import Libreria.Entidades.Entidad;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -66,4 +68,7 @@ public abstract class DAO<T> {
         desconectar();
        
     }
+    public abstract List<String> listaUnCampo();
+    public abstract List<T> listaCompleta()throws Exception;
+    
 }
