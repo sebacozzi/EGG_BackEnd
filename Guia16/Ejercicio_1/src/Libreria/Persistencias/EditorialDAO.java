@@ -26,7 +26,6 @@ public class EditorialDAO extends DAO<Editorial> {
 
     @Override
     public void eliminar(Editorial editorial) {
-        System.out.println(editorial);
         super.eliminar(editorial);
     }
 
@@ -40,7 +39,7 @@ public class EditorialDAO extends DAO<Editorial> {
             throw new Exception("No se a pasado ningun nombre");
         }
         conectar();
-        Editorial ed = (Editorial) em.createQuery("SELECT e FROM Editorial e WHERE e.nombre LIKE :nombre").setParameter("nombre", nombre).getSingleResult();
+        Editorial ed = (Editorial) em.createQuery("SELECT e FROM Editorial e WHERE e.nombre = :nombre").setParameter("nombre", nombre).getSingleResult();
         desconectar();
         return ed;
     }
@@ -51,6 +50,16 @@ public class EditorialDAO extends DAO<Editorial> {
             List<Editorial> lista = em.createQuery("SELECT e FROM Editorial e").getResultList();
             desconectar();
             return lista;
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+    public List<String> listaDeNombres(){
+        try {
+            conectar();
+            List<String> l = em.createQuery("SELECT e.nombre FROM Editorial e ORDER BY e.nombre").getResultList();
+            desconectar();
+            return l;
         } catch (Exception e) {
             throw e;
         }

@@ -1,7 +1,9 @@
 package Utilidades.Menu;
 
 import Utilidades.Utils.Utils;
+import java.util.HashMap;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -15,6 +17,7 @@ public class ServiciosMenu {
     Scanner leer = new Scanner(System.in, "ISO-8859-1")/*.useDelimiter("\n")*/;
     private int resultado;
     private boolean esSalir = false;
+    private String textResultado="";
 
     public int getResultado() {
         return resultado;
@@ -45,6 +48,7 @@ public class ServiciosMenu {
             try {
                 resultado = leer.nextInt();
                 esSalir = resultado == menu.getItems().length;
+                textResultado = menu.getItems()[resultado-1];
             } catch (InputMismatchException e) {
                 System.out.printf("Debe ingresar un número. Ingreso %s.\n", resultado);
                 leer.next();
@@ -92,5 +96,43 @@ public class ServiciosMenu {
             }
         } while (true);
 
+    }
+    
+    public HashMap<Integer,String> multipleChoice(List<String> opciones, String titulo){
+       HashMap<Integer,String> resultado= new HashMap();
+       int indice =1;
+       /// dibuja opciones
+        System.out.println(titulo);
+        for (String opcion : opciones) {
+            System.out.printf("%d) %s.\n",indice,opcion);
+            indice++;
+        }
+        System.out.print("Elija una opción: ");
+        do {
+           int i=0;
+            try {
+                 i= leer.nextInt();
+                resultado.put(i, opciones.get(i-1));
+                break;
+            } catch (InputMismatchException e) {
+                System.out.println("No se ingreso un número... debe ingresar de 1 a "+opciones.size()+'.');
+                leer.next();
+                System.out.print("-> ");
+                continue;
+            } catch (Exception ex){
+                System.out.println("Se ingreso un número, pero debe ser del 1 a "+opciones.size()+'.');
+                System.out.print("-> ");
+                continue;
+            }
+        } while (true);
+        
+        return resultado;
+    }
+    
+    public String getStringMC(HashMap<Integer,String> resultado){
+        return (String) resultado.values().toArray()[0];
+    }
+    public int getintMC(HashMap<Integer,String> resultado){
+        return (int) resultado.keySet().toArray()[0];
     }
 }

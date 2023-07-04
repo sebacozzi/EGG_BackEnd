@@ -4,6 +4,8 @@ import Libreria.Entidades.Autor;
 import Libreria.Entidades.Editorial;
 import Libreria.Persistencias.AutorDAO;
 import Libreria.Persistencias.EditorialDAO;
+import Utilidades.Menu.ServiciosMenu;
+import com.mysql.jdbc.Messages;
 import java.util.List;
 import java.util.UUID;
 
@@ -37,7 +39,7 @@ public class Ejercicio_1 {
      */
     public static void main(String[] args) throws Exception {
         // TODO code application logic here
-        
+        ServiciosMenu sm = new ServiciosMenu();
         Editorial ed = new Editorial();
         Autor au = new Autor();
         
@@ -52,7 +54,7 @@ public class Ejercicio_1 {
         System.out.println(au);
         System.out.println("");
         System.out.println("pasando objeto a la base de datos");
-//        aDAO.guardar(au);
+        aDAO.guardar(au);
         System.out.println("");
         System.out.println("Obteniendo objedo de la base de datos");
         System.out.println("Lista");
@@ -72,14 +74,35 @@ public class Ejercicio_1 {
         System.out.println(ed);
         System.out.println("");
         System.out.println("pasando objeto a la base de datos");
-//        eDAO.guardar(ed);
+        eDAO.guardar(ed);
         System.out.println("");
         System.out.println("Obteniendo objedo de la base de datos");
+        
         System.out.println(eDAO.EditorialPorNombre(ed.getNombre()));
         
+        System.out.println("");
+        System.out.println("Creando varias ediotriales:");
+        for (int i = 0; i < 10; i++) {
+            ed.setNombre("Editorial Planeta"+i);
+        ed.setAlta(true);
+        ed.setId(UUID.randomUUID().toString());
+        eDAO.guardar(ed);
+        }
+        System.out.println("Lista de nombres:");
+        List<String> ln = eDAO.listaDeNombres();
+        System.out.println("");
+        
         System.out.println("Eliminado informacion");
-        Editorial e= eDAO.EditorialPorNombre("Editorial Planeta");
-        eDAO.eliminar(e);
+        String mc = sm.getStringMC(sm.multipleChoice(ln, "Pruba1"));
+        
+        eDAO.eliminar(eDAO.EditorialPorNombre(mc));
+        ln = eDAO.listaDeNombres();
+        for (String string : ln) {
+            System.out.println(string);
+        }
+        for (String string : ln) {
+             eDAO.eliminar(eDAO.EditorialPorNombre(string));
+        }
         aDAO.eliminar(aDAO.autorPorNombre(au.getNombre()));
     }
     
