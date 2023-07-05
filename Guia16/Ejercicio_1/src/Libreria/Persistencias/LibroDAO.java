@@ -63,8 +63,8 @@ public class LibroDAO extends DAO {
     public List<String> listaUnCampo() {
         try {
             conectar();
-            Libro l = new Libro();
-            List<String> lista = em.createQuery("SELECT l." + l.campoListaSimple() + " FROM Libro l ORDER BY l." + l.campoListaSimple()).getResultList();
+            Libro o = new Libro();
+            List<String> lista = em.createQuery(String.format("SELECT l.%1$s FROM Libro l ORDER BY l.%1$s",o.nombreCampoListaSimple())).getResultList();
             desconectar();
             return lista;
         } catch (Exception e) {

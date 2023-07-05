@@ -11,8 +11,8 @@ package Libreria.Entidades;
  */
 public abstract class Entidad {
     
-    public abstract String campoListaSimple();
+    public abstract String nombreCampoListaSimple();
     
-    public abstract String campoDescripcion();
+    public abstract String nombreCampoDescripcion();
     
 }

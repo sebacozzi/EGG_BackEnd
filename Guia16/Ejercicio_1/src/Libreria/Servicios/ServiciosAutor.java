@@ -6,6 +6,7 @@
 package Libreria.Servicios;
 
 import Libreria.Entidades.Autor;
+import Libreria.Entidades.Libro;
 import Libreria.Persistencias.AutorDAO;
 import Utilidades.Utils.Utils;
 import java.util.List;
@@ -82,5 +83,9 @@ public class ServiciosAutor extends BaseServicios<Autor> {
 
     public List<String> NombresDeAutores() {
         return aDAO.listaUnCampo();
+    }
+    
+    public List<Libro> listaDeLibrosDelAutor(Autor a){
+        
     }
 }

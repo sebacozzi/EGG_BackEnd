@@ -25,7 +25,7 @@ public class ServiciosLibro extends BaseServicios<Libro> {
         se = new ServiciosEditorial();
     }
     
-    public Libro crearLibro(Long isbn,String titulo,Boolean alta,Integer anio,Integer ejemplares,Integer ejemplaresPrestados,String idAutor, String idEditorial){
+    public Libro crearLibro(Long isbn,String titulo,Boolean alta,Integer anio,Integer ejemplares,Integer ejemplaresPrestados,String idAutor, String idEditorial) throws Exception{
         try {
             Libro l = new Libro();
             l.setAlta(alta);
@@ -44,5 +44,9 @@ public class ServiciosLibro extends BaseServicios<Libro> {
     }
     public List<Libro> listaDeLibros() throws Exception{
      return lDAO.listaCompleta();
+    }
+
+    public List<String> listaNombresDeLibros() {
+        return lDAO.listaUnCampo();
     }
 }

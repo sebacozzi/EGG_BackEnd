@@ -71,9 +71,9 @@ public class EditorialDAO extends DAO<Editorial> {
     @Override
     public List<String> listaUnCampo() {
         try {
-            Editorial e = new Editorial();
+            Editorial o = new Editorial();
             conectar();
-            List<String> l = em.createQuery("SELECT e."+e.campoListaSimple()+" FROM Editorial e ORDER BY e."+e.campoListaSimple()).getResultList();
+            List<String> l = em.createQuery(String.format("SELECT e1$s FROM Editorial e ORDER BY e.%1$s",o.nombreCampoListaSimple())).getResultList();
             desconectar();
             return l;
         } catch (Exception e) {

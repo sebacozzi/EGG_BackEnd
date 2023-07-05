@@ -76,9 +76,9 @@ public class AutorDAO extends DAO<Autor> {
     @Override
     public List<String> listaUnCampo() {
         try {
-            Autor a = new Autor();
+            Autor o = new Autor();
             conectar();
-            List<String> l = em.createQuery("SELECT e."+a.campoListaSimple()+" FROM Editorial e ORDER BY e."+a.campoListaSimple()).getResultList();
+            List<String> l = em.createQuery(String.format("SELECT a.%1$s FROM Autor a ORDER BY a.%1$s",o.nombreCampoListaSimple())).getResultList();
             desconectar();
             return l;
         } catch (Exception e) {

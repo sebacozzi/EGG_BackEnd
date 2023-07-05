@@ -63,7 +63,10 @@ public class ServiciosMenu {
             }
         } while (salida);
     }
-
+    
+    public void showMenu(String[] opciones,String titulo){
+        show(new Menu(opciones,titulo));
+    }
     
     public int preguntaInt(String texto) {
         boolean salida = false;
@@ -102,7 +105,8 @@ public class ServiciosMenu {
        HashMap<Integer,String> resultado= new HashMap();
        int indice =1;
        /// dibuja opciones
-        System.out.println(titulo);
+        System.out.println(" "+titulo);
+        System.out.println(Utils.mChar('-', titulo.length()));
         for (String opcion : opciones) {
             System.out.printf("%"+ ((int) Math.log(opciones.size()))+"d) %s.\n",indice,opcion);
             indice++;

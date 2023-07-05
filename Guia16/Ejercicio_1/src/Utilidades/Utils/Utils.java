@@ -50,7 +50,7 @@ public class Utils {
         }
     }
 
-    public static String titulo(String texto, int margen) {
+    public static String tituloDoble(String texto, int margen) {
         int maxLargo = texto.length() + 6;
         int maxAlto = 5 + (texto.length() - texto.replace("\n", "").length());
         String t = "";
@@ -63,6 +63,27 @@ public class Utils {
                 } else if (i < 3 && j < 3 + margen) {
 
                     t += " " + texto + " **";
+                    break;
+                }
+            }
+            t += "\n";
+        }
+        return t;
+    }
+
+    public static String tituloSimple(String texto, int margen) {
+    int maxLargo = texto.length() + 4;
+        int maxAlto = 3 + (texto.length() - texto.replace("\n", "").length());
+        String t = "";
+        for (int i = 0; i < maxAlto; i++) {
+            for (int j = 0; j < maxLargo + margen; j++) {
+                if (j < margen) {
+                    t += " ";
+                } else if (i < 1 || i > maxAlto - 2 || j < margen + 1 || j > margen + maxLargo - 2) {
+                    t += "*";
+                } else if (i < 2 && j < 2 + margen) {
+
+                    t += " " + texto + " *";
                     break;
                 }
             }
@@ -91,20 +112,28 @@ public class Utils {
         return r;
     }
 
-    public static void existe(String texto) throws Exception{
+    public static void existe(String texto) throws Exception {
         if (texto == null || texto.trim().isEmpty()) {
             throw new Exception("Debe pasar un valor. String vacio o nulo.");
         }
     }
- 
+
     public static void existe(Integer integer) throws Exception {
-        if (integer == null || integer==0) {
+        if (integer == null || integer == 0) {
             throw new Exception("Debe pasar un valor. integer vacio o igual a 0.");
         }
     }
+
     public static void existe(Object entidad) throws Exception {
         if (entidad == null) {
             throw new Exception("La entidad está vacia.");
         }
+    }
+    
+    public static void muestraExcepcion(Exception e) {
+        Utils.cls();
+        System.out.println("Se produjo una falla.\n Detalles: ");
+        e.printStackTrace();
+        Utils.esperaTecla();
     }
 }

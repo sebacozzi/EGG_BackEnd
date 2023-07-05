@@ -1,5 +1,7 @@
 package Libreria;
 
+import Libreria.Entidades.Autor;
+import Libreria.Entidades.Editorial;
 import Libreria.Servicios.ServiciosAutor;
 import Libreria.Servicios.ServiciosEditorial;
 import Libreria.Servicios.ServiciosLibro;
@@ -58,60 +60,246 @@ public class Ejercicio_1 {
             "Volver"};
         String[] menuAutor = {
             "Cargar Autor nuevo",
-        "Editar Autor",
-        "Eliminar Autor",
-        "Mostrar Autores",
-        "Mostrar información completa de los autores",
-        "Mostrar libros de un Autor",
-        "Volver"};
-        String[] menuLibro={
+            "Editar Autor",
+            "Eliminar Autor",
+            "Mostrar Autores",
+            "Mostrar información completa de los autores",
+            "Mostrar libros de un Autor",
+            "Volver"};
+        String[] menuLibro = {
             "Cargar un nuevo Libro",
-        "Editar un libro",
-        "Eliminar un Libro",
-        "Mostrar titulos de los libros",
-        "Mostrar información completa de los libros",
-        "Mostrar libros de un autor",
-        "Mostrar libros de una editorial",
-        "Volver"};
+            "Editar un libro",
+            "Eliminar un Libro",
+            "Mostrar titulos de los libros",
+            "Mostrar información completa de los libros",
+            "Mostrar libros de un autor",
+            "Mostrar libros de una editorial",
+            "Volver"};
         /// Test ///
-        se.mostrar1(se.listaDeNombresDeEditoriales(), "Nombres de Editoriales");
-        se.mostrar(se.listaDeEditoriales());
-        sa.mostrar(sa.listaDeAutores());
-        sl.mostrar(sl.listaDeLibros());
+        
+        try {
+            do {
+                sm.showMenu(menuPrincipal, "Menu Principal de Libreria.");
+                switch (sm.getResultado()) {
+                    case 1://            "Menu Editorial"
+                        menuEditorial(se, menuEditorial);
+                        break;
+                    case 2://            "Menu Autor"
+                        menuAutor(sa, menuAutor);
+                        break;
+                    case 3://            "Menu Libro"
+                        menuLibro(sl, menuLibro);
+                        break;
+                }
+                if (sm.esSalir()) {//            "Salir"
+                    break;
+                }
+            } while (true);
+        } catch (Exception e) {
+            Utils.muestraExcepcion(e);
+        }
+        
+
+        System.out.println(sm.multipleChoice(sl.listaNombresDeLibros(), "Lista de Autores:").values().toArray()[0]);
+//        se.mostrar1(se.listaDeNombresDeEditoriales(), "Nombres de Editoriales");
+//        se.mostrar(se.listaDeEditoriales());
+//        sa.mostrar(sa.listaDeAutores());
+//        sl.mostrar(sl.listaDeLibros());
 
     }
-    private static void menuEditorial(ServiciosAutor sa,String[] opciones,ServiciosMenu sm){
+    
+    
+    private static void menuEditorial(ServiciosEditorial se, String[] opciones) {
         try {
             Scanner leer = new Scanner(System.in, "ISO-8859-1").useDelimiter("\n");
+            String nombre;
+            String mensaje;
+            String respuetaMChoice;
+            Editorial tempEditorial;
+            ServiciosMenu sm = new ServiciosMenu();
             do {
-                sm.show(new Menu(opciones,"Menu de Autor"));
+                sm.showMenu(opciones, "Menu de manejo de Editoriales");
+                switch (sm.getResultado()) {
+                    case 1://            "Cargar nueva editorial"
+                        
+                        System.out.println(Utils.tituloSimple("Cargar nueva editorial, Falta Preparar!!!", 10));
+                        break;
+                    case 2://            "Editar editorial"
+                        
+                        System.out.println(Utils.tituloSimple("Editar editorial, Falta Preparar!!!", 10));
+                        break;
+                    case 3://            "Eliminar Editorial"
+                        
+                        System.out.println(Utils.tituloSimple("Eliminar Editorial, Falta Preparar!!!", 10));
+                        break;
+                    case 4://            "Mostrar nombres de Editoriales"
+                        
+                        System.out.println(Utils.tituloSimple("Mostrar nombres de Editoriales, Falta Preparar!!!", 10));
+                        break;
+                    case 5://            "Mostrar información completa de las Editoriales"
+                        
+                        System.out.println(Utils.tituloSimple("Mostrar información completa de las Editoriales, Falta Preparar!!!", 10));
+                        break;
+                    case 6://            "Mostrar libros de una editorial"
+                        
+                        System.out.println(Utils.tituloSimple("Mostrar libros de una editorial, Falta Preparar!!!", 10));
+                }
+                if (sm.esSalir()) {//            "Volver"
+                    break;
+                } else {
+                    Utils.esperaTecla();
+                }
+            } while (true);
+
+        } catch (Exception e) {
+            Utils.muestraExcepcion(e);
+        }
+    }
+
+    private static void menuAutor(ServiciosAutor sa, String[] opciones) {
+        try {
+            Scanner leer = new Scanner(System.in, "ISO-8859-1").useDelimiter("\n");
+            String nombre;
+            String mensaje;
+            String respuetaMChoice;
+            Autor tempAutor;
+            ServiciosMenu sm = new ServiciosMenu();
+            do {
+                sm.showMenu(opciones, "Menú de manjejo de Autores");
                 switch (sm.getResultado()) {
                     case 1://       "Cargar Autor nuevo"
-                        
+
+                        System.out.println(Utils.tituloSimple("Nuevo Autor", 20));
+                        System.out.println("");
+                        System.out.print("Ingresar el nombre completo del autor (Dejar vacio para volver): ");
+                        nombre = leer.next();
+                        if (nombre.trim().isEmpty()) {
+                            System.out.print(Utils.tituloSimple("No se va a cargar ningun autor.", 15));
+                        } else {
+                            sa.crearAutor(nombre);
+                            System.out.print(Utils.tituloSimple("Se cargo correctamente el nuevo autor.", 15));
+                            sa.mostrar(sa.buscarAutorPorNombre(nombre));
+                        }
                         break;
                     case 2://       "Editar Autor"
-                        
+
+                        System.out.println(Utils.tituloSimple("Modificar Autor", 20));
+                        System.out.println("");
+
+                        respuetaMChoice = (String) sm.multipleChoice(sa.NombresDeAutores(), "Nombres de Autores cargados:").values().toArray()[0];
+                        tempAutor = sa.buscarAutorPorNombre(respuetaMChoice);
+                        System.out.printf("Nombre actual: %1$s. Dejar vacio para no modificar.\nIngrese el nuevo nombre para autor %1$s: ", tempAutor.getNombre());
+                        nombre = leer.next();
+                        if (!nombre.trim().isEmpty()) {
+                            tempAutor.setNombre(nombre);
+                            sa.modificaAutor(tempAutor);
+                            mensaje = Utils.tituloSimple("Se modifico el autor.", 15);
+
+                        } else {
+                            mensaje = Utils.tituloSimple("No se modifico el autor.", 15);
+                        }
+
+                        System.out.println(mensaje);
+                        System.out.println("");
+                        sa.mostrar(sa.buscarAutor(tempAutor.getId()));
                         break;
                     case 3://       "Eliminar Autor"
-                        
+
+                        System.out.println(Utils.tituloSimple("Eliminar Autor", 20));
+                        System.out.println("");
+
+                        respuetaMChoice = (String) sm.multipleChoice(sa.NombresDeAutores(), "Nombres de Autores cargados:").values().toArray()[0];
+                        tempAutor = sa.buscarAutorPorNombre(respuetaMChoice);
+                        System.out.println(Utils.tituloSimple("Autor a eliminar", 15));
+                        sa.mostrar(tempAutor);
+                        if (sm.preguntaSN("¿Está seguro que quiere eliminar el autor?(s/n)-> ")
+                                && sm.preguntaSN(" ¿Realmente está seguro? luego de esté paso no se podra revertir.(s/n)-> ")) {
+                            mensaje = "Eliminaste definitivamente el autor " + tempAutor.getNombre() + ".";
+                        } else {
+                            mensaje = "Por suerte no eliminaste el autor.";
+                        }
+
+                        System.out.println(Utils.tituloSimple(mensaje, 15));
                         break;
                     case 4://       "Mostrar Autores"
                         
+                        sa.mostrar1(sa.NombresDeAutores(),"Nombres de Autores");
                         break;
                     case 5://       "Mostrar información completa de los autores"
                         
+                        sa.mostrar(sa.listaDeAutores());
                         break;
-                    case 6://       "Mostrar libros de un Autor",
+                    case 6://       "Mostrar libros de un Autor"
+                        System.out.println(Utils.tituloSimple("Libros del Autor...", 20));
+                        System.out.println("");
+
+                        respuetaMChoice = (String) sm.multipleChoice(sa.NombresDeAutores(), "Nombres de Autores cargados:").values().toArray()[0];
+                        
+                        tempAutor = sa.buscarAutorPorNombre(respuetaMChoice);
+                        sa.mostrar(sa.ListaDeLibrosDelAutor(tempAutor));
+                        System.out.println(Utils.tituloSimple("Mostrar libros de un Autor, Falta Preparar!!!", 10));
 
                 }
                 if (sm.esSalir()) {
                     break;
-                    
-                } 
-                Utils.esperaTecla();
+                } else {
+                    Utils.esperaTecla();
+                }
+            } while (true);
+
+        } catch (Exception e) {
+            Utils.muestraExcepcion(e);
+        }
+    }
+    
+    private static void menuLibro(ServiciosLibro sl, String[] opciones){
+        try {
+            Scanner leer = new Scanner(System.in, "ISO-8859-1").useDelimiter("\n");
+            String nombre;
+            String mensaje;
+            String respuetaMChoice;
+            Editorial tempEditorial;
+            ServiciosMenu sm = new ServiciosMenu();
+            do {
+                sm.showMenu(opciones,"Menú de manejo de Libros");
+                switch (sm.getResultado()) {
+                    case 1://            "Cargar un nuevo Libro"
+                        
+                        System.out.println(Utils.tituloSimple("Cargar un nuevo Libro, Falta Preparar!!!", 10));
+                        break;
+                    case 2://            "Editar un libro"
+                        
+                        System.out.println(Utils.tituloSimple("Editar un libro, Falta Preparar!!!", 10));
+                        break;
+                    case 3://            "Eliminar un Libro"
+                        
+                        System.out.println(Utils.tituloSimple("Eliminar un Libro, Falta Preparar!!!", 10));
+                        break;
+                    case 4://            "Mostrar titulos de los libros"
+                        
+                        System.out.println(Utils.tituloSimple("Mostrar titulos de los libros, Falta Preparar!!!", 10));
+                        break;
+                    case 5://            "Mostrar información completa de los libros"
+                        
+                        System.out.println(Utils.tituloSimple("Mostrar información completa de los libros, Falta Preparar!!!", 10));
+                        break;
+                    case 6://            "Mostrar libros de un autor"
+                        
+                        System.out.println(Utils.tituloSimple("Mostrar libros de un autor, Falta Preparar!!!", 10));
+                        break;
+                    case 7://            "Mostrar libros de una editorial"
+                        
+                        System.out.println(Utils.tituloSimple("Mostrar libros de una editorial, Falta Preparar!!!", 10));
+                }
+                if (sm.esSalir()) {//            "Volver"
+                    break;
+                }else{
+                    Utils.esperaTecla();
+                }
             } while (true);
             
         } catch (Exception e) {
+            Utils.muestraExcepcion(e);
         }
     }
 }

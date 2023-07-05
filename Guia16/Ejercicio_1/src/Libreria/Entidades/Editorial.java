@@ -60,12 +60,12 @@ public class Editorial extends Entidad {
     }
 
     @Override
-    public String campoListaSimple() {
+    public String nombreCampoListaSimple() {
         return "nombre";
     }
 
     @Override
-    public String campoDescripcion() {
+    public String nombreCampoDescripcion() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

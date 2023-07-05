@@ -7,6 +7,8 @@ package Libreria.Servicios;
 
 import Utilidades.Utils.Utils;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
@@ -136,5 +138,15 @@ public class BaseServicios<T> {
 
             throw e;
         }
+    }
+    public void mostar1(String texto,String titulo) throws Exception{
+        List<String> l = new ArrayList<>();
+        l.add(texto);
+        mostrar1(l,titulo);
+    }
+    public void mostrar(T ob) throws Exception{
+        List<T> l = new ArrayList<>();
+        l.add(ob);
+        mostrar(l);
     }
 }

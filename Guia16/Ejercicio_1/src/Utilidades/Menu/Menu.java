@@ -47,15 +47,15 @@ public class Menu {
     @Override
     public String toString() {
         String temp = "";
-        temp = temp.concat(Utils.titulo(this.titulo,25));
+        temp = temp.concat(Utils.tituloDoble(this.titulo,25));
 //        for (int i = 0; i < titulo.length(); i++) {
 //        temp = temp.concat("-");
 //        }
         temp = temp.concat("\n");
         for (int i = 0; i < items.length; i++) {
-            temp = temp.concat(String.format(" %d) %s.",(i + 1), items[i]) + "\n");
+            temp = temp.concat(String.format(" %25d) %s.",(i + 1), items[i]) + "\n");
         }
-        temp = temp.concat(String.format("  Ingrese una Opción (1 al %d): ",items.length));
+        temp = temp.concat(String.format("%25s  Ingrese una Opción (1 al %d): ","",items.length));
         return temp;
     }
 
