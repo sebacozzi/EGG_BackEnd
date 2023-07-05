@@ -34,7 +34,7 @@ public class Utils {
             try {
                 new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
             } catch (IOException | InterruptedException e) {
-                
+
             }
         } else {// En consola de netbeans
             try {
@@ -45,7 +45,7 @@ public class Utils {
                 robot.keyRelease(KeyEvent.VK_CONTROL);
                 robot.delay(120);
             } catch (AWTException e) {
-                
+
             }
         }
     }
@@ -82,12 +82,29 @@ public class Utils {
             throw e;
         }
     }
-    
-     public static String mChar(char c,int largo){
+
+    public static String mChar(char c, int largo) {
         String r = " ";
         for (int i = 0; i < largo; i++) {
-            r = r+ c;
+            r = r + c;
         }
         return r;
+    }
+
+    public static void existe(String texto) throws Exception{
+        if (texto == null || texto.trim().isEmpty()) {
+            throw new Exception("Debe pasar un valor. String vacio o nulo.");
+        }
+    }
+ 
+    public static void existe(Integer integer) throws Exception {
+        if (integer == null || integer==0) {
+            throw new Exception("Debe pasar un valor. integer vacio o igual a 0.");
+        }
+    }
+    public static void existe(Object entidad) throws Exception {
+        if (entidad == null) {
+            throw new Exception("La entidad está vacia.");
+        }
     }
 }

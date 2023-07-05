@@ -61,14 +61,35 @@ public abstract class DAO<T> {
     protected void eliminar(T ob) {
         conectar();
         em.getTransaction().begin();
-        T d=em.merge(ob);
+        T d = em.merge(ob);
         //System.out.println("Eliminando:\n"+d);
         em.remove(d);
         em.getTransaction().commit();
         desconectar();
-       
     }
+
+    protected Integer eliminarMultiple(List<T> ob) {
+        try {
+            Integer cont = 0;
+            conectar();
+            em.getTransaction().begin();
+            for (T t : ob) {
+                T d = em.merge((T) ob);
+                em.remove(d);
+                cont++;
+            }
+            em.getTransaction().commit();
+            desconectar();
+            return cont;
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            desconectar();
+            throw e;
+        }
+    }
+
     public abstract List<String> listaUnCampo();
-    public abstract List<T> listaCompleta()throws Exception;
-    
+
+    public abstract List<T> listaCompleta() throws Exception;
+
 }
