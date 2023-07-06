@@ -16,9 +16,9 @@ import java.util.UUID;
  *
  * @author Sebastian Cozzi
  */
-public class ServiciosAutor extends BaseServicios<Autor> {
+public final class ServiciosAutor extends BaseServicios<Autor> {
 
-    private AutorDAO aDAO;
+    private final AutorDAO aDAO;
 
     public ServiciosAutor() {
         aDAO = new AutorDAO();
@@ -86,6 +86,8 @@ public class ServiciosAutor extends BaseServicios<Autor> {
     }
     
     public List<Libro> listaDeLibrosDelAutor(Autor a){
+        List<Libro> l = aDAO.librosDeAutor(a);
         
+        return l;
     }
 }

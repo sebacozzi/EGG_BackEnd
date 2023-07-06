@@ -76,7 +76,11 @@ public class Ejercicio_1 {
             "Mostrar libros de una editorial",
             "Volver"};
         /// Test ///
-        
+        String respuetaMChoice = (String) sm.multipleChoice(sa.NombresDeAutores(), "Nombres de Autores cargados:").values().toArray()[0];
+        Autor tempAutor = sa.buscarAutorPorNombre(respuetaMChoice);
+        String[] columnas ={"titulo","ejemplares"};
+                        sl.mostrarSegunTitulos(sa.listaDeLibrosDelAutor(tempAutor),columnas);
+                       Utils.esperaTecla();
         try {
             do {
                 sm.showMenu(menuPrincipal, "Menu Principal de Libreria.");
@@ -85,7 +89,7 @@ public class Ejercicio_1 {
                         menuEditorial(se, menuEditorial);
                         break;
                     case 2://            "Menu Autor"
-                        menuAutor(sa, menuAutor);
+                        menuAutor(sa,sl , menuAutor);
                         break;
                     case 3://            "Menu Libro"
                         menuLibro(sl, menuLibro);
@@ -100,7 +104,7 @@ public class Ejercicio_1 {
         }
         
 
-        System.out.println(sm.multipleChoice(sl.listaNombresDeLibros(), "Lista de Autores:").values().toArray()[0]);
+        //System.out.println(sm.multipleChoice(sl.listaNombresDeLibros(), "Lista de Autores:").values().toArray()[0]);
 //        se.mostrar1(se.listaDeNombresDeEditoriales(), "Nombres de Editoriales");
 //        se.mostrar(se.listaDeEditoriales());
 //        sa.mostrar(sa.listaDeAutores());
@@ -156,7 +160,7 @@ public class Ejercicio_1 {
         }
     }
 
-    private static void menuAutor(ServiciosAutor sa, String[] opciones) {
+    private static void menuAutor(ServiciosAutor sa,ServiciosLibro sl, String[] opciones) {
         try {
             Scanner leer = new Scanner(System.in, "ISO-8859-1").useDelimiter("\n");
             String nombre;
@@ -236,7 +240,7 @@ public class Ejercicio_1 {
                         respuetaMChoice = (String) sm.multipleChoice(sa.NombresDeAutores(), "Nombres de Autores cargados:").values().toArray()[0];
                         
                         tempAutor = sa.buscarAutorPorNombre(respuetaMChoice);
-                        sa.mostrar(sa.ListaDeLibrosDelAutor(tempAutor));
+                        sl.mostrar(sa.listaDeLibrosDelAutor(tempAutor));
                         System.out.println(Utils.tituloSimple("Mostrar libros de un Autor, Falta Preparar!!!", 10));
 
                 }
@@ -281,6 +285,7 @@ public class Ejercicio_1 {
                         break;
                     case 5://            "Mostrar información completa de los libros"
                         
+                        sl.mostrar(sl.listaDeLibros());
                         System.out.println(Utils.tituloSimple("Mostrar información completa de los libros, Falta Preparar!!!", 10));
                         break;
                     case 6://            "Mostrar libros de un autor"

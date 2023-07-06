@@ -6,6 +6,7 @@
 package Libreria.Persistencias;
 
 import Libreria.Entidades.Autor;
+import Libreria.Entidades.Libro;
 import java.util.List;
 
 /**
@@ -105,6 +106,18 @@ public class AutorDAO extends DAO<Autor> {
             return lista;
         } catch (Exception e) {
             desconectar();
+            throw e;
+        }
+    }
+
+    public List<Libro> librosDeAutor(Autor a) {
+        try {
+            conectar();
+            List<Libro> l = (List<Libro>) em.createQuery("SELECT l from Libro l WHERE l.autor.id = '"+ a.getId()+"'").getResultList();
+
+            desconectar();
+            return l;
+        } catch (Exception e) {
             throw e;
         }
     }
