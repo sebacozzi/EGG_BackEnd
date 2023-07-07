@@ -110,15 +110,15 @@ public class AutorDAO extends DAO<Autor> {
         }
     }
 
-    public List<Libro> librosDeAutor(Autor a) {
-        try {
-            conectar();
-            List<Libro> l = (List<Libro>) em.createQuery("SELECT l from Libro l WHERE l.autor.id = '"+ a.getId()+"'").getResultList();
-
-            desconectar();
-            return l;
-        } catch (Exception e) {
-            throw e;
-        }
-    }
+//    public List<Libro> librosDeAutor(Autor a) {
+//        try {
+//            conectar();
+//            List<Libro> l = (List<Libro>) em.createQuery("SELECT l from Libro l WHERE l.autor.id = '"+ a.getId()+"'").getResultList();
+//
+//            desconectar();
+//            return l;
+//        } catch (Exception e) {
+//            throw e;
+//        }
+//    }
 }

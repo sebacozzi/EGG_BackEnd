@@ -49,4 +49,13 @@ public class ServiciosLibro extends BaseServicios<Libro> {
     public List<String> listaNombresDeLibros() {
         return lDAO.listaUnCampo();
     }
+
+    public boolean ExisteISBN(Long isbn) {
+        try {
+            Boolean r = lDAO.libroPorISBN(isbn) ==null;
+            return r;
+        } catch (Exception e) {
+            return true;
+        }
+    }
 }

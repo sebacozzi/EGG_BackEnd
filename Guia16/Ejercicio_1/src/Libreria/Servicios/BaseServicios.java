@@ -112,7 +112,7 @@ public abstract class BaseServicios<T> {
         }
     }
     
-    public void mostrarSegunTitulos(List<T> lista, String[] columnas) throws Exception{
+    public void mostrarSegunTitulos(List<T> lista, String... columnas) throws Exception{
         if (columnas.length==0) {
             mostrar(lista);
             return;

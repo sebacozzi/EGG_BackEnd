@@ -52,6 +52,25 @@ public class ServiciosEditorial extends BaseServicios<Editorial>{
             throw e;
         }
     }
+    
+    public void modificarEditorial(Editorial editorial) throws Exception {
+        try {
+            Utils.existe(editorial);
+            eDAO.modificar(editorial);
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+    
+    public void eliminarEditorial(Editorial editorial) throws Exception {
+        try {
+            Utils.existe(editorial);
+            eDAO.eliminar(editorial);
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
 
     /*public void mostrar(List<Editorial> lista) throws Exception {
         try {
@@ -129,6 +148,9 @@ public class ServiciosEditorial extends BaseServicios<Editorial>{
         }
 
     }*/
+
+    
+    
 }
 /*public void mostrarFabricantes(Collection<Fabricante> fs) {
         try {
