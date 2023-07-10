@@ -49,7 +49,7 @@ public class Inputs {
         do {
             try {
                 ingreso = leer.next();
-                val = Long.getLong(ingreso);
+                val = Long.parseLong(ingreso);
                 break;
             } catch (Exception e) {
                 System.out.printf("%s no es un número entero largo.\n -> ", ingreso);

@@ -55,6 +55,7 @@ public class LibroDAO extends DAO {
         }
         conectar();
         Libro libro = (Libro) em.createQuery("SELECT l FROM Libro l WHERE l.isbn = :isbn").setParameter("isbn", isbn).getSingleResult();
+        
         desconectar();
         return libro;
     }

@@ -11,6 +11,7 @@ import Utilidades.Menu.ServiciosMenu;
 import Utilidades.Utils.Inputs;
 import Utilidades.Utils.Utils;
 import java.util.Scanner;
+import java.util.UUID;
 
 /*
 1) Crear base de datos Librería
@@ -299,6 +300,7 @@ public class Ejercicio_1 {
             String titulo;
             Long isbn;
             Integer ejemplares;
+            Integer anio;
             Autor autor;
             String mensaje;
             String respuetaMChoice;
@@ -311,17 +313,28 @@ public class Ejercicio_1 {
                     case 1://            "Cargar un nuevo Libro"
                         
                         System.out.println(Utils.tituloSimple(opciones[sm.getResultado()-1], 15));
-                        System.out.print("Ingresar el nombre del libro(Dejar vacio para salir): ");
-                        titulo=leer.next();
+                        
                         isbn = Inputs.inputLong("Ingrese el ISBN del libro: ");
-                        while (sl.ExisteISBN(isbn)) {                            
+                        while (sl.ExisteISBN(isbn)) {
                             isbn = Inputs.inputLong("Ya existe el ISBN. Ingrese otro: ");
                         }
                         
-                        isbn = Inputs.inputLong("Ingrese el ISBN del libro: ");
+                        System.out.print("Ingresar el nombre del libro(Dejar vacio para salir): ");
+                        titulo=leer.next();
+                        
+                        anio = Inputs.inputInteger("Ingrese el año de edición: ");
+                        
                         ejemplares = Inputs.inputInteger("Ingrese la cantidad de ejemplares: ");
+                        tempLibro = new Libro();
+                        tempLibro.setId(UUID.randomUUID().toString());
+                        tempLibro.setIsbn(isbn);
+                        tempLibro.setTitulo(titulo);
+                        tempLibro.setEjemplares(ejemplares);
+                        tempLibro.setAnio(anio);
+                        tempLibro.setAlta(true);
                         
                         break;
+                        
                     case 2://            "Editar un libro"
                         
                         System.out.println(Utils.tituloSimple(opciones[sm.getResultado()-1]+", Falta Preparar!!!", 10));

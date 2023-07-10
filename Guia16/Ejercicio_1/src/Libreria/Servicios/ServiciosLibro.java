@@ -7,6 +7,7 @@ package Libreria.Servicios;
 
 import Libreria.Entidades.Libro;
 import Libreria.Persistencias.LibroDAO;
+import Utilidades.Utils.Utils;
 import java.util.List;
 import java.util.UUID;
 
@@ -52,10 +53,11 @@ public class ServiciosLibro extends BaseServicios<Libro> {
 
     public boolean ExisteISBN(Long isbn) {
         try {
-            Boolean r = lDAO.libroPorISBN(isbn) ==null;
-            return r;
-        } catch (Exception e) {
+            Boolean r = lDAO.libroPorISBN(isbn) !=null;
+            System.out.println(r);
             return true;
+        } catch (Exception e) {
+            return false;
         }
     }
 }
