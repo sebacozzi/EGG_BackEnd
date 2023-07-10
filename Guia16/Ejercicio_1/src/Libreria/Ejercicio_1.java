@@ -10,6 +10,7 @@ import Utilidades.Menu.Menu;
 import Utilidades.Menu.ServiciosMenu;
 import Utilidades.Utils.Inputs;
 import Utilidades.Utils.Utils;
+import java.util.List;
 import java.util.Scanner;
 import java.util.UUID;
 
@@ -96,7 +97,7 @@ public class Ejercicio_1 {
                         menuAutor(sa, menuAutor);
                         break;
                     case 3://            "Menu Libro"
-                        menuLibro(sl, menuLibro);
+                        menuLibro(sl,sa ,se , menuLibro);
                         break;
                 }
                 if (sm.esSalir()) {//            "Salir"
@@ -294,17 +295,20 @@ public class Ejercicio_1 {
         }
     }
     
-    private static void menuLibro(ServiciosLibro sl, String[] opciones){
+    private static void menuLibro(ServiciosLibro sl,ServiciosAutor sa,ServiciosEditorial se, String[] opciones){
         try {
             Scanner leer = new Scanner(System.in, "ISO-8859-1").useDelimiter("\n");
             String titulo;
             Long isbn;
             Integer ejemplares;
             Integer anio;
-            Autor autor;
+            List<String> autores;
+            List<String> editoriales;
+            //Autor autor;
             String mensaje;
             String respuetaMChoice;
             Editorial editorial;
+            String nombreAutor="";
             Libro tempLibro;
             ServiciosMenu sm = new ServiciosMenu();
             do {
@@ -321,10 +325,28 @@ public class Ejercicio_1 {
                         
                         System.out.print("Ingresar el nombre del libro(Dejar vacio para salir): ");
                         titulo=leer.next();
+                        if (titulo.trim().isEmpty()) {
+                            System.out.print("No se va a cargar ningun libro. Salida...");
+                            break;
+                        }
                         
                         anio = Inputs.inputInteger("Ingrese el año de edición: ");
                         
                         ejemplares = Inputs.inputInteger("Ingrese la cantidad de ejemplares: ");
+                        
+                        /// opcion de autores
+                        autores = sa.NombresDeAutores();
+                        autores.add("Agregar nuevo Autor");
+                        autores.add("Salir");
+                        nombreAutor = (String) sm.multipleChoice(autores, "Nombres de Autores:").values().toArray()[0];
+                        switch (nombreAutor) {
+                            case "Agregar nuevo Autor":
+                                //// Agrega nuevo autor
+                                break;
+                            case "Salir":
+                              
+                        }
+                        
                         tempLibro = new Libro();
                         tempLibro.setId(UUID.randomUUID().toString());
                         tempLibro.setIsbn(isbn);
@@ -352,10 +374,16 @@ public class Ejercicio_1 {
 
                         System.out.println(Utils.tituloSimple(opciones[sm.getResultado()-1], 15));
                         sl.mostrar(sl.listaDeLibros());
+                        
                         break;
                     case 6://            "Mostrar libros de un autor"
                         
-                        System.out.println(Utils.tituloSimple(opciones[sm.getResultado()-1]+", Falta Preparar!!!", 10));
+                        System.out.println(Utils.tituloSimple(opciones[sm.getResultado()-1], 15));
+                        nombreAutor = (String) sm.multipleChoice(sa.NombresDeAutores(), "Lista de Autores").values().toArray()[0];
+                        System.out.println("");
+                        System.out.println(Utils.tituloSimple("Libros de "+ nombreAutor+"...", 10));
+                        sl.mostrarSegunTitulos(sl.listaDeLibrosDelAutor(nombreAutor),"titulo","ejemplares","ejemplaresRestantes","autor");
+                        
                         break;
                     case 7://            "Mostrar libros de una editorial"
                         

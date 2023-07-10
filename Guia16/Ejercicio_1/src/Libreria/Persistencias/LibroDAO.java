@@ -55,7 +55,6 @@ public class LibroDAO extends DAO {
         }
         conectar();
         Libro libro = (Libro) em.createQuery("SELECT l FROM Libro l WHERE l.isbn = :isbn").setParameter("isbn", isbn).getSingleResult();
-        
         desconectar();
         return libro;
     }
@@ -86,5 +85,14 @@ public class LibroDAO extends DAO {
             throw e;
         }
     }
-
+    public List<Libro> listaLibrosAutor(String nombre){
+        try {
+            conectar();
+            List<Libro> lista= em.createQuery("SELECT l FROM Libro l WHERE l.autor.nombre = :nombre").setParameter("nombre", nombre).getResultList();
+            desconectar();
+            return lista;
+        } catch (Exception e) {
+            throw e;
+        }
+    }
 }

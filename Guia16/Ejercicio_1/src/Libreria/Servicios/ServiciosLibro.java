@@ -7,7 +7,6 @@ package Libreria.Servicios;
 
 import Libreria.Entidades.Libro;
 import Libreria.Persistencias.LibroDAO;
-import Utilidades.Utils.Utils;
 import java.util.List;
 import java.util.UUID;
 
@@ -59,5 +58,9 @@ public class ServiciosLibro extends BaseServicios<Libro> {
         } catch (Exception e) {
             return false;
         }
+    }
+    
+    public List<Libro> listaDeLibrosDelAutor(String nombre){
+        return lDAO.listaLibrosAutor(nombre);
     }
 }
