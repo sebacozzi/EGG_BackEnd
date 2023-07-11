@@ -307,7 +307,7 @@ public class Ejercicio_1 {
             //Autor autor;
             String mensaje;
             String respuetaMChoice;
-            Editorial editorial;
+            String nombreEditorial;
             String nombreAutor="";
             Libro tempLibro;
             ServiciosMenu sm = new ServiciosMenu();
@@ -317,7 +317,7 @@ public class Ejercicio_1 {
                     case 1://            "Cargar un nuevo Libro"
                         
                         System.out.println(Utils.tituloSimple(opciones[sm.getResultado()-1], 15));
-                        
+                        try{
                         isbn = Inputs.inputLong("Ingrese el ISBN del libro: ");
                         while (sl.ExisteISBN(isbn)) {
                             isbn = Inputs.inputLong("Ya existe el ISBN. Ingrese otro: ");
@@ -326,8 +326,7 @@ public class Ejercicio_1 {
                         System.out.print("Ingresar el nombre del libro(Dejar vacio para salir): ");
                         titulo=leer.next();
                         if (titulo.trim().isEmpty()) {
-                            System.out.print("No se va a cargar ningun libro. Salida...");
-                            break;
+                            throw new Exception("No se va a cargar ningun libro. Salida...");
                         }
                         
                         anio = Inputs.inputInteger("Ingrese el año de edición: ");
@@ -342,10 +341,14 @@ public class Ejercicio_1 {
                         switch (nombreAutor) {
                             case "Agregar nuevo Autor":
                                 //// Agrega nuevo autor
+                                System.out.print("Ingrese el nombre del autor: ");
+                                nombreAutor = leer.next();
+                                sa.crearAutor(nombreAutor);
                                 break;
                             case "Salir":
-                              
+                              throw new Exception("No se va crear un libro porque no se cargo un autor.");
                         }
+                        
                         
                         tempLibro = new Libro();
                         tempLibro.setId(UUID.randomUUID().toString());
@@ -354,7 +357,11 @@ public class Ejercicio_1 {
                         tempLibro.setEjemplares(ejemplares);
                         tempLibro.setAnio(anio);
                         tempLibro.setAlta(true);
-                        
+                        tempLibro.setAutor(sa.buscarAutorPorNombre(nombreAutor));
+                        //tempLibro.setEditorial(se.buscarEditorialPorNombre(nombreEditorial));
+                        }catch (Exception e){
+                            System.out.println(Utils.tituloSimple(e.getMessage(),10));
+                        }
                         break;
                         
                     case 2://            "Editar un libro"

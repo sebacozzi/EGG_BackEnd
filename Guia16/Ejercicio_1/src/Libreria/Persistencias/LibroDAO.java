@@ -12,16 +12,19 @@ import java.util.List;
  *
  * @author Sebastian Cozzi
  */
-public class LibroDAO extends DAO {
+public class LibroDAO extends DAO<Libro> {
 
+    @Override
     public void guardar(Libro libro) {
         super.guardar(libro);
     }
 
+    @Override
     public void eliminar(Libro libro) {
         super.eliminar(libro);
     }
 
+    @Override
     public void modificar(Libro libro) {
         super.modificar(libro);
     }
