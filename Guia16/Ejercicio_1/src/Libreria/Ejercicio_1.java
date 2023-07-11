@@ -88,7 +88,7 @@ public class Ejercicio_1 {
 //                       Utils.esperaTecla();
         try {
             do {
-                sm.showMenu(menuPrincipal, "Menu Principal de Libreria.");
+                sm.showMenu(menuPrincipal, "Menu Principal de Libreria");
                 switch (sm.getResultado()) {
                     case 1://            "Menu Editorial"
                         menuEditorial(se, menuEditorial);
@@ -343,7 +343,13 @@ public class Ejercicio_1 {
                                 //// Agrega nuevo autor
                                 System.out.print("Ingrese el nombre del autor: ");
                                 nombreAutor = leer.next();
+                                if (sa.buscarAutorPorNombre(nombreAutor) !=null) {
+                                    System.out.println("Ya existe un autor con ese nombre.");
+                                    
+                                }
                                 sa.crearAutor(nombreAutor);
+                                // si nombre existe preguntar si 
+                                
                                 break;
                             case "Salir":
                               throw new Exception("No se va crear un libro porque no se cargo un autor.");
