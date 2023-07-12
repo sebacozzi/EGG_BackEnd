@@ -222,6 +222,7 @@ public class Ejercicio_1 {
                         System.out.println(Utils.tituloSimple("Carga de un nuevo Autor", 20));
                         System.out.println("");
                         autor=sa.crearAutor();
+                        
                         if(autor != null){
                         System.out.print(Utils.tituloSimple("Se cargo correctamente el nuevo autor.", 15));
                             sa.mostrar(sa.buscarAutorPorNombre(autor.getNombre()));
