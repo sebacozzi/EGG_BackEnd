@@ -15,6 +15,23 @@ import java.io.IOException;
  * @author Sebastián Cozzi
  */
 public class Utils {
+    private static final String BLACK_BACK = "\u001B[40m";
+    private static final String RED_BACK = "\u001B[41m";
+    private static final String GREEN_BACK = "\u001B[42m";
+    private static final String YELLOW_BACK = "\u001B[43m";
+    private static final String BLUE_BACK = "\u001B[44m";
+    private static final String PURPLE_BACK = "\u001B[45m";
+    private static final String CYAN_BACK = "\u001B[46m";
+    private static final String WHITE_BACK = "\u001B[47m";
+    
+    private static final String ANSI_BLACK = "\u001B[30m";
+    private static final String ANSI_RED = "\u001B[31m";
+    private static final String ANSI_GREEN = "\u001B[32m";
+    private static final String ANSI_YELLOW = "\u001B[33m";
+    private static final String ANSI_BLUE = "\u001B[34m";
+    private static final String ANSI_PURPLE = "\u001B[35m";
+    private static final String ANSI_CYAN = "\u001B[36m";
+    private static final String ANSI_WHITE = "\u001B[37m";
 
     public static void esperaTecla() {
         System.out.println("Precione Enter/Intro para continuar.");
@@ -59,20 +76,20 @@ public class Utils {
                 if (j < margen) {
                     t += " ";
                 } else if (i < 2 || i > maxAlto - 3 || j < margen + 2 || j > margen + maxLargo - 3) {
-                    t += "*";
+                    t += GREEN_BACK +ANSI_PURPLE+ "*"+ BLACK_BACK;
                 } else if (i < 3 && j < 3 + margen) {
 
-                    t += " " + texto + " **";
+                    t += GREEN_BACK + ANSI_BLUE + " " + texto + ANSI_PURPLE+ " **" + BLACK_BACK;
                     break;
                 }
             }
-            t += "\n";
+            t += "\n"+ANSI_WHITE;
         }
         return t;
     }
 
     public static String tituloSimple(String texto, int margen) {
-    int maxLargo = texto.length() + 4;
+        int maxLargo = texto.length() + 4;
         int maxAlto = 3 + (texto.length() - texto.replace("\n", "").length());
         String t = "";
         for (int i = 0; i < maxAlto; i++) {
@@ -129,7 +146,7 @@ public class Utils {
             throw new Exception("La entidad está vacia.");
         }
     }
-    
+
     public static void muestraExcepcion(Exception e) {
         Utils.cls();
         System.out.println("Se produjo una falla.\n Detalles: ");
