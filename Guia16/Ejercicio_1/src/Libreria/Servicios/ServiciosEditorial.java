@@ -7,10 +7,12 @@ package Libreria.Servicios;
 
 import Libreria.Entidades.Editorial;
 import Libreria.Persistencias.EditorialDAO;
+import Utilidades.Menu.ServiciosMenu;
 import Utilidades.Utils.Utils;
 import java.util.List;
 import java.util.UUID;
 import java.lang.reflect.Field;
+import java.util.Scanner;
 
 /**
  *
@@ -40,25 +42,46 @@ public class ServiciosEditorial extends BaseServicios<Editorial>{
         return eDAO.EditorialPorNombre(nombre);
     }
 
-    public Editorial crearEditorial(String nombre) throws Exception {
+    public Editorial crearEditorial() throws Exception {
+        Scanner leer = new Scanner(System.in, "ISO-8859-1").useDelimiter("\n");
+        String nombre;
         try {
+            
             Editorial e = new Editorial();
+            
+            do{
+            System.out.print("Ingrese el nombre de la editorial (Dejar vacio para salir: ");
+            nombre=leer.next();
+                if (nombre.trim().isEmpty()) {
+                    return null;
+                }
+            }while(existeEditorial(nombre));
             e.setId(UUID.randomUUID().toString());
             e.setNombre(nombre);
             e.setAlta(true);
             eDAO.guardar(e);
             return eDAO.EditorialPorNombre(nombre);
         } catch (Exception e) {
-            throw e;
+            return null;
         }
     }
     
-    public void modificarEditorial(Editorial editorial) throws Exception {
+    public boolean modificarEditorial() throws Exception {
         try {
-            Utils.existe(editorial);
+            List<String> lista = listaDeNombresDeEditoriales();
+            lista.add("Volver");
+            String respuesta = (String) ServiciosMenu.multipleChoice(lista, "Lista de editoriales: ").values().toArray()[0];
+            if (respuesta.equalsIgnoreCase("Volver")) {
+                return false;
+            }
+            
+            Editorial editorial = buscarEditorialPorNombre(respueta);
+                        System.out.printf("Nombre actual: %s (Dejar vacio para no cambiar)\nIngrese el nombre nuevo para la editorial: ",tempEditorial.getNombre());
+                        nombre = leer.next();
+                        Utils.existe(editorial);
             eDAO.modificar(editorial);
         } catch (Exception e) {
-            throw e;
+            return false;
         }
     }
     
@@ -69,141 +92,14 @@ public class ServiciosEditorial extends BaseServicios<Editorial>{
         } catch (Exception e) {
             throw e;
         }
+
     }
-
-
-    /*public void mostrar(List<Editorial> lista) throws Exception {
+    private boolean existeEditorial(String nombre){
         try {
-
-            int colCount = lista.get(0).getClass().getDeclaredFields().length; // contador con el total de atributos
-            int[] anchos = new int[colCount]; // determina el ancho maximo de cada atributo
-            char[] align = new char[colCount];// alineacion del atributo (para los tipos numericos van a la derecha)
-            String[] titulos = new String[colCount];
-            /// obteniendo variables de ajuste
-
-            /// ---- titulos 
-            for (int i = 0; i < colCount; i++) {
-                titulos[i] = lista.get(0).getClass().getDeclaredFields()[i].getName();
-                switch (lista.get(0).getClass().getDeclaredFields()[i].getGenericType().getTypeName()) {
-                    case "java.lang.Long":
-                    case "java.lang.Integer":
-                    case "java.lang.Double":
-                        align[i] = '-';
-                        break;
-                    default:
-                        align[i] = ' ';
-                }
-            }
-
-            /// ---- Anchos de columnas
-            Object o;
-            for (Editorial e : lista) {
-                o = e;
-                for (int i = 0; i < colCount; i++) {
-                    Field f = e.getClass().getDeclaredFields()[i];
-                    f.setAccessible(true);
-                    if (anchos[i] < f.get(o).toString().length()) {
-                        anchos[i] = f.get(o).toString().length();
-                    }
-                    f.setAccessible(false);
-                }
-            }
-            ////  Mostrar Datos ////
-            // Dibujar titulo
             
-            String encabezado = "|";
-            // crea el String para los titulos de columnas
-            for (int i = 0; i < colCount; i++) {
-                encabezado = encabezado.concat(" %-" + (anchos[i]) + "s");
-                encabezado += " |";
-                encabezado = String.format(encabezado, titulos[i]);
-            }
-            //Linea tapa encabezado
-            System.out.println(Utils.mChar('_',encabezado.length()-2));
-            // nombres de campos encabezado
-            System.out.println(encabezado);
-            // cierre encabezado, y tapa de campos
-            System.out.println(Utils.mChar('-',encabezado.length()-2));
-            /// lista de campos
-            String campos = "|";
-            for (Editorial e : lista) { // recorre la lista
-                campos = "|";
-            for (int i = 0; i < colCount; i++) { // recorre los campos/atributos del objeto
-                campos = campos.concat(" %"+ align[i] + (anchos[i]) + "s");
-                campos += " |";
-                Field f=e.getClass().getDeclaredFields()[i];
-                f.setAccessible(true); // desbloquea el atributo
-                campos = String.format(campos, f.get(e).toString()); // obtiene el toString del atributo
-                f.setAccessible(false); // bloquea el atributo
-            }
-                System.out.println(campos);// imprime fila de atributos del objeto actual
-            }
-            // cierre de campos
-            System.out.println(Utils.mChar('-',encabezado.length()-2));
-            
-
+            return eDAO.EditorialPorNombre(nombre)!=null;
         } catch (Exception e) {
-
-            throw e;
+            return false;
         }
-
-    }*/
-
-    
-    
+    }
 }
-/*public void mostrarFabricantes(Collection<Fabricante> fs) {
-        try {
-
-            int[] anchos = new int[fDAO.colCount + 1];
-
-            // Define el ancho final de las columnas
-            for (int i = 1; i <= fDAO.colCount; i++) {
-                if (fDAO.anchoColumnas[i] < fDAO.listaColumnas[i].length()) {
-                    anchos[i] = fDAO.listaColumnas[i].length();
-                } else {
-                    anchos[i] = fDAO.anchoColumnas[i];
-                }
-                if (fDAO.tipoColumnas[i].equalsIgnoreCase("s")) {
-                    anchos[i] = anchos[i] * -1;
-                }
-            }
-
-            // Genera encabezado
-            String linea = "|";
-            for (int i = 1; i <= fDAO.colCount; i++) {
-                linea = linea.concat(" %" + (anchos[i]) + "s");
-                linea += " |";
-                linea = String.format(linea, fDAO.listaColumnas[i]);
-            }
-            System.out.print(" ");
-            int lS = linea.length() - 2;
-            for (int i = 0; i < lS; i++) {
-                System.out.print("_");
-            }
-            System.out.println("");
-            System.out.println(linea);
-            System.out.print("|");
-            for (int i = 0; i < lS; i++) {
-                System.out.print("-");
-            }
-            System.out.println("|");
-            for (Fabricante f : fs) {
-                linea = "|";
-                for (int i = 1; i <= fDAO.colCount; i++) {
-                    linea = linea.concat(String.format(" %%%ds", anchos[i]));
-                    linea += " |";
-                    linea = String.format(linea, f.getValue(fDAO.listaColumnas[i]));
-                }
-                linea += "\n";
-                System.out.print(linea);
-            }
-            System.out.print(" ");
-            for (int i = 0; i < lS; i++) {
-                System.out.print("-");
-            }
-            System.out.println("");
-        } catch (Exception e) {
-            throw e;
-        }
-    }-*/

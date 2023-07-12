@@ -124,7 +124,7 @@ public class Ejercicio_1 {
             String nombre;
             String mensaje;
             String respuetaMChoice;
-            Editorial tempEditorial;
+            Editorial editorial;
             ServiciosMenu sm = new ServiciosMenu();
             do {
                 sm.showMenu(opciones, "Menu de manejo de Editoriales");
@@ -132,16 +132,13 @@ public class Ejercicio_1 {
                     case 1://            "Crear nueva editorial"
                         System.out.println(Utils.tituloSimple(opciones[sm.getResultado()-1], 15));
                         
-                        System.out.print("Ingresar el nombre de la Editorial (Dejar vacio para volver): "); 
-                        nombre = leer.next();
-                        if (nombre.trim().isEmpty()) {
-                            System.out.println(" se cargo ninguna Editorial. Volviendo al menu.");
+                        editorial = se.crearEditorial();
+                        if (editorial== null) {
+                            System.out.println("No se cargo ninguna Editorial. Volviendo al menu.");
                         } else{
-                        se.crearEditorial(nombre);
                         System.out.println(Utils.tituloSimple("Editorial creada con exito", 10));
-                        se.mostrar(se.buscarEditorialPorNombre(nombre));
+                        se.mostrar(editorial);
                         }
-                        //System.out.println(Utils.tituloSimple("Cargar nueva editorial, Falta Preparar!!!", 10));
                         break;
                     case 2://            "Editar editorial"
                         
