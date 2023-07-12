@@ -101,7 +101,8 @@ public class ServiciosMenu {
 
     }
     
-    public HashMap<Integer,String> multipleChoice(List<String> opciones, String titulo){
+    public static HashMap<Integer,String> multipleChoice(List<String> opciones, String titulo){
+        Scanner leer = new Scanner(System.in, "ISO-8859-1").useDelimiter("\n");
        HashMap<Integer,String> resultado= new HashMap();
        int indice =1;
        /// dibuja opciones
@@ -138,5 +139,21 @@ public class ServiciosMenu {
     }
     public int getintMC(HashMap<Integer,String> resultado){
         return (int) resultado.keySet().toArray()[0];
+    }
+    
+    public static boolean preguntaSNExt(String texto) {
+        Scanner leer = new Scanner(System.in, "ISO-8859-1").useDelimiter("\n");
+        do {
+            System.out.print(texto);
+            switch (leer.next().toLowerCase().charAt(0)) {
+                case 's':
+                    return true;
+                case 'n':
+                    return false;
+                default:
+                    System.out.println("Opción incorrecta, es s o n!!");
+            }
+        } while (true);
+
     }
 }

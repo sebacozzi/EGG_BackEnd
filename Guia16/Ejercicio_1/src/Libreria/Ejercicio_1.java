@@ -208,6 +208,7 @@ public class Ejercicio_1 {
     private static void menuAutor(ServiciosAutor sa, String[] opciones) {
         try {
             Scanner leer = new Scanner(System.in, "ISO-8859-1").useDelimiter("\n");
+            Autor autor;
             String nombre;
             String mensaje;
             String respuetaMChoice;
@@ -220,51 +221,38 @@ public class Ejercicio_1 {
 
                         System.out.println(Utils.tituloSimple("Carga de un nuevo Autor", 20));
                         System.out.println("");
-                        System.out.print("Ingresar el nombre completo del autor (Dejar vacio para volver): ");
-                        nombre = leer.next();
-                        if (nombre.trim().isEmpty()) {
-                            System.out.print(Utils.tituloSimple("No se va a cargar ningun autor.", 15));
-                        } else {
-                            sa.crearAutor(nombre);
-                            System.out.print(Utils.tituloSimple("Se cargo correctamente el nuevo autor.", 15));
-                            sa.mostrar(sa.buscarAutorPorNombre(nombre));
+                        autor=sa.crearAutor();
+                        if(autor != null){
+                        System.out.print(Utils.tituloSimple("Se cargo correctamente el nuevo autor.", 15));
+                            sa.mostrar(sa.buscarAutorPorNombre(autor.getNombre()));
+                        } else{
+                            System.out.print(Utils.tituloSimple("No se cargó ningún autor.", 15));
                         }
                         break;
                     case 2://       "Editar Autor"
 
-                        System.out.println(Utils.tituloSimple("Modificar Autor", 20));
+                        System.out.println(Utils.tituloSimple(opciones[sm.getResultado()-1], 15));
                         System.out.println("");
-
-                        respuetaMChoice = (String) sm.multipleChoice(sa.NombresDeAutores(), "Nombres de Autores cargados:").values().toArray()[0];
-                        tempAutor = sa.buscarAutorPorNombre(respuetaMChoice);
-                        System.out.printf("Nombre actual: %1$s. Dejar vacio para no modificar.\nIngrese el nuevo nombre para autor %1$s: ", tempAutor.getNombre());
-                        nombre = leer.next();
-                        if (!nombre.trim().isEmpty()) {
-                            tempAutor.setNombre(nombre);
-                            sa.modificaAutor(tempAutor);
+                        
+                        if (sa.modificaAutor()) {
                             mensaje = Utils.tituloSimple("Se modifico el autor.", 15);
-
                         } else {
                             mensaje = Utils.tituloSimple("No se modifico el autor.", 15);
                         }
 
-                        System.out.println(mensaje);
+                        System.out.println(Utils.tituloSimple(mensaje, 15));
                         System.out.println("");
-                        sa.mostrar(sa.buscarAutor(tempAutor.getId()));
+                        
                         break;
                     case 3://       "Eliminar Autor"
 
                         System.out.println(Utils.tituloSimple("Eliminar Autor", 20));
                         System.out.println("");
 
-                        respuetaMChoice = (String) sm.multipleChoice(sa.NombresDeAutores(), "Nombres de Autores cargados:").values().toArray()[0];
-                        tempAutor = sa.buscarAutorPorNombre(respuetaMChoice);
-                        System.out.println(Utils.tituloSimple("Autor a eliminar", 15));
-                        sa.mostrar(tempAutor);
-                        if (sm.preguntaSN("¿Está seguro que quiere eliminar el autor?(s/n)-> ")
-                                && sm.preguntaSN(" ¿Realmente está seguro? luego de esté paso no se podra revertir.(s/n)-> ")) {
-                            mensaje = "Eliminaste definitivamente el autor " + tempAutor.getNombre() + ".";
-                            sa.eliminarAutor(tempAutor);
+
+                        if (sa.eliminarAutor()){
+                            mensaje = "Eliminaste definitivamente el autor.";
+                            
                         } else {
                             mensaje = "Por suerte no eliminaste el autor.";
                         }
@@ -273,7 +261,7 @@ public class Ejercicio_1 {
                         break;
                     case 4://       "Mostrar Autores"
                         
-                        sa.mostrar1(sa.NombresDeAutores(),"Nombres de Autores");
+                        sa.mostrar1(sa.nombresDeAutores(),"Nombres de Autores");
                         break;
                     case 5://       "Mostrar información completa de los autores"
                         
@@ -334,7 +322,7 @@ public class Ejercicio_1 {
                         ejemplares = Inputs.inputInteger("Ingrese la cantidad de ejemplares: ");
                         
                         /// opcion de autores
-                        autores = sa.NombresDeAutores();
+                        autores = sa.nombresDeAutores();
                         autores.add("Agregar nuevo Autor");
                         autores.add("Salir");
                         nombreAutor = (String) sm.multipleChoice(autores, "Nombres de Autores:").values().toArray()[0];
@@ -343,7 +331,7 @@ public class Ejercicio_1 {
                                 //// Agrega nuevo autor
                                 System.out.print("Ingrese el nombre del autor: ");
                                 nombreAutor = leer.next();
-                                sa.crearAutor(nombreAutor);
+                                //autor=sa.crearAutor();
                                 break;
                             case "Salir":
                               throw new Exception("No se va crear un libro porque no se cargo un autor.");
@@ -386,7 +374,7 @@ public class Ejercicio_1 {
                     case 6://            "Mostrar libros de un autor"
                         
                         System.out.println(Utils.tituloSimple(opciones[sm.getResultado()-1], 15));
-                        nombreAutor = (String) sm.multipleChoice(sa.NombresDeAutores(), "Lista de Autores").values().toArray()[0];
+                        nombreAutor = (String) sm.multipleChoice(sa.nombresDeAutores(), "Lista de Autores").values().toArray()[0];
                         System.out.println("");
                         System.out.println(Utils.tituloSimple("Libros de "+ nombreAutor+"...", 10));
                         sl.mostrarSegunTitulos(sl.listaDeLibrosDelAutor(nombreAutor),"titulo","ejemplares","ejemplaresRestantes","autor");

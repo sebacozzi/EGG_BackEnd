@@ -109,7 +109,18 @@ public class AutorDAO extends DAO<Autor> {
             throw e;
         }
     }
-
+    
+    public boolean existeAutor(String nombre){
+        try {
+            conectar();
+            Autor a = autorPorNombre(nombre);
+            desconectar();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+        
+    }
 //    public List<Libro> librosDeAutor(Autor a) {
 //        try {
 //            conectar();
