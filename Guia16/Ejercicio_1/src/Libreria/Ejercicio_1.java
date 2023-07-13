@@ -60,8 +60,6 @@ public class Ejercicio_1 {
             "Eliminar Editorial",
             "Mostrar nombres de Editoriales",
             "Mostrar información completa de las Editoriales",
-            "Mostrar las Editoriales de las haya algún libro",
-            "Mostrar las Editoriales de las que no haya ningún libro",
             "Volver"};
         String[] menuAutor = {
             "Crear Autor nuevo",
@@ -69,7 +67,6 @@ public class Ejercicio_1 {
             "Eliminar Autor",
             "Mostrar Autores",
             "Mostrar información completa de los autores",
-            "Mostrar el/los Autor/es de los haya un libro",
             "Volver"};
         String[] menuLibro = {
             "Crear un nuevo Libro",
@@ -136,39 +133,35 @@ public class Ejercicio_1 {
                         if (editorial== null) {
                             System.out.println("No se cargo ninguna Editorial. Volviendo al menu.");
                         } else{
-                        System.out.println(Utils.tituloSimple("Editorial creada con exito", 10));
+                        System.out.println(Utils.tituloSimple("Editorial creada con exito", 15));
                         se.mostrar(editorial);
                         }
                         break;
                     case 2://            "Editar editorial"
                         
                         System.out.println(Utils.tituloSimple(opciones[sm.getResultado()-1], 15));
-                        respuetaMChoice = (String) sm.multipleChoice(se.listaDeNombresDeEditoriales(), "Lista de editoriales: ").values().toArray()[0];
-                        tempEditorial = se.buscarEditorialPorNombre(respuetaMChoice);
-                        System.out.printf("Nombre actual: %s (Dejar vacio para no cambiar)\nIngrese el nombre nuevo para la editorial: ",tempEditorial.getNombre());
-                        nombre = leer.next();
-                        if (!nombre.trim().isEmpty()) {
-                            tempEditorial.setNombre(nombre);
-                            se.modificarEditorial(tempEditorial);
-                            se.mostrar(se.buscarEditorialPorNombre(nombre));
+                        
+                        if (se.modificarEditorial()) {
+                            mensaje = "La editorial se modifico correctamente.";
                         } else{
-                            System.out.println(Utils.tituloSimple("No se modifico la editorial "+respuetaMChoice, 15));
+                            mensaje  = "La editorial no se nodifico.";
                         }
+                        System.out.println(Utils.tituloSimple(mensaje, 15));
                         break;
                         
                     case 3://            "Eliminar Editorial"
                         
                         System.out.println(Utils.tituloSimple(opciones[sm.getResultado()-1], 15));
-                        respuetaMChoice = (String) sm.multipleChoice(se.listaDeNombresDeEditoriales(), "Lista de editoriales: ").values().toArray()[0];
-                        tempEditorial = se.buscarEditorialPorNombre(respuetaMChoice);
-                        se.mostrar(tempEditorial);
-                        if (sm.preguntaSN("¿Está seguro que quiere eliminar el autor?(s/n)-> ")
-                                && sm.preguntaSN(" ¿Realmente está seguro? luego de esté paso no se podra revertir.(s/n)-> ")) {
-                            mensaje = "Eliminaste definitivamente el autor " + tempEditorial.getNombre() + ".";
-                            se.eliminarEditorial(tempEditorial);
+                        
+                        if (se.eliminarEditorial()) {
+                            mensaje = "Eliminaste definitivamente la Editorial.";
+                            
                         } else {
-                            mensaje = "Por suerte no eliminaste el autor.";
+                            mensaje = "Por suerte no eliminaste la editorial.";
                         }
+                        
+                        System.out.println(Utils.tituloSimple(mensaje, 15)
+                        );
                         break;
                         
                     case 4://            "Mostrar nombres de Editoriales"
@@ -180,15 +173,6 @@ public class Ejercicio_1 {
                         
                         System.out.println(Utils.tituloSimple(opciones[sm.getResultado()-1], 15));
                         se.mostrar(se.listaDeEditoriales());
-                        break;
-                        
-                    case 6://            "Mostrar las Editoriales de las haya algún libro"
-                        
-                        System.out.println(Utils.tituloSimple(opciones[sm.getResultado()-1]+", Falta Preparar!!!", 10));
-                        break;
-                    case 7://            "Mostrar las Editoriales de las que no haya ningún libro"
-                        
-                        System.out.println(Utils.tituloSimple(opciones[sm.getResultado()-1]+", Falta Preparar!!!", 10));
                 }
                 if (sm.esSalir()) {//            "Volver"
                     break;
@@ -204,12 +188,8 @@ public class Ejercicio_1 {
 
     private static void menuAutor(ServiciosAutor sa, String[] opciones) {
         try {
-            Scanner leer = new Scanner(System.in, "ISO-8859-1").useDelimiter("\n");
             Autor autor;
-            String nombre;
             String mensaje;
-            String respuetaMChoice;
-            Autor tempAutor;
             ServiciosMenu sm = new ServiciosMenu();
             do {
                 sm.showMenu(opciones, "Menú de manjejo de Autores");
@@ -303,61 +283,13 @@ public class Ejercicio_1 {
                     case 1://            "Cargar un nuevo Libro"
                         
                         System.out.println(Utils.tituloSimple(opciones[sm.getResultado()-1], 15));
-                        try{
-                        isbn = Inputs.inputLong("Ingrese el ISBN del libro: ");
-                        while (sl.ExisteISBN(isbn)) {
-                            isbn = Inputs.inputLong("Ya existe el ISBN. Ingrese otro: ");
+                        
+                        tempLibro = sl.fabricarLibro();
+                        mensaje = "No se pudo cargar el libro.";
+                        if (tempLibro!=null) {
+                            mensaje = "Libro cargado con exito.";
                         }
-                        
-                        System.out.print("Ingresar el nombre del libro(Dejar vacio para salir): ");
-                        titulo=leer.next();
-                        if (titulo.trim().isEmpty()) {
-                            throw new Exception("No se va a cargar ningun libro. Salida...");
-                        }
-                        
-                        anio = Inputs.inputInteger("Ingrese el año de edición: ");
-                        
-                        ejemplares = Inputs.inputInteger("Ingrese la cantidad de ejemplares: ");
-                        
-                        /// opcion de autores
-                        autores = sa.nombresDeAutores();
-                        autores.add("Agregar nuevo Autor");
-                        autores.add("Salir");
-                        nombreAutor = (String) sm.multipleChoice(autores, "Nombres de Autores:").values().toArray()[0];
-                        switch (nombreAutor) {
-                            case "Agregar nuevo Autor":
-                                //// Agrega nuevo autor
-                                System.out.print("Ingrese el nombre del autor: ");
-                                nombreAutor = leer.next();
-<<<<<<< HEAD
-                                //autor=sa.crearAutor();
-=======
-                                if (sa.buscarAutorPorNombre(nombreAutor) !=null) {
-                                    System.out.println("Ya existe un autor con ese nombre.");
-                                    
-                                }
-                                sa.crearAutor(nombreAutor);
-                                // si nombre existe preguntar si 
-                                
->>>>>>> 93921266b1afc75a93cd0b36748a59fa9a1a602d
-                                break;
-                            case "Salir":
-                              throw new Exception("No se va crear un libro porque no se cargo un autor.");
-                        }
-                        
-                        
-                        tempLibro = new Libro();
-                        tempLibro.setId(UUID.randomUUID().toString());
-                        tempLibro.setIsbn(isbn);
-                        tempLibro.setTitulo(titulo);
-                        tempLibro.setEjemplares(ejemplares);
-                        tempLibro.setAnio(anio);
-                        tempLibro.setAlta(true);
-                        tempLibro.setAutor(sa.buscarAutorPorNombre(nombreAutor));
-                        //tempLibro.setEditorial(se.buscarEditorialPorNombre(nombreEditorial));
-                        }catch (Exception e){
-                            System.out.println(Utils.tituloSimple(e.getMessage(),10));
-                        }
+                         System.out.println(Utils.tituloSimple(mensaje, 15));
                         break;
                         
                     case 2://            "Editar un libro"

@@ -18,7 +18,7 @@ import java.util.Scanner;
  *
  * @author Sebastian Cozzi
  */
-public class ServiciosEditorial extends BaseServicios<Editorial>{
+public final class ServiciosEditorial extends BaseServicios<Editorial> {
 
     private final EditorialDAO eDAO;
 
@@ -46,16 +46,16 @@ public class ServiciosEditorial extends BaseServicios<Editorial>{
         Scanner leer = new Scanner(System.in, "ISO-8859-1").useDelimiter("\n");
         String nombre;
         try {
-            
+
             Editorial e = new Editorial();
-            
-            do{
-            System.out.print("Ingrese el nombre de la editorial (Dejar vacio para salir: ");
-            nombre=leer.next();
+
+            do {
+                System.out.print("Ingrese el nombre de la editorial (Dejar vacio para salir: ");
+                nombre = leer.next();
                 if (nombre.trim().isEmpty()) {
                     return null;
                 }
-            }while(existeEditorial(nombre));
+            } while (existeEditorial(nombre));
             e.setId(UUID.randomUUID().toString());
             e.setNombre(nombre);
             e.setAlta(true);
@@ -65,8 +65,9 @@ public class ServiciosEditorial extends BaseServicios<Editorial>{
             return null;
         }
     }
-    
+
     public boolean modificarEditorial() throws Exception {
+        Scanner leer = new Scanner(System.in, "ISO-8859-1").useDelimiter("\n");
         try {
             List<String> lista = listaDeNombresDeEditoriales();
             lista.add("Volver");
@@ -74,30 +75,53 @@ public class ServiciosEditorial extends BaseServicios<Editorial>{
             if (respuesta.equalsIgnoreCase("Volver")) {
                 return false;
             }
+
+            Editorial editorial = buscarEditorialPorNombre(respuesta);
+            System.out.printf("Nombre actual: %s (Dejar vacio para no cambiar)\nIngrese el nombre nuevo para la editorial: ", editorial.getNombre());
+            String nombre = leer.next();
+            if (nombre.trim().isEmpty()) {
+                return false;
+            }
             
-            Editorial editorial = buscarEditorialPorNombre(respueta);
-                        System.out.printf("Nombre actual: %s (Dejar vacio para no cambiar)\nIngrese el nombre nuevo para la editorial: ",tempEditorial.getNombre());
-                        nombre = leer.next();
-                        Utils.existe(editorial);
+            Utils.existe(editorial);
+            editorial.setNombre(nombre);
             eDAO.modificar(editorial);
+            return true;
         } catch (Exception e) {
             return false;
         }
     }
-    
-    public void eliminarEditorial(Editorial editorial) throws Exception {
+
+    public boolean eliminarEditorial() {
         try {
+            Editorial editorial;
+        
+            boolean r = false;
+            List<String> lista = listaDeNombresDeEditoriales();
+            lista.add("Volver");
+            String respueta = (String) ServiciosMenu.multipleChoice(lista, "Nombres de Autores cargados:").values().toArray()[0];
+            editorial = buscarEditorialPorNombre(respueta);
+            System.out.println(Utils.tituloSimple("Autor a eliminar", 15));
+            mostrar(editorial);
+
+            if (ServiciosMenu.preguntaSNExt("¿Está seguro que quiere eliminar el autor?(s/n)-> ")
+                    && ServiciosMenu.preguntaSNExt(" ¿Realmente está seguro? luego de esté paso no se podra revertir.(s/n)-> ")) {
+                r = true;
+                Utils.existe(editorial);
             Utils.existe(editorial);
             eDAO.eliminar(editorial);
+            } 
+            return r;
         } catch (Exception e) {
-            throw e;
+            return false;
         }
 
     }
-    private boolean existeEditorial(String nombre){
+
+    private boolean existeEditorial(String nombre) {
         try {
-            
-            return eDAO.EditorialPorNombre(nombre)!=null;
+
+            return eDAO.EditorialPorNombre(nombre) != null;
         } catch (Exception e) {
             return false;
         }
