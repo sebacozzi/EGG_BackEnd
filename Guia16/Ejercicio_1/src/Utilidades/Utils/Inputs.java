@@ -29,6 +29,10 @@ public class Inputs {
                 val = Integer.getInteger(ingreso);
                 break;
             } catch (Exception e) {
+                System.out.println("["+ingreso+"]");
+                if(ingreso==null) {
+                    return null;
+                }
                 System.out.printf("%s no es un número entero.\n -> ", ingreso);
             }
         } while (true);
@@ -45,14 +49,22 @@ public class Inputs {
         Long val;
         String ingreso="";
         Scanner leer = new Scanner(System.in, "ISO-8859-1").useDelimiter("\n");
-        System.out.print(mensaje);
+        boolean Estado = true;
+        
         do {
             try {
-                ingreso = leer.next();
+                if(Estado){
+                    System.out.print(mensaje);
+                } else
+                    System.out.printf("%s no es un número entero largo.\n -> ", ingreso);
+                ingreso = leer.nextLine();
                 val = Long.parseLong(ingreso);
                 break;
             } catch (Exception e) {
-                System.out.printf("%s no es un número entero largo.\n -> ", ingreso);
+                if (ingreso.trim().isEmpty()) {
+                    return null;
+                }
+                Estado = false;
             }
         } while (true);
         return val;

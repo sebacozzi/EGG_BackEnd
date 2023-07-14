@@ -11,7 +11,6 @@ import Libreria.Entidades.Libro;
 import Libreria.Persistencias.LibroDAO;
 import Utilidades.Menu.ServiciosMenu;
 import Utilidades.Utils.Inputs;
-import Utilidades.Utils.Utils;
 import java.util.List;
 import java.util.Scanner;
 import java.util.UUID;
@@ -25,7 +24,12 @@ public final class ServiciosLibro extends BaseServicios<Libro> {
     private final LibroDAO lDAO;
     private final ServiciosAutor sa;
     private final ServiciosEditorial se;
-
+    private Libro ultimoCreado;
+    private Libro ultimoAEditar;
+    private Libro ultimoEditado;
+    private Libro ultimoEliminado;
+    
+    
     public ServiciosLibro() {
         lDAO = new LibroDAO();
         sa = new ServiciosAutor();
@@ -133,9 +137,10 @@ public final class ServiciosLibro extends BaseServicios<Libro> {
             libro.setEditorial(editorial);
             
             
-       return crearLibro(libro.getIsbn(), libro.getTitulo(), libro.getAlta(), 
+       ultimoCreado = crearLibro(libro.getIsbn(), libro.getTitulo(), libro.getAlta(), 
                libro.getAnio(), libro.getEjemplares(), libro.getEjemplaresPrestados(), 
                libro.getAutor().getId(), libro.getEditorial().getId());
+       return ultimoCreado;
     }
     catch (Exception e) {
             throw e;
@@ -143,6 +148,28 @@ public final class ServiciosLibro extends BaseServicios<Libro> {
 
 }
 
+    public boolean editarLibro(){
+        try {
+            List<String> lista = listaNombresDeLibros();
+            lista.add("Salir");
+            String respuesta = (String) ServiciosMenu.multipleChoice(lista, "Lista de Libros a Editar:").values().toArray()[0];
+            if (respuesta.equalsIgnoreCase("Salir")) {
+                ultimoEditado = null;
+                return false;
+            }
+            ultimoAEditar = lDAO.libroPorTitulo(respuesta);
+            ultimoEditado = ultimoAEditar;
+            
+            Long isbn = Inputs.inputLong("ISBN actual:"+ultimoEditado.getIsbn()+".\nIngrese el nuevo isbn: ");
+            
+            
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+       
+    }
+    
 public List<Libro> listaDeLibros() throws Exception{
      return lDAO.listaCompleta();
     }
