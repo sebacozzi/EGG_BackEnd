@@ -29,6 +29,7 @@ private Integer ejemplaresPrestados;
 private Integer ejemplaresRestantes;
 private Boolean alta;
 @OneToOne
+
 private Autor autor;
 @OneToOne
 private Editorial editorial;
@@ -87,7 +88,10 @@ private Editorial editorial;
 
     public void setEjemplares(Integer ejemplares) {
         this.ejemplares = ejemplares;
-        this.ejemplaresPrestados = this.ejemplares-this.ejemplaresPrestados;
+        /*if (this.ejemplaresPrestados == null) {
+            this.ejemplaresPrestados = 0;
+        } else
+        this.ejemplaresPrestados = this.ejemplares-this.ejemplaresPrestados;*/
     }
 
     public Integer getEjemplaresPrestados() {

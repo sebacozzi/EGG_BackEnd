@@ -26,7 +26,7 @@ public class Inputs {
         do {
             try {
                 ingreso = leer.next();
-                val = Integer.getInteger(ingreso);
+                val = Integer.parseInt(ingreso);
                 break;
             } catch (Exception e) {
                 System.out.println("["+ingreso+"]");

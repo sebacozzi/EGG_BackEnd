@@ -107,7 +107,7 @@ public class Ejercicio_1 {
         
         
         
-        System.out.println(Inputs.inputLong("DSDASD: "));
+        
         //System.out.println(sm.multipleChoice(sl.listaNombresDeLibros(), "Lista de Autores:").values().toArray()[0]);
 //        se.mostrar1(se.listaDeNombresDeEditoriales(), "Nombres de Editoriales");
 //        se.mostrar(se.listaDeEditoriales());

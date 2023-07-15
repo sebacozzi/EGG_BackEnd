@@ -82,38 +82,18 @@ public final class ServiciosLibro extends BaseServicios<Libro> {
             ejemplares = Inputs.inputInteger("Ingrese la cantidad de ejemplares: ");
 
             /// opcion de autores
-            autores = sa.nombresDeAutores();
-            autores.add("Agregar nuevo Autor");
-            autores.add("Salir");
-            nombreAutor = (String) ServiciosMenu.multipleChoice(autores, "Nombres de Autores:").values().toArray()[0];
-            switch (nombreAutor) {
-                case "Agregar nuevo Autor":
-                    //// Agrega nuevo autor
-                    do {
-                        autor = sa.crearAutor();
-                        if (autor != null) {
-                            break;
-                        }
-                    } while (true);
-                    // si nombre existe preguntar si 
-
-                    break;
-                case "Salir":
-                    return null;
-                default:
-                    autor= sa.buscarAutorPorNombre(nombreAutor);
-            }
+            
             /// opcion de autores
             editoriales = se.listaDeNombresDeEditoriales();
             editoriales.add("Agregar nueva Editorial");
             editoriales.add("Salir");
-            nombreEditorial = (String) ServiciosMenu.multipleChoice(autores, "Nombres de las Editoriales:").values().toArray()[0];
+            nombreEditorial = (String) ServiciosMenu.multipleChoice(editoriales, "Nombres de las Editoriales:").values().toArray()[0];
             switch (nombreEditorial) {
                 case "Agregar nueva Editorial":
                     //// Agrega nuevo autor
                     do {
                         editorial = se.crearEditorial();
-                        if (autor != null) {
+                        if (editorial != null) {
                             break;
                         }
                     } while (true);
@@ -131,15 +111,15 @@ public final class ServiciosLibro extends BaseServicios<Libro> {
             libro.setIsbn(isbn);
             libro.setTitulo(titulo);
             libro.setEjemplares(ejemplares);
+            libro.setEjemplaresPrestados(0);
             libro.setAnio(anio);
             libro.setAlta(true);
             libro.setAutor(autor);
             libro.setEditorial(editorial);
             
             
-       ultimoCreado = crearLibro(libro.getIsbn(), libro.getTitulo(), libro.getAlta(), 
-               libro.getAnio(), libro.getEjemplares(), libro.getEjemplaresPrestados(), 
-               libro.getAutor().getId(), libro.getEditorial().getId());
+       ultimoCreado = libro;
+       lDAO.guardar(ultimoCreado);
        return ultimoCreado;
     }
     catch (Exception e) {
@@ -148,6 +128,42 @@ public final class ServiciosLibro extends BaseServicios<Libro> {
 
 }
 
+    private Autor seleccionaAutor(){
+        List<String> autores;
+        Autor autor=null;
+        String nombreAutor;
+        do {
+            
+            try {
+               autores = sa.nombresDeAutores();
+            autores.add("Agregar nuevo Autor");
+            autores.add("Salir");
+            nombreAutor = (String) ServiciosMenu.multipleChoice(autores, "Nombres de Autores:").values().toArray()[0];
+            switch (nombreAutor) {
+                case "Agregar nuevo Autor":
+                    //// Agrega nuevo autor
+                    do {
+                        autor = sa.crearAutor();
+                        if (autor != null) {
+                            break;
+                        } else {}
+                    } while (true);
+                    // si nombre existe preguntar si 
+
+                    break;
+                case "Salir":
+                    return null;
+                default:
+                    autor= sa.buscarAutorPorNombre(nombreAutor);
+            } 
+            } catch (Exception e) {
+            }
+        } while (autor==null);
+        return autor;
+        
+    }
+    
+    
     public boolean editarLibro(){
         try {
             List<String> lista = listaNombresDeLibros();
