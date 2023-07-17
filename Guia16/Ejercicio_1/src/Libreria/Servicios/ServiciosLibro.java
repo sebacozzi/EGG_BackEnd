@@ -28,8 +28,7 @@ public final class ServiciosLibro extends BaseServicios<Libro> {
     private Libro ultimoAEditar;
     private Libro ultimoEditado;
     private Libro ultimoEliminado;
-    
-    
+
     public ServiciosLibro() {
         lDAO = new LibroDAO();
         sa = new ServiciosAutor();
@@ -59,8 +58,8 @@ public final class ServiciosLibro extends BaseServicios<Libro> {
         Libro libro;
         Long isbn;
         String titulo, nombreAutor, nombreEditorial;
-        Autor autor=null;
-        Editorial editorial=null;
+        Autor autor = null;
+        Editorial editorial = null;
         Boolean alta;
         Integer anio, ejemplares, ejemplaresPrestados;
         List<String> autores;
@@ -81,30 +80,10 @@ public final class ServiciosLibro extends BaseServicios<Libro> {
 
             ejemplares = Inputs.inputInteger("Ingrese la cantidad de ejemplares: ");
 
-            /// opcion de autores
-            
-            /// opcion de autores
-            editoriales = se.listaDeNombresDeEditoriales();
-            editoriales.add("Agregar nueva Editorial");
-            editoriales.add("Salir");
-            nombreEditorial = (String) ServiciosMenu.multipleChoice(editoriales, "Nombres de las Editoriales:").values().toArray()[0];
-            switch (nombreEditorial) {
-                case "Agregar nueva Editorial":
-                    //// Agrega nuevo autor
-                    do {
-                        editorial = se.crearEditorial();
-                        if (editorial != null) {
-                            break;
-                        }
-                    } while (true);
-                    // si nombre existe preguntar si 
-
-                    break;
-                case "Salir":
-                    return null;
-                default:
-                    editorial=se.buscarEditorialPorNombre(nombreEditorial);
-            }
+            /// elegir autor
+            autor = seleccionarAutor(autor);
+            /// elegir editorial
+            editorial = seleccionarEditorial(editorial);
 
             libro = new Libro();
             libro.setId(UUID.randomUUID().toString());
@@ -116,55 +95,83 @@ public final class ServiciosLibro extends BaseServicios<Libro> {
             libro.setAlta(true);
             libro.setAutor(autor);
             libro.setEditorial(editorial);
-            
-            
-       ultimoCreado = libro;
-       lDAO.guardar(ultimoCreado);
-       return ultimoCreado;
-    }
-    catch (Exception e) {
+
+            ultimoCreado = libro;
+            lDAO.guardar(ultimoCreado);
+            return ultimoCreado;
+        } catch (Exception e) {
             throw e;
+        }
+
     }
 
-}
+    private Editorial seleccionarEditorial(Editorial ed) {
+        Editorial editorial = null;
+        List<String> editoriales;
+        String nombreEditorial;
+        do {
+            try {
+                editoriales = se.listaDeNombresDeEditoriales();
+                editoriales.add("Agregar nueva editorial");
+                if (e != null) {
+                    editoriales.add("Actual: \"" + ed.getNombre() + "\"");
+                }
+                editoriales.add("Salir");
+                nombreEditorial = (String) ServiciosMenu.multipleChoice(editoriales, "Nombres de Editoriales:").values().toArray()[0];
+                if (nombreEditorial.compareToIgnoreCase("Agregar nueva editorial") == 0) {
+                    editorial = se.crearEditorial();
+                } else if (nombreEditorial.compareToIgnoreCase("Actual: \"" + ed.getNombre() + "\"") == 0) {
+                    editorial = ed;
+                } else if (nombreEditorial.compareToIgnoreCase("Salir") == 0) {
+                    return null;
+                } else {
+                    editorial = se.buscarEditorialPorNombre(nombreEditorial);
+                }
+            } catch (Exception e) {
+            }
+        } while (editorial == null);
+        return editorial;
+    }
 
-    private Autor seleccionaAutor(){
+    private Autor seleccionarAutor(Autor a) {
         List<String> autores;
-        Autor autor=null;
+        Autor autor = null;
         String nombreAutor;
         do {
-            
+
             try {
-               autores = sa.nombresDeAutores();
-            autores.add("Agregar nuevo Autor");
-            autores.add("Salir");
-            nombreAutor = (String) ServiciosMenu.multipleChoice(autores, "Nombres de Autores:").values().toArray()[0];
-            switch (nombreAutor) {
-                case "Agregar nuevo Autor":
-                    //// Agrega nuevo autor
+                autores = sa.nombresDeAutores();
+                autores.add("Agregar nuevo Autor");
+                if (a != null) {
+                    autores.add("Actual: \"" + a.getNombre() + "\"");
+                }
+                autores.add("Salir");
+                nombreAutor = (String) ServiciosMenu.multipleChoice(autores, "Nombres de Autores:").values().toArray()[0];
+
+                if (nombreAutor.compareToIgnoreCase("Agregar nuevo Autor") == 0) {                    //// Agrega nuevo autor
                     do {
                         autor = sa.crearAutor();
                         if (autor != null) {
                             break;
-                        } else {}
+                        } else {
+                        }
                     } while (true);
-                    // si nombre existe preguntar si 
-
-                    break;
-                case "Salir":
+                    // si nombre existe preguntar si
+                } else if (nombreAutor.compareToIgnoreCase("Actual \"" + a.getNombre() + "\"") == 0) {
+                    autor = a;
+                } else if (nombreAutor.compareToIgnoreCase("Salir") == 0) {
                     return null;
-                default:
-                    autor= sa.buscarAutorPorNombre(nombreAutor);
-            } 
+                } else {
+                    autor = sa.buscarAutorPorNombre(nombreAutor);
+                }
             } catch (Exception e) {
             }
-        } while (autor==null);
+        } while (autor == null);
         return autor;
-        
+
     }
-    
-    
-    public boolean editarLibro(){
+
+    public boolean editarLibro() {
         try {
             List<String> lista = listaNombresDeLibros();
             lista.add("Salir");
@@ -175,19 +182,18 @@ public final class ServiciosLibro extends BaseServicios<Libro> {
             }
             ultimoAEditar = lDAO.libroPorTitulo(respuesta);
             ultimoEditado = ultimoAEditar;
-            
-            Long isbn = Inputs.inputLong("ISBN actual:"+ultimoEditado.getIsbn()+".\nIngrese el nuevo isbn: ");
-            
-            
+
+            Long isbn = Inputs.inputLong("ISBN actual:" + ultimoEditado.getIsbn() + ".\nIngrese el nuevo isbn: ");
+
             return true;
         } catch (Exception e) {
             return false;
         }
-       
+
     }
-    
-public List<Libro> listaDeLibros() throws Exception{
-     return lDAO.listaCompleta();
+
+    public List<Libro> listaDeLibros() throws Exception {
+        return lDAO.listaCompleta();
     }
 
     public List<String> listaNombresDeLibros() {
@@ -196,15 +202,15 @@ public List<Libro> listaDeLibros() throws Exception{
 
     public boolean ExisteISBN(Long isbn) {
         try {
-            Boolean r = lDAO.libroPorISBN(isbn) !=null;
+            Boolean r = lDAO.libroPorISBN(isbn) != null;
             System.out.println(r);
             return true;
         } catch (Exception e) {
             return false;
         }
     }
-    
-    public List<Libro> listaDeLibrosDelAutor(String nombre){
+
+    public List<Libro> listaDeLibrosDelAutor(String nombre) {
         return lDAO.listaLibrosAutor(nombre);
     }
 }
