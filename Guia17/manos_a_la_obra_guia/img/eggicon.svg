@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+    viewBox="0 0 304.53 434.11">
+    <defs>
+        <style>.cls-1{fill:#003750;}.cls-2{fill:#FFFFFF;fill-rule:evenodd;}</style>
+        <radialGradient id="Degradado_sin_nombre_10" cx="-38.92" cy="653.22" r="300.49"
+            gradientTransform="translate(173.55 405.99) scale(0.55 0.1)"
+            gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#4c5859" stop-opacity="0.3" />
+            <stop offset="0.11" stop-color="#4c5859" stop-opacity="0.25" />
+            <stop offset="0.61" stop-color="#4c5859" stop-opacity="0.06" />
+            <stop offset="1" stop-color="#4c5859" stop-opacity="0" />
+        </radialGradient>
+    </defs>
+    <title>Asset 1@1x</title>
+    <g id="Layer_2" data-name="Layer 2">
+        <g id="Layer_1-2" data-name="Layer 1">
+            <path class="cls-1"
+                d="M152.27,434.09C-107.44,434.09,15,0,152.27,0S412,434.09,152.27,434.09Z" />
+            <path class="cls-2"
+                d="M200.19,64.69c1.64.5-14.82,53.42-15.08,65.13s12.26,18.29,15.7,32.64c.77,11.29-6,19.79-4.64,27.85,1.9,11.18,19.45,7.56,21.05,18.16-1.12,12.84-9.56,20.07-11.77,31.78,4.06,1.25,7.31,1.17,8.13,2.34S178.44,295,182.23,306.46c-7.09-8.3,2.77-19.59,7-27.86,4.79-9.45,10.43-18.16,12.78-27.89-.64-2.82-7.53.52-7-3.47,2.38-13.89,12.2-28,10.62-35.58.69-3.63-15.46-16.06-28.13-23.38-8.84-5.12-12-10.35-43.22-8.9-2.44.11-8.45-1.93-7.8-6.48,7.63,11.55,21.56-3.05,34.84,0,10.91,2.51,23.06,8.58,26.77,8.22,2.24-3.78,6.64-7.4,4.62-16.35-1.88-8.05-12.58-13.23-15.13-24.39-3.09-13.59,7-39.49,7-39.49S198.57,64.2,200.19,64.69Z" />
+        </g>
+    </g>
+</svg>
