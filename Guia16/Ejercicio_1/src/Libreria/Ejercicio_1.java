@@ -83,6 +83,18 @@ public class Ejercicio_1 {
 //        String[] columnas ={"titulo","ejemplares"};
 //                        sl.mostrarSegunTitulos(sa.listaDeLibrosDelAutor(tempAutor),columnas);
 //                       Utils.esperaTecla();
+    String ni=null;
+        try {
+            if (!ni.equals(null)) {
+                System.out.println("Nombre = null");
+            }
+            System.out.println("Nombre vacio");
+            
+        } catch (Exception e) {
+            System.out.println("Nombre no puede ser nulo");
+            
+        }
+        Utils.esperaTecla();
         try {
             do {
                 sm.showMenu(menuPrincipal, "Menu Principal de Libreria");
