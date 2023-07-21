@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <a href="javascript: history.go(-1)">
+        <p style="font-size: xx-large; font-weight: bold;">Volver</p>
+    </a>
+    <h1>Ejercicio 6</h1>
+    <p>Consigna: Por último, vamos a crear un formulario para registrar un usuario.(Referencia en la
+        guia)</p>
+    <p>Es importante que en las casillas de sexo del usuario se puede clickear la/s palabra/s
+        hombre, mujer o prefiero no decir para seleccionar la opción. Recordemos que eso lo
+        podemos hacer con la etiqueta label.</p>
+    <hr>
+    <h1>Registrar un usuario</h1>
+    <form action="">
+        <label for="nombre">Nombre de usuario</label> <br>
+        <input type="text" name="nombre" id="nombre" placeholder="Nombre de usuario">
+        <br>
+        <label for="contraseña">Contraseña de usuario</label><br>
+        <input type="password" name="contraseña" id="contraseña">
+        <br>
+        <label for="edad">Edad del usuario</label><br>
+        <input type="number" name="edad" id="edad">
+        <br>
+        <label for="fecha">Fecha de nacimiento</label><br>
+        <input type="date" name="fecha" id="fecha">
+        <br>
+        <label for="">Sexo del usuario</label><br>
+        <input type="radio" name="sexo" id="h"><label for="h">Hombre</label><br>
+        <input type="radio" name="sexo" id="m"><label for="m">Mujer</label><br>
+        <input type="radio" name="sexo" id="o"><label for="o">Prefiero no decir</label>
+        <br>
+        <label for="pais">Pais de nacimiento</label><br>
+        <select name="pais" id="pais">
+            <option value="o1" select>Argentina</option>
+            <option value="o1">Brasil</option>
+            <option value="o1">Chile</option>
+            <option value="o1">Uruguay</option>
+            <option value="o1">Paraguay</option>
+            <option value="o1">Bolivia</option>
+        </select>
+        <br>
+        <button type="submit">Enviar</button>
+        <button type="reset">Borrar</button>
+    </form>
+</body>
+
+</html>

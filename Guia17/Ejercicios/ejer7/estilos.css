@@ -1,0 +1,38 @@
+
+body{
+    background-color : beige;
+}
+h1{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    text-align: center;
+    font-size: xx-large;
+}
+h2{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    text-align: center;
+    font-size: x-large;
+}
+p{
+    font-size: large;
+}
+.cuerpo{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-align: left;
+    color: blue;
+}
+.cuerpoN{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-align: left;
+    color: blue;
+    font-weight: bold;
+}
+.cuerpoI{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-align: left;
+    color: blue;
+    font-style: italic;
+}
+.back{
+    font-size: xx-large;
+    font-weight: bold;
+}

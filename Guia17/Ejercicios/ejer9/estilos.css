@@ -1,0 +1,66 @@
+#titulo{
+    color: teal;
+}
+strong{
+    color: red;
+}
+.destacado{
+    color: goldenrod;
+}
+#subtitulo{
+    color: blue;
+}
+a{
+    color: red;
+}
+em{
+    color: blue;
+    font-style: italic;
+}
+.especial{
+    color: purple;
+}
+table caption{
+    visibility: hidden;
+}
+table{
+    border-collapse: collapse;
+    border: black 1px solid;
+}
+tr{
+    border: black 1px solid;
+}
+td{
+    border: black 1px solid;
+}
+tbody{
+    border: black 1px solid;
+    color: darkgreen;
+}
+tbody em{
+font-style: italic;
+}
+tbody .especial{
+    color: red;
+}
+tbody strong{
+    color: yellow;
+}
+th{
+    border: black 1px solid;
+}
+table .especial{
+    color: yellow;
+}
+tfoot{
+    color: red;
+}
+#adicional p{
+    color: darkgoldenrod;
+}
+#adicional #especial{
+    color: fuchsia;
+}
+#adicional a{
+    color: olivedrab;
+}
