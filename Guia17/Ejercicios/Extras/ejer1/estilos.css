@@ -1,0 +1,22 @@
+li{
+    list-style: none;
+    background-repeat: no-repeat;
+    background-position: left center;
+    margin: 0;
+    margin-left: -25px;
+    padding-left: 25px;
+    background-size: 18px;
+    background-image: url("../img/flecha.png");
+}
+
+li.link {
+    list-style: none;
+    background-repeat: no-repeat;
+    background-position: left center;
+    margin: 0;
+    margin-left: -25px;
+    
+    padding-left: 25px;
+    background-size: 18px;
+    background-image: url("../img/icolink.png");
+}

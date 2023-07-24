@@ -1,0 +1,66 @@
+table{
+    border-collapse: collapse;
+    border-width: 2px;
+    border-style: solid;
+    border-color: #333;
+}
+td{
+    border-width: 2px;
+    padding:5px;
+    text-align: center;
+    border-style: solid;
+    border-color: #333;
+}
+th{
+    padding: 5px;
+    border-width: 2px;
+    border-style: solid;
+    border-color: #333;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/*formato de lineas amarillas y blancas*/
+tr:nth-child(even){
+    background-image: none;
+    background-color: #ffffcc;
+}
+
+th[scope="col"] {
+   background-image: url(imagenes/fondo_gris.gif);
+    font-family: Arial, Helvetica, sans-serif;
+}
+th[mi-estilo="euro"]{
+    background-image: none;
+    background-color: #e6f3ff;
+    background-image: url("imagenes/euro.png");
+    background-repeat: no-repeat;
+    background-position:1% 50%;
+    padding-left: 17px;
+}
+th[mi-estilo="libra"]{
+    background-image: none;
+    background-color: #e6f3ff;
+    background-image: url("imagenes/libra.png");
+    background-repeat: no-repeat;
+    background-position:1% 50%;
+    padding-left: 17px;
+    text-align: left;
+}
+th[mi-estilo="yen"]{
+    background-image: none;
+    background-color: #e6f3ff;
+    background-image: url("imagenes/yen.png");
+    background-repeat: no-repeat;
+    background-position:1% 50%;
+    padding-left: 17px;
+    text-align: left;
+}
+th[mi-estilo="dolar"]{
+    background-image: none;
+    background-color: #e6f3ff;
+    background-image: url("imagenes/dolar.png");
+    background-repeat: no-repeat;
+    background-position:1% 50%;
+    padding-left: 17px;
+    text-align: left;
+}
