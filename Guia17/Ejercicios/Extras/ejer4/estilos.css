@@ -1,0 +1,20 @@
+.panel{
+    scroll-margin-block: calc();
+    height: calc(1005);
+    background-color: aquamarine;
+    background-repeat: no-repeat;
+    background-image: url("../img/icolink.png") ;
+    background-size: 100%;
+}
+body{
+    scroll-margin-block: 75px;
+    background-position-y: calc(header);
+    background-repeat: no-repeat;
+    background-image: url("../img/icolink.png") ;
+    background-size: 100%;}
+header{
+        background-color: aliceblue;
+    }
+    section div{
+        scroll-behavior: inherit;
+    }

@@ -4,6 +4,16 @@
 strong{
     color: red;
 }
+table{
+    border-collapse: collapse;
+    border: black 1px solid;
+}
+tr{
+    border: black 1px solid;
+}
+td{
+    border: black 1px solid;
+}
 .destacado{
     color: goldenrod;
 }
@@ -23,16 +33,7 @@ em{
 table caption{
     visibility: hidden;
 }
-table{
-    border-collapse: collapse;
-    border: black 1px solid;
-}
-tr{
-    border: black 1px solid;
-}
-td{
-    border: black 1px solid;
-}
+
 tbody{
     border: black 1px solid;
     color: darkgreen;
