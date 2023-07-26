@@ -8,9 +8,7 @@
     background-size: 100%;
     display: grid;
 }
-=======
 
->>>>>>> a278c2367c33d5d4c4ee7f4a6076fac92193b468
 body{
     background-position-y: 0;
     background-repeat: no-repeat; 
@@ -33,3 +31,4 @@ header{
          box-shadow: 5px 5px 20px rgba(20,45,10,0.42); 
          
     }
+    

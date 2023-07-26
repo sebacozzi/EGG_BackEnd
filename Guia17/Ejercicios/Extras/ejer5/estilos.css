@@ -21,3 +21,15 @@ header{
          box-shadow: 5px 5px 20px rgba(20,45,10,0.42); 
          
     }
+    .linkatras{
+        margin-left: 1em;
+        padding: 0.3em 0.5em;
+        border-radius: 12px ; 
+        border: 1px solid blue; 
+        width: fit-content;
+    }
+    a.linkatras::hover{
+        border-width: 2px;
+        text-shadow: 1cap black;
+        font-
+    }
