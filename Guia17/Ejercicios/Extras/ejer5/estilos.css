@@ -1,16 +1,4 @@
-<<<<<<< HEAD
-.panel{
-    scroll-margin-block: calc();
-    height: calc(1005);
-    background-color: aquamarine;
-    background-repeat: no-repeat;
-    background-image: url("../img/icolink.png") ;
-    background-size: 100%;
-    display: grid;
-}
-=======
 
->>>>>>> a278c2367c33d5d4c4ee7f4a6076fac92193b468
 body{
     background-position-y: 0;
     background-repeat: no-repeat; 
