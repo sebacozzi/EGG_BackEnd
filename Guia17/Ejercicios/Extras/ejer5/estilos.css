@@ -2,7 +2,9 @@ body {
     background-position-y: 0;
     background-repeat: no-repeat;
     background-image: url("img/17973908.jpg");
-    background-size: 100%;
+    
+    
+    
 }
 
 header {
@@ -56,7 +58,7 @@ section div {
     padding: 1em 1em 1em 1em;
     background-color: antiquewhite;
     border: 0.3cap solid black;
-    border-radius: 5px;
+    border-radius: 10px;
     box-shadow: 10px 10px 15px;
     height: 28em;
 
@@ -69,7 +71,7 @@ section div {
     border: 1px solid gray;
     border-radius: 10px;
     size-adjust: inherit;
-    height: 26em;
+    width: 30%;
     padding: 0.3em;
     box-shadow: 0px 0px 0.8em rgba(94, 255, 0, 0.664);
     position: absolute;
@@ -85,7 +87,7 @@ section div {
 
 .nombre-producto {
     font-size: 3em;
-    font-variant: small-caps;
+    font-variant: small-caps;   
     font-weight: 900;
     font-stretch: ultra-expanded;
 }
@@ -95,8 +97,6 @@ section div {
     margin-top: 0.5em;
     text-align: center;
     height: 13em;
-    
-   
 }
 
 .precio-producto {
