@@ -110,3 +110,19 @@ section div {
     margin-inline-end: 1em;
     position: -ms-page;
 }
+.botond{
+    margin-top: 1em;
+    padding: 10px;
+    background-color: burlywood;
+    border-radius: 10px;
+    /*background-image: linear-gradient(gray, white);*/
+    box-shadow: inset 5px 5px 10px grey,inset -5px -5px 10px gray;
+}
+
+.botond:hover{
+    text-decoration: none;
+    border: 2px gray solid;
+}
+.botond:active{
+    
+}
