@@ -29,38 +29,22 @@ th[scope="col"] {
    background-image: url(imagenes/fondo_gris.gif);
     font-family: Arial, Helvetica, sans-serif;
 }
-th[mi-estilo="euro"]{
-    background-image: none;
+th:nth-child(1){
     background-color: #e6f3ff;
+    background-position:left center;
+    padding-left: 20px ;
+    background-repeat: no-repeat;
+    text-align: left;
+}
+.euro{
     background-image: url("imagenes/euro.png");
-    background-repeat: no-repeat;
-    background-position:1% 50%;
-    padding-left: 17px;
 }
-th[mi-estilo="libra"]{
-    background-image: none;
-    background-color: #e6f3ff;
+.libra{
     background-image: url("imagenes/libra.png");
-    background-repeat: no-repeat;
-    background-position:1% 50%;
-    padding-left: 17px;
-    text-align: left;
 }
-th[mi-estilo="yen"]{
-    background-image: none;
-    background-color: #e6f3ff;
+.yen{    
     background-image: url("imagenes/yen.png");
-    background-repeat: no-repeat;
-    background-position:1% 50%;
-    padding-left: 17px;
-    text-align: left;
 }
-th[mi-estilo="dolar"]{
-    background-image: none;
-    background-color: #e6f3ff;
+.dolar{    
     background-image: url("imagenes/dolar.png");
-    background-repeat: no-repeat;
-    background-position:1% 50%;
-    padding-left: 17px;
-    text-align: left;
 }
