@@ -1,0 +1,13 @@
+div{
+    margin: 5px;
+    height: 100px;
+    padding: 5px;
+    width: 100px;
+    /*text-shadow: 1px 1px 2px black;*/
+    border: 2px solid burlywood;
+    position: relative;
+    border-radius: 10px;
+}
+div:hover{
+    box-shadow: 0px 0px 5px black, inset 0px 0px 5px black ;
+}
