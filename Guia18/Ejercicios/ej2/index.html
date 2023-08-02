@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 2</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+
+<body>
+    <iframe src="../elem/back.html" frameborder="0" scrolling="no" seamless="seamless" style="height: 2em; overflow-x: hidden;"></iframe>
+    <header>
+        <h1>Como esta el día</h1>
+        <h2>Ejercicio 1 - Guia 18</h2>
+        <p style=" text-align: justify; font-weight: bold;">Conocido el número en matemática PI π, pedir al usuario que
+            ingrese el valor del radio
+            de una circunferencia y calcular y mostrar por pantalla el área y perímetro. Recuerde que
+            para calcular el área y el perímetro se utilizan las siguientes fórmulas: <br>
+        <p style="color: blue; margin-left: 25px;">
+            area = PI * radio2<br>
+            perimetro = 2 * PI * radio </p>
+        </p>
+        <hr>
+    </header>
+    <div class="centrar">
+        <form action="">
+            <div class="centrar" style="margin: 10px auto;">
+                <label for="radio">Ingrese el radio del circulo:</label>
+                <input type="number" step="0.01" name="radio" id="radio" onchange="cambioRango(value)">
+                <div style="margin-top: 5px;">
+                    <button type="button" onclick="calcular()">Calcular</button>
+                    <button type="reset" >Reiniciar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- Resultados -->
+    <p id="diametro"></p>
+    <p id="superficie"></p>
+    <script src="script.js"></script>
+</body>
+
+</html>

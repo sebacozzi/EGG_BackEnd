@@ -1,0 +1,13 @@
+.centrar{
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+form{
+    border: 2px solid gray;
+    border-radius: 15px;
+    box-shadow: 5px 5px 10px gray;
+    width: 250px;
+}
