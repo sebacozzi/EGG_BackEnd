@@ -1,11 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Ejercicio 4 - Guia 18</title>
+    <link rel="stylesheet" href="estilo.css">
 </head>
+
 <body>
-    
+    <iframe src="../elem/back.html" frameborder="0" scrolling="no" seamless="seamless"
+        style="height: 2em; overflow-x: hidden;"></iframe>
+    <header>
+        <h1>Correcto o incorrecto</h1>
+        <h2>Ejercicio 4 - Guia 18</h2>
+        <p style=" text-align: justify; font-weight: bold;">
+            Realiza un programa que sólo permita introducir los caracteres ‘S’ y ‘N’. Si el usuario
+            ingresa alguno de esos dos caracteres se deberá de imprimir un mensaje por pantalla
+            que diga “CORRECTO”, en caso contrario, se deberá imprimir “INCORRECTO”.</p>
+        </p>
+        <hr>
+    </header>
+    <div class="centrar">
+        <h2>Utilizando eventos onkeyup y onkeydown</h2>
+        <div class="form">
+            <div class="centrar" style="margin: 10px auto;">
+                <label for="sn">Ingresar s o n:</label>
+                <input type="text" name="sn" id="sn">
+                <div style="margin-top: 5px;">
+                    <button type="button" onclick="reiniciar()">Reiniciar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Resultados -->
+    <p id="resultado">Resultado del metodo 1: (ingresar letras en el input)</p>
+
+    <hr>
+    <div class="centrar">
+        <h2>Utilizando verificación con botón</h2>
+        <div class="form">
+            <div class="centrar" style="margin: 10px auto;">
+                <label for="sn1">Ingresar s o n:</label>
+                <input type="text" name="sn1" id="sn1">
+                <div style="margin-top: 5px;">
+                    <button type="button" onclick="verifica()">Verificar</button>
+                    <button type="button" onclick="reiniciar1()">Reiniciar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Resultados -->
+    <p id="resultado1">Resultado del metodo 2: (click en verificar)</p>
+    <hr>
+    <script src="script.js"></script>
 </body>
+
 </html>

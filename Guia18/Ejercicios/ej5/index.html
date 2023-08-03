@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 5 - Guia 18</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+
+<body>
+    <iframe src="../elem/back.html" frameborder="0" scrolling="no" seamless="seamless"
+        style="height: 2em; overflow-x: hidden;"></iframe>
+    <header>
+        <h1>Correcto o incorrecto</h1>
+        <h2>Ejercicio 5 - Guia 18</h2>
+        <p style=" text-align: justify; font-weight: bold;">
+            Construir un programa que simule un menú de opciones para realizar las cuatro
+            operaciones aritméticas básicas (suma, resta, multiplicación y división) con dos valores
+            numéricos enteros. El usuario, además, debe especificar la operación con el primer
+            carácter de la operación que desea realizar: ‘S' o ‘s’ para la suma, ‘R’ o ‘r’ para la resta, ‘M’
+            o ‘m’ para la multiplicación y ‘D’ o ‘d’ para la división.</p>
+        </p>
+        <hr>
+    </header>
+    <div class="form ayuda">
+        <div>
+            <span class="titulo-ayuda">Ayuda:</span>
+            <ul class="enfatizado">
+                <li>Para Sumar ingresar "s" o "S"</li>
+                <li>Para Restar ingresar "r" o "R"</li>
+                <li>Para Multiplicar ingresar "m" o "M"</li>
+                <li>Para Dividir ingresar "d" o "D"</li>
+            </ul>
+        </div>
+    </div>
+    <div class="centrar">
+        <h2>Utilizando verificación con botón</h2>
+        <div class="form" style="background-color: aquamarine;">
+            <div class="centrar" style="margin: 10px auto;">
+                <table class="tabla" id="numeros" style="background-color: white;">
+                    <tr>
+                        <td><label for="v1">Primer número</label></td>
+                        <td><label for="v2">Segundo número</label></td>
+                    </tr>
+                    <tr>
+                        <td><input type="number" name="v1" id="v1"></td>
+
+                        <td><input type="number" name="v2" id="v2"></td>
+                    </tr>
+                </table>
+                <table class="tabla">
+                    <tr>
+                        <td><label for="tipo">Tipo de calculo</label></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text" name="tipo" id="tipo"></td>
+                    </tr>
+                </table>
+                <div style="margin-top: 5px;">
+                    <button type="button" onclick="verifica()">Verificar</button>
+                    <button type="button" onclick="reiniciar1()">Reiniciar</button>
+                </div>
+                <!-- Resultados -->
+                <p>Calcular: <br>
+                    <span id="claseCalculo" >Tipo de calculo: </span><br>
+                    <span id="resultado">Resultado:</span>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
