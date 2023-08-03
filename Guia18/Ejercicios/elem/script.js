@@ -1,4 +1,4 @@
-const maxBotones = 25;
+const maxBotones = 26;
 
 
 const filePath = "elem/datos.json";
@@ -35,27 +35,28 @@ function checkFileExists(url) {
       });
   }
 
-function creaBotones (jsonData){ for (let i = 1; i < 25; i++) {
+async function creaBotones(jsonData) {
+  for (let i = 1; i < maxBotones; i++) {
     const urlOrigen = `/Ejercicios/ej${i}/index.html`;
-    checkFileExists(urlOrigen).then((exists)=>{
-    //checkFileExists("/Ejercicios/ej" + (i+1) + "/index.html").then((exists)=>{
-        if (exists){
-            const acc = document.createElement("a");
-            acc.href=urlOrigen;
-            const tit= document.createElement("h2");
-            tit.style="text-align: center;";
-            tit.innerHTML="Ejercicio "+i;
-            const desc=document.createElement("p");
-            desc.innerHTML= jsonData["Ejercicio"+i];
-            acc.appendChild(tit);
-            acc.appendChild(desc);
-            acc.hidden=false;
-            const main = document.getElementById("lista");
-            main.appendChild(acc);
-            
-    } 
-});
+    await checkFileExists(urlOrigen).then((exists) => {
+      //checkFileExists("/Ejercicios/ej" + (i+1) + "/index.html").then((exists)=>{
+      if (exists) {
+        const acc = document.createElement("a");
+        acc.href = urlOrigen;
+        const tit = document.createElement("h2");
+        tit.style = "text-align: center;";
+        tit.innerHTML = "Ejercicio " + i;
+        const desc = document.createElement("p");
+        desc.innerHTML = jsonData["Ejercicio" + i];
+        acc.appendChild(tit);
+        acc.appendChild(desc);
+        acc.hidden = false;
+        const main = document.getElementById("lista");
+        main.appendChild(acc);
 
-}
+      }
+    });
+
+  }
 }
 
