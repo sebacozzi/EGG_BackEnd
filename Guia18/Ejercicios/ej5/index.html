@@ -34,36 +34,35 @@
             </ul>
         </div>
     </div>
-    <div class="centrar">
+    <div class="centrar" >
         <h2>Utilizando verificación con botón</h2>
-        <div class="form" style="background-color: aquamarine;">
+    <div class="form" style="background-color: aquamarine;">
             <div class="centrar" style="margin: 10px auto;">
                 <table class="tabla" id="numeros" style="background-color: white;">
                     <tr>
-                        <td><label for="v1">Primer número</label></td>
+                        <td><label for="v1" >Primer número</label></td>
                         <td><label for="v2">Segundo número</label></td>
                     </tr>
                     <tr>
-                        <td><input type="number" name="v1" id="v1"></td>
-
-                        <td><input type="number" name="v2" id="v2"></td>
+                        <td><input type="number" name="v1" id="v1" value="0"></td>
+                        <td><input type="number" name="v2" id="v2" value="0"></td>
                     </tr>
                 </table>
                 <table class="tabla">
                     <tr>
-                        <td><label for="tipo">Tipo de calculo</label></td>
+                        <td><label for="tipo" id="claseCalculo">Tipo de calculo</label></td>
                     </tr>
                     <tr>
                         <td><input type="text" name="tipo" id="tipo"></td>
                     </tr>
                 </table>
                 <div style="margin-top: 5px;">
-                    <button type="button" onclick="verifica()">Verificar</button>
-                    <button type="button" onclick="reiniciar1()">Reiniciar</button>
+                    <button type="button" disabled="false" onclick="calculo()" id="bcalculo">Calcular</button>
+                    <button type="button" onclick="reiniciar()">Reiniciar</button>
                 </div>
                 <!-- Resultados -->
-                <p>Calcular: <br>
-                    <span id="claseCalculo" >Tipo de calculo: </span><br>
+                <p>
+                    Calcular: <br>
                     <span id="resultado">Resultado:</span>
                 </p>
             </div>
