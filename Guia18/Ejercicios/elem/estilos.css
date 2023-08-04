@@ -54,6 +54,9 @@ a:hover{
     box-shadow: 5px 5px 10px gray;
     width: 250px;
 }
+input[type=button]{
+    margin: 5px;
+}
 .tabla {
     width: 240px; 
     border: 1px solid black;
@@ -62,7 +65,7 @@ a:hover{
     background-color: white;
  }
  input[type=number]{
-    width: 100px;
+    width: 100px;   
  }
  .ayuda{
     background-color:burlywood;
