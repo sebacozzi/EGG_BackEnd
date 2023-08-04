@@ -9,17 +9,21 @@
 </head>
 
 <body>
-    <iframe src="../elem/back.html" frameborder="0" scrolling="no" seamless="seamless" style="height: 2em; overflow-x: hidden;"></iframe>
+    <iframe src="../elem/back.html" frameborder="0" scrolling="no" seamless="seamless"
+        style="height: 2em; overflow-x: hidden;"></iframe>
     <header>
-        <h1>Como esta el día</h1>
-        <h2>Ejercicio 2 - Guia 18</h2>
-        <p style=" text-align: justify; font-weight: bold;">Conocido el número en matemática PI π, pedir al usuario que
-            ingrese el valor del radio
-            de una circunferencia y calcular y mostrar por pantalla el área y perímetro. Recuerde que
-            para calcular el área y el perímetro se utilizan las siguientes fórmulas: <br>
-        <p style="color: blue; margin-left: 25px;">
-            area = PI * radio2<br>
-            perimetro = 2 * PI * radio </p>
+        <h1>Ejercicio 2 - Guia 18</h1>
+        <h2>Como esta el día</h2>
+        <p style=" text-align: justify; font-weight: bold;">
+            Consigna:
+            <span id="consigna"> Conocido el número en matemática PI π, pedir al usuario que
+                ingrese el valor del radio
+                de una circunferencia y calcular y mostrar por pantalla el área y perímetro. Recuerde que
+                para calcular el área y el perímetro se utilizan las siguientes fórmulas: <br>
+                <p style="color: blue; margin-left: 25px;">
+                    area = PI * radio2<br>
+                    perimetro = 2 * PI * radio </p>
+            </span>
         </p>
         <hr>
     </header>
@@ -30,7 +34,7 @@
                 <input type="number" step="0.01" name="radio" id="radio" value="0">
                 <div style="margin-top: 5px;">
                     <button type="button" onclick="calcular()">Calcular</button>
-                    <button type="button" onclick="reiniciar()" >Reiniciar</button>
+                    <button type="button" onclick="reiniciar()">Reiniciar</button>
                 </div>
             </div>
         </div>
