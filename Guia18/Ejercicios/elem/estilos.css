@@ -52,7 +52,7 @@ a:hover{
     border: 2px solid gray;
     border-radius: 15px;
     box-shadow: 5px 5px 10px gray;
-    width: 250px;
+    padding: 0 10px;
 }
 input[type=button]{
     margin: 5px;
@@ -94,7 +94,6 @@ input[type=button]{
 */
  }  
  
-
   @keyframes slidein {
     from {
       /* margin-left: 100%;
@@ -102,7 +101,6 @@ input[type=button]{
       */
       opacity: 0;
         text-shadow: 0px 0px 40px black;
-        left: calc(Math.random()*1);
     }
  
     to {
@@ -113,6 +111,19 @@ input[type=button]{
     }
     
   }
+
+.fadein {
+    animation-duration: 3s;
+    animation-name: fadein;
+} @keyframes fadein {
+    from {opacity: 0;}
+    to {opacity: 1;}}
+.fadeout {
+    animation-duration: 3s;
+    animation-name: fadeout;
+} @keyframes fadeout {
+    from {opacity: 1;}
+    to {opacity: 0;}}
  
   .pie{
     box-sizing: border-box;
@@ -120,8 +131,10 @@ input[type=button]{
     display: flex;
     position: fixed;
     padding: 5px;
-    left: 1%;
+    padding-right: 015px;
+    left: 0.5%;
     right: 1%;
     bottom: 1%;
     border-radius: 8px;
+   justify-content: flex-end;
  }

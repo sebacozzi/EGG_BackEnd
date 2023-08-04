@@ -13,7 +13,7 @@
         style="height: 2em; overflow-x: hidden;"></iframe>
     <header>
         <h1>Ejercicio 7 - Guia 18</h1>
-        <h2>Par o inpar</h2>
+        <h2>Ingresar números hasta alcanzar el limite</h2>
         <p style=" text-align: justify; font-weight: bold;">
             Consigna:
             <span id="consigna">Escriba un programa en el cual se ingrese un valor límite positivo, y a continuación
@@ -23,7 +23,22 @@
         </p>
         <hr>
     </header>
+    <main class="centrar" style="font-size: x-large;">
+            <div class="form centrar fadeout">
+                <p class="enfatizado" style="font-size: x-large;">Superar el número</p>
+                <label for="num1">Ingresar el número limite</label>
+                <input type="number" step="1" name="num1" id="num1" style="font-size: x-large; width: auto;">
+                <input type="button" value="Continuar" onclick="continuar()" style="font-size: x-large;"><br>
+            </div>
 
+            <div class="form centrar fadein">
+                <p class="enfatizado">Superar el número</p>
+                <label for="num1">Ingresar el número limite</label>
+                <input type="number" step="1" name="num1" id="num1">
+                <input type="button" value="Continuar" onclick="continuar()"><br>
+            </div>
+        </div>
+    </main>
     <script src="script.js"></script>
 </body>
 
