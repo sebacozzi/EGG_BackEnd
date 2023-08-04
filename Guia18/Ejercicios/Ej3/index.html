@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 3 - Guia 18</title>
+    <link rel="stylesheet" href="../elem/estilos.css">
+</head>
+<body>
+    <iframe src="../elem/back.html" frameborder="0" scrolling="no" seamless="seamless" style="height: 2em; overflow-x: hidden;"></iframe>
+    <header>
+        <h1>Es mayor o menor</h1>
+        <h2>Ejercicio 3 - Guia 18</h2>
+        <p style=" text-align: justify; font-weight: bold;">
+            Escriba un programa en donde se pida la edad del usuario. 
+            Si el usuario es mayor de edad se debe mostrar un mensaje indicándolo.</p>
+        </p>
+        <hr>
+    </header>
+    <div class="centrar">
+        <div class="form">
+            <div class="centrar" style="margin: 10px auto;">
+                <label for="edad">Ingresá tu edad:</label>
+                <input type="number" name="edad" id="edad" value="0">
+                <div style="margin-top: 5px;">
+                    <button type="button" onclick="verificar()">¿Soy mayor?</button>
+                    <button type="button" onclick="reiniciar()" >Reiniciar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Resultados -->
+    <p id="resultado"></p>
+    <script src="script.js"></script>
+</body>
+</html>
