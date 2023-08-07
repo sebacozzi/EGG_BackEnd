@@ -3,13 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ejercicio 5 - Guia 18</title>
+    <title>Ejercicio 10 - Guia 18</title>
+    <link rel="stylesheet" href="../elem/estilos.css">
 </head>
 <body>
     <iframe src="../elem/back.html" frameborder="0" scrolling="no" seamless="seamless" style="height: 2em; overflow-x: hidden;"></iframe>
     <header>
-
+        <h1>Ejercicio 10 - Guia 18</h1>
+        <h2>Frase al reves</h2>
+        <p style=" text-align: justify; font-weight: bold;">
+            Consigna:
+            <span id="consigna">Escribir una función flecha que reciba una palabra y la devuelva al revés.
+            </span>
+        </p>
+        <hr>
     </header>
+    <main class="centrar" style="font-size: x-large;">
+        <div>
+            <div class="form centrar" id="paso1">
+                <p class="enfatizado" style="font-size: x-large;">aloH</p>
+                <label for="texto">Ingresar una frase o palabra</label>
+                <input type="text" step="1" name="texto" id="texto" class="inputredondeado">
+                <input type="button" value="Presentar" style="font-size: x-large;" id="go"><br>
+            </div>
+            <div class="form centrar" style="display: none;" id="resultado">
+                <p class="enfatizado" style="font-size: x-large; margin-bottom: 0px;">Resultados</p>
+                <p class="enfatizado" style="font-size: x-large;" id="textoresultado">Resultados</p>
+                <input type="button" value="Reiniciar" style="font-size: x-large;" id="reiniciar"><br>
+            </div>
+        </div>
+    </main>
 
     <script src="script.js"></script>
 </body>
