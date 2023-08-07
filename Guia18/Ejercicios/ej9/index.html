@@ -3,14 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ejercicio 5 - Guia 18</title>
+    <title>Ejercicio 9 - Guia 18</title>
+    <link rel="stylesheet" href="../elem/estilos.css">
 </head>
 <body>
     <iframe src="../elem/back.html" frameborder="0" scrolling="no" seamless="seamless" style="height: 2em; overflow-x: hidden;"></iframe>
     <header>
-
+        <h1>Ejercicio 9 - Guia 18</h1>
+        <h2>Separar Letras</h2>
+        <p style=" text-align: justify; font-weight: bold;">
+            Consigna:
+            <span id="consigna">Realizar un programa que pida una frase y el programa deberá mostrar la frase con un
+                espacio entre cada letra. La frase se mostrara así: H o l a. Nota: recordar el
+                funcionamiento de la función Substring().
+            </span>
+        </p>
+        <hr>
     </header>
-
+    <main class="centrar" style="font-size: x-large;">
+        <div>
+            <div class="form centrar" id="paso1">
+                <p class="enfatizado" style="font-size: x-large;">H O L A</p>
+                <label for="texto">Ingresar una frase o palabra</label>
+                <input type="text" step="1" name="texto" id="texto" class="inputredondeado">
+                <input type="button" value="Presentar" style="font-size: x-large;" id="go"><br>
+            </div>
+            <div class="form centrar" style="display: none;" id="resultado">
+                <p class="enfatizado" style="font-size: x-large; margin-bottom: 0px;">Resultados</p>
+                <p class="enfatizado" style="font-size: x-large;" id="textoresultado">Resultados</p>
+                <input type="button" value="Reiniciar" style="font-size: x-large;" id="reiniciar"><br>
+            </div>
+        </div>
+    </main>
     <script src="script.js"></script>
 </body>
 </html>
