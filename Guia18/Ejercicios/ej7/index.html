@@ -24,19 +24,27 @@
         <hr>
     </header>
     <main class="centrar" style="font-size: x-large;">
-            <div class="form centrar fadeout" >
+        <div>
+            <div class="form centrar" id="paso1">
                 <p class="enfatizado" style="font-size: x-large;">Superar el número</p>
                 <label for="num1">Ingresar el número limite</label>
                 <input type="number" step="1" name="num1" id="num1" style="font-size: x-large; width: auto;">
-                <input type="button" value="Continuar" onclick="continuar()" style="font-size: x-large;"><br>
+                <input type="button" value="Continuar" style="font-size: x-large;" id="go"><br>
             </div>
 
-            <div class="form centrar fadein" s>
-                <p class="enfatizado">Superar el número</p>
-                <label for="num1">Ingresar el número limite</label>
-                <input type="number" step="1" name="num1" id="num1">
-                <input type="button" value="Continuar" onclick="continuar()"><br>
+            <div class="form centrar" id="paso2" style="display:none">
+                <p class="enfatizado" style="font-size: x-large;">Superar el número</p>
+                <label for="num2" id="ingresar">Ingresar números hasta que superes el limite</label>
+                <input type="number" step="1" name="num2" id="num2">
+                <input type="button" value="Continuar" id="sumar"><br>
             </div>
+            
+            <div class="form centrar" id="paso3" style="display:none">
+                <p class="enfatizado" style="font-size: x-large;">Superar el número</p>
+                <p style="font-weight: 600;" id="textoPaso3">Limite superado</p>
+                <input type="button" value="Reiniciar" id="reiniciar"><br>
+            </div>
+
         </div>
     </main>
     <script src="script.js"></script>
