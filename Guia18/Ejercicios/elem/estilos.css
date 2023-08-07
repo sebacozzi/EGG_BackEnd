@@ -1,4 +1,6 @@
-a, a:visited, a:link{
+a,
+a:visited,
+a:link {
     text-decoration: none;
     margin: 5px;
     height: auto;
@@ -11,127 +13,156 @@ a, a:visited, a:link{
     text-decoration: none;
     color: black;
 }
-a:focus{
+
+a:focus {
     text-decoration: none;
 }
 
-a:hover{
-    box-shadow: 0px 0px 5px black, inset 0px 0px 5px black ;
+a:hover {
+    box-shadow: 0px 0px 5px black, inset 0px 0px 5px black;
 }
-.load{
+
+.load {
     position: fixed;
     left: 0px;
     top: 0px;
     width: 100%;
     height: 100%;
     z-index: 9999;
-    background: url('atom-loader.gif') 50% 50% no-repeat rgb(249,249,249);
+    background: url('atom-loader.gif') 50% 50% no-repeat rgb(249, 249, 249);
     background-size: 200px;
     opacity: .8;
 }
-.lista{
+
+.lista {
     overflow: auto;
     display: flex;
-    min-width:25%;
+    min-width: 25%;
     flex-wrap: wrap;
     flex-direction: row column;
 }
-.scroll-parte{
+
+.scroll-parte {
     box-sizing: border-box;
     height: 80vh;
     overflow-x: hidden;
 }
-.centrar{
+
+.centrar {
     margin: 0 auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
-.form{
+
+.form {
     border: 2px solid gray;
     border-radius: 15px;
     box-shadow: 5px 5px 10px gray;
     padding: 0 10px;
 }
-input[type=button]{
+
+input[type=button] {
     margin: 5px;
 }
+
 .tabla {
-    width: 240px; 
+    width: 240px;
     border: 1px solid black;
     border-radius: 5px;
     text-align: center;
     background-color: white;
- }
- input[type=number]{
-    width: 100px;   
- }
- .ayuda{
-    background-color:burlywood;
+}
+
+input[type=number] {
+    width: 100px;
+}
+
+.ayuda {
+    background-color: burlywood;
     display: flex;
     position: fixed;
     padding: 10px;
     left: 10%;
     bottom: 20%;
- }
- .enfatizado{
+}
+
+.enfatizado {
     font-size: medium;
     font-weight: 600;
- }
- .titulo-ayuda{
+}
+
+.titulo-ayuda {
     font-size: x-large;
     font-weight: bold;
     text-align: center;
- }
- 
- 
- .slidein {
+}
+
+
+.slidein {
     animation-duration: 5s;
     animation-name: slidein;
     /*animation-iteration-count: infinite;
     animation-direction: alternate;
 */
- }  
- 
-  @keyframes slidein {
+}
+
+@keyframes slidein {
     from {
-      /* margin-left: 100%;
+        /* margin-left: 100%;
       width: 100%;
       */
-      opacity: 0;
+        opacity: 0;
         text-shadow: 0px 0px 40px black;
     }
- 
+
     to {
-      /*margin-left: 0%;
+        /*margin-left: 0%;
       width: 100%;*/
-      text-shadow: 0px 0px 0px rgb(41, 12, 12);
-      opacity: 1;
+        text-shadow: 0px 0px 0px rgb(41, 12, 12);
+        opacity: 1;
     }
-    
-  }
+
+}
 
 .fadein {
     animation-duration: 1.5s;
     animation-name: fadein;
     z-index: 9999;
-} @keyframes fadein {
-    from {opacity: 0;}
-    to {opacity: 1;}}
+}
+
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
 .fadeout {
     animation-duration: 1.5s;
     animation-name: fadeout;
 
-    
-} @keyframes fadeout {
-    0%{opacity: 1;}
+
+}
+
+@keyframes fadeout {
+    0% {
+        opacity: 1;
+    }
+
     /* 50% {opacity: 1;} */
-    100%{opacity: 0;}}
- 
-  .pie{
+    100% {
+        opacity: 0;
+    }
+}
+
+.pie {
     box-sizing: border-box;
-    background-color:burlywood;
+    background-color: burlywood;
     display: flex;
     position: fixed;
     padding: 5px;
@@ -140,5 +171,19 @@ input[type=button]{
     right: 1%;
     bottom: 1%;
     border-radius: 8px;
-   justify-content: flex-end;
- }
+    justify-content: flex-end;
+}
+
+.sinflechas::-webkit-inner-spin-button,
+.sinflechas::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.inputredondeado {
+    -moz-appearance: textfield;
+    font-size: x-large;
+    width: auto;
+    border-radius: 15px;
+    text-align: center;
+}

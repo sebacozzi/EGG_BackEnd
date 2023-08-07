@@ -1,16 +1,44 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ejercicio 5 - Guia 18</title>
+    <link rel="stylesheet" href="../elem/estilos.css">
 </head>
+
 <body>
-    <iframe src="../elem/back.html" frameborder="0" scrolling="no" seamless="seamless" style="height: 2em; overflow-x: hidden;"></iframe>
+    <iframe src="../elem/back.html" frameborder="0" scrolling="no" seamless="seamless"
+        style="height: 2em; overflow-x: hidden;"></iframe>
     <header>
-
+        <h1>Ejercicio 8 - Guia 18</h1>
+        <h2>Ingresá números hasta ingresar "0"</h2>
+        <p style=" text-align: justify; font-weight: bold;">
+            Consigna:
+            <span id="consigna">Escribir un programa que lea números enteros hasta teclear 0 (cero). Al finalizar el
+                programa se debe mostrar el máximo número ingresado, el mínimo, y el promedio de
+                todos ellos.
+            </span>
+        </p>
+        <hr>
     </header>
-
+    <main class="centrar" style="font-size: x-large;">
+        <div>
+            <div class="form centrar" id="paso1">
+                <p class="enfatizado" style="font-size: x-large;">Números distitos de "0"</p>
+                <label for="num1">Ingresar números enteros</label>
+                <input type="number" step="1" name="num1" id="num" class="inputredondeado sinflechas">
+                <input type="button" value="Continuar" style="font-size: x-large;" id="go"><br>
+            </div>
+            <div class="form centrar" style="display: none;" id="resultado">
+                <p class="enfatizado" style="font-size: x-large;">Resultados</p>
+                <p class="enfatizado" style="font-size: x-large;" id="textoresultado">Resultados</p>
+                <input type="button" value="Reiniciar" style="font-size: x-large;" id="go" onclick="reinicia()"><br>
+            </div>
+        </div>
+    </main>
     <script src="script.js"></script>
 </body>
+
 </html>
