@@ -1,6 +1,10 @@
 window.onload = function(){
-    const titulo = document.title;
-    document.getElementById("titulo").innerHTML = titulo;
+    const url= new URLSearchParams(window.location.search);
+    const parametros = url.get("params");
+    document.title="Ejercicio "+parametros+" - Guia 18";
+    document.getElementById("titulo").innerHTML = "Ejercicio "+parametros+" - Guia 18";
+    document.getElementById("consigna").innerHTML=decodeURIComponent(atob(sessionStorage.getItem(parametros)));
+   
 }
 const texto = document.getElementById("texto");
 

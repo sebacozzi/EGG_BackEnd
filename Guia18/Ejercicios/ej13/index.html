@@ -1,41 +1,62 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ejercicio 13 - Guia 18</title>
     <link rel="stylesheet" href="../elem/estilos.css">
 </head>
+
 <body>
-    
+
     <header>
-        <iframe src="../elem/back.html" frameborder="0" scrolling="no" seamless="seamless" style="height: 2em; overflow-x: hidden;"></iframe>
+        <iframe src="../elem/back.html" frameborder="0" scrolling="no" seamless="seamless"
+            style="height: 2em; overflow-x: hidden;"></iframe>
         <h1 id="titulo"></h1>
         <h2>Objeto con datos de persona</h2>
         <p style=" text-align: justify; font-weight: bold;">
             Consigna:
-            <span id="consigna">Crear un objeto persona, con las propiedades nombre, edad, sexo ('H' hombre, 'M' mujer,
-                'O' otro), peso y altura. A continuación, muestre las propiedades del objeto JavaScript.
+            <span id="consigna">
             </span>
         </p>
         <hr>
     </header>
     <main class="centrar" style="font-size: x-large;">
-        <div>
+        <form id="formulario" action="javascript:completarFormulario()">
             <div class="form centrar" id="paso1">
-                <p class="enfatizado" style="font-size: x-large;">¿De que tipo es?</p>
-                <label for="texto">Ingresar algo</label>
-                <input type="text" step="1" name="texto" id="texto" class="inputredondeado">
-                <input type="button" value="Presentar" style="font-size: x-large;" id="go"><br>
+                <p class="enfatizado" style="font-size: x-large;" id="tituloform">Datos de la persona</p>
+                <label for="nombre">Nombre</label>
+                <input type="text" name="nombre" id="nombre" class="inputredondeado">
+                <label for="edad">edad</label>
+                <input type="number" step="1" name="edad" id="edad" class="inputredondeado" value="0">
+                <div>
+                    <div><input type="radio" name="sexo" id="h"><label for="h">Masculino</label></div>
+                    <div><input type="radio" name="sexo" id="m"><label for="m">Femenino</label></div>
+                    <div><input type="radio" name="sexo" id="o"><label for="o">Otro</label></div>
+                </div>
+                
+                <div>
+                    <button type="submit" style="font-size: x-large;">Guardar</button>
+                    <button type="reset" style="font-size: x-large;">borrar</button>
+                </div>
+                
+                <div >
+                    <input type="button" value="Mostar lista" id="listar" disabled>
+                    <span>    </span>
+                    <input type="button" value="Borrar datos" id="reiniciar" disabled>
+                </div>
+                <br>
             </div>
             <div class="form centrar" style="display: none;" id="resultado">
-                <p class="enfatizado" style="font-size: x-large; margin-bottom: 0px;">Resultados</p>
-                <p class="enfatizado" style="font-size: x-large;" id="textoresultado">Resultados</p>
-                <input type="button" value="Reiniciar" style="font-size: x-large;" id="reiniciar"><br>
+                <p class="enfatizado" style="font-size: x-large; margin-bottom: 0px;">Lista de personas</p>
+                <div id="tabla"></div>
+                <input type="button" value="volver" style="font-size: x-large;" id="volver"><br>
             </div>
-        </div>
+        </form>
     </main>
 
     <script src="script.js"></script>
 </body>
+
 </html>

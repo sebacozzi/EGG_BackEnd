@@ -49,8 +49,14 @@ async function creaBotones(jsonData) {
       if (exists) {
         // Crea elemento "a"
         const acc = document.createElement("a");
+        //Crear parametros
+        let p1= encodeURIComponent("Ejercicio " +i);
+        let p2= encodeURIComponent(jsonData["Ejercicio" + i]);
+
+        let parametros = btoa(p1+"|"+p2);
+        sessionStorage.setItem(i,btoa(p2));
         // añade url de destino
-        acc.href = urlOrigen;
+        acc.href = `${urlOrigen}?params=${i}`;
         // Crea el elemnto de titulo
         const tit = document.createElement("h2");
         tit.style = "text-align: center;";

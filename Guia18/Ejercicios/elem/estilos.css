@@ -77,6 +77,10 @@ input[type=button] {
 
 input[type=number] {
     width: 100px;
+    text-align: center;
+    padding-inline-end: 10px;
+margin-bottom: 2px;
+margin-top: 2px;
 }
 
 .ayuda {
@@ -193,5 +197,19 @@ input[type=number] {
     padding-inline-start: 0px;
 }
 header{
-    background-image: linear-gradient(to left, BLUE,red);
+    background-image: linear-gradient(to left, rgb(112, 112, 145),rgb(185, 178, 81));
+    border-radius: 0 100% 0px 10px;
 }
+#titulo{
+    margin-top: 0px;
+    margin-bottom: 5px;
+}
+table{
+border: 2px black solid;
+border-collapse: collapse;
+}
+ th,tr, td{
+    border: 2px black solid;
+    text-align: center;
+    padding: 3px;
+ }
