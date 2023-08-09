@@ -6,15 +6,30 @@ window.onload = function () {
   const fin = new Date(2023,7,15,22);
   // fecha actual
   let hoy= new Date();
-  /// obtiene la parte entera
-  let faltan=parseInt((fin-hoy)/(1000*60*60*24));
-  console.log((fin-hoy)/(1000*60*60*24))
+  /// obtiene la diferencia de dias habiles
+  let faltan=faltanDias(hoy,fin);
+ 
   if(faltan===0){
     document.getElementById("faltan").innerHTML=`Hoy es el ultimo día para terminar la Guia`;
   } else{
     document.getElementById("faltan").innerHTML=`Faltan ${faltan} días para finalizar la Guia`;
   }
 };
+
+function faltanDias(fechaInicio, fechaFin) {
+  const dia = 86400000;
+  let dias = 0;
+
+  while (fechaInicio <= fechaFin) {
+      const diaSemana = fechaInicio.getDay();
+      if (diaSemana !== 0 && diaSemana !== 6) { 
+          dias++;
+      }
+      fechaInicio.setTime(fechaInicio.getTime() + dia);
+  }
+
+  return dias;
+}
 // url del archivo con el texto de descripcion de los ejercicios
 const datos = "elem/datos.json";
 // instruccion encargada de abrir el archivo con los datos y llamar a la funcion para crear los botones

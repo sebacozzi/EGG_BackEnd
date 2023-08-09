@@ -9,6 +9,7 @@
         "frame-title": "off"
       }
     ],
-    "no-inline-styles": "off"
+    "no-inline-styles": "off",
+    "axe/parsing": "off"
   }
 }
