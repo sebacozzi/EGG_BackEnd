@@ -113,27 +113,6 @@ margin-top: 2px;
 .slidein {
     animation-duration: 5s;
     animation-name: slidein;
-    /*animation-iteration-count: infinite;
-    animation-direction: alternate;
-*/
-}
-
-@keyframes slidein {
-    from {
-        /* margin-left: 100%;
-      width: 100%;
-      */
-        opacity: 0;
-        text-shadow: 0px 0px 40px black;
-    }
-
-    to {
-        /*margin-left: 0%;
-      width: 100%;*/
-        text-shadow: 0px 0px 0px rgb(41, 12, 12);
-        opacity: 1;
-    }
-
 }
 
 .fadein {
@@ -142,32 +121,9 @@ margin-top: 2px;
     z-index: 9999;
 }
 
-@keyframes fadein {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
-}
-
 .fadeout {
     animation-duration: 1.5s;
     animation-name: fadeout;
-
-
-}
-
-@keyframes fadeout {
-    0% {
-        opacity: 1;
-    }
-
-    /* 50% {opacity: 1;} */
-    100% {
-        opacity: 0;
-    }
 }
 
 .pie {
@@ -188,6 +144,17 @@ margin-top: 2px;
 .sinflechas::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
+}
+
+.boton-cambiado{
+    font-size: x-large;
+    border-radius: 5px;
+    margin-top: 10px;
+    margin-right: 5px;
+}
+
+.tachado {
+    text-decoration: line-through;
 }
 
 .inputredondeado {
@@ -220,3 +187,35 @@ border-collapse: collapse;
     padding: 3px;
  }
 
+/* Funciones */
+ @keyframes slidein {
+    from {
+        opacity: 0;
+        text-shadow: 0px 0px 40px black;
+    }
+    to {
+        text-shadow: 0px 0px 0px rgb(41, 12, 12);
+        opacity: 1;
+    }
+}
+
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeout {
+    0% {
+        opacity: 1;
+    }
+
+    /* 50% {opacity: 1;} */
+    100% {
+        opacity: 0;
+    }
+}

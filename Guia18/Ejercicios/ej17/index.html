@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 13 - Guia 18</title>
+    <link rel="stylesheet" href="../elem/estilos.css">
+</head>
+
+<body>
+
+    <header>
+        <iframe src="../elem/back.html" frameborder="0" scrolling="no" seamless="seamless"
+            style="height: 2em; overflow-x: hidden;"></iframe>
+        <h1 id="titulo"></h1>
+        <h2>Arreglo = [n1,n2,n3,<span class="tachado">n4</span>,<span class="tachado">nx</span>]</h2>
+        <p style=" text-align: justify; font-weight: bold;">
+            Consigna:
+            <span id="consigna">
+            </span>
+        </p>
+        <hr>
+    </header>
+    <main class="centrar" style="font-size: x-large;">
+        <div class="form centrar" id="paso1">
+            <p class="enfatizado" style="font-size: x-large;" id="tituloform"></p>
+            <label for="cant">Cantidad de elementos:</label>
+            <input type="number" step="1" min="1" value="5" class="inputredondeado" id="cant" name="cant">
+            <div>
+                <button type="button" class="boton-cambiado" onclick="generar()">Generar</button>
+                <button type="button" class="boton-cambiado" onclick="mostrar()">Mostrar</button>
+                <button type="button" class="boton-cambiado" onclick="reiniciar()">Reiniciar</button>
+            </div>
+
+            <div>
+                <p>Resultados: <br>
+                    Array original: <span id="a1">[ ]</span><br>
+                    Array sin los ultimos 2 elementos: <br>
+                    <span id="a2"></span>
+            </div>
+            </p>
+            
+        </div>
+
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
