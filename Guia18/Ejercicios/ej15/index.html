@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 13 - Guia 18</title>
+    <link rel="stylesheet" href="../elem/estilos.css">
+</head>
+
+<body>
+
+    <header>
+        <iframe src="../elem/back.html" frameborder="0" scrolling="no" seamless="seamless"
+            style="height: 2em; overflow-x: hidden;"></iframe>
+        <h1 id="titulo"></h1>
+        <h2>radio => perimetro(); radio=> area();</h2>
+        <p style=" text-align: justify; font-weight: bold;">
+            Consigna:
+            <span id="consigna">
+            </span>
+        </p>
+        <hr>
+    </header>
+    <main class="centrar" style="font-size: x-large;">
+        <form id="formulario" action="javascript:completarFormulario()">
+            <div class="form centrar" id="paso1">
+                <p class="enfatizado" style="font-size: x-large;" id="tituloform"></p>
+                <div id="datos" class="form">
+                    <div>
+                        <label for="radio">Radio:</label>
+                        <input type="number" name="radio" id="radio" step="0.01" class="inputredondeado" required>
+                    </div>
+                </div>
+
+                <div>
+                    <button type="submit"
+                        style="font-size: x-large; border-radius: 5px;margin-top: 10px;margin-right: 5px;">Calcular</button>
+                    <button type="reset"
+                        style="font-size: x-large; border-radius: 5px;margin-top: 10px;margin-left: 5px;">borrar</button>
+                </div>
+
+                <div>
+                    <p>Resultados: <br>
+                        Radio: <span id="radioR">0</span><br>
+                        Perimetro: <span id="perimetro">0</span><br>
+                        Area: <span id="area">0</span>
+                    </p>
+                </div>
+            </div>
+        </form>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
