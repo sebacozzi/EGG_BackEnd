@@ -2,7 +2,18 @@
 const maxBotones = 26;
 // cierra el loader
 window.onload = function () {
-  
+  // fecha fin Guia con hora que termina la clase
+  const fin = new Date(2023,7,15,22);
+  // fecha actual
+  let hoy= new Date();
+  /// obtiene la parte entera
+  let faltan=parseInt((fin-hoy)/(1000*60*60*24));
+  console.log((fin-hoy)/(1000*60*60*24))
+  if(faltan===0){
+    document.getElementById("faltan").innerHTML=`Hoy es el ultimo día para terminar la Guia`;
+  } else{
+    document.getElementById("faltan").innerHTML=`Faltan ${faltan} días para finalizar la Guia`;
+  }
 };
 // url del archivo con el texto de descripcion de los ejercicios
 const datos = "elem/datos.json";
@@ -16,8 +27,8 @@ const fileReader = new FileReader();
 fileReader.onload = function (event) {
   const fileContent = event.target.result;
   const jsonData = JSON.parse(fileContent);
-  creaBotones(jsonData)
-  document.getElementById("load").hidden=true;
+  creaBotones(jsonData);
+  
 };
 
 
@@ -73,4 +84,5 @@ async function creaBotones(jsonData) {
       }
     });
   }
+  document.getElementById("load").hidden=true;
 }

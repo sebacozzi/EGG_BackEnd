@@ -82,6 +82,12 @@ input[type=number] {
 margin-bottom: 2px;
 margin-top: 2px;
 }
+.marcoflotante{
+    background-color: burlywood;
+    display: flex;
+    position: fixed;
+    padding: 10px;
+}
 
 .ayuda {
     background-color: burlywood;
