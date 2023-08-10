@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 13 - Guia 18</title>
+    <link rel="stylesheet" href="../elem/estilos.css">
+</head>
+
+<body>
+
+    <header>
+        <iframe src="../elem/back.html" frameborder="0" scrolling="no" seamless="seamless"
+            style="height: 2em; overflow-x: hidden;"></iframe>
+        <h1 id="titulo"></h1>
+        <h2 id="">Calculo de Radio</h2>
+        <p style=" text-align: justify; font-weight: bold;">
+            Consigna:
+            <span id="consigna">
+            </span>
+        </p>
+        <hr>
+    </header>
+    
+    <main class="centrar" style="font-size: x-large;">
+        <form id="formulario" action="javascript:completarFormulario()" >
+            <div class="form centrar" id="paso1">
+                <p class="enfatizado" style="font-size: x-large;" id="tituloform"></p>
+                <label for="dato">Ingrese un dato del circulo</label>
+                <input type="number" name="dato" step="0.01" id="dato" class="inputredondeado" required placeholder="Ingresar Perimetro">
+                <div><input type="radio" name="por" id="perimetro" value="1" checked><label for="perimetro" >Por perimetro</label></div>
+                <div><input type="radio" name="por" id="area" value="2"><label for="area">Por area</label></div>
+                <div>
+                    <button type="submit" style="font-size: x-large;" id="boton">Mostrar</button>
+                </div>
+
+                <br>
+                <div ><p>El radio del circulo es: <span id="radio">0</span></p></div>
+            </div>
+            
+    </main>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

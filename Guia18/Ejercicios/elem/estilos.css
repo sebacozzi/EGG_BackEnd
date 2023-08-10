@@ -76,11 +76,18 @@ input[type=button] {
 }
 
 input[type=number] {
-    width: 100px;
+    
     text-align: center;
     padding-inline-end: 10px;
 margin-bottom: 2px;
 margin-top: 2px;
+}
+.inputredondeado{
+    text-align: center;
+    padding-inline-end: 10px;
+margin-bottom: 2px;
+margin-top: 2px;
+width: auto;
 }
 .marcoflotante{
     background-color: burlywood;
