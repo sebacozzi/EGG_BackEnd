@@ -10,48 +10,52 @@ window.onload = function () {
 };
 
 
-let array50 = [];
-let array20 = [];
+let arraydoble = [];
+let arraysimple = [];
 
 function generar() {
-if(array50.length===0){
-    for (let i = 0; i < 50; i++) {
-       array50[array50.length]= (Math.random()*25).toFixed(3);
+    let arr = [];
+    if (arraydoble.length === 0) {
+        for (let i = 1; i < 6; i++) {
+            arr = [i * 3];
+            console.log(i);
+            arraydoble[arraydoble.length] = arr;
+        };
     };
+    arraysimple = arraydoble.flat(1);
 };
-    array20=array50.slice(0,20);
-    array20=array20.fill(0.5,10,20);
 
-}
+const generaStringMatriz = (matriz) => {
+    let temp = "";
+    const filas = matriz.length;
 
-const generaString = (vector) => {
-    let temp = "[ ";
-    for (let i = 0; i < vector.length; i++) {
-        temp += vector[i];
-        if (i < (vector.length - 1)) {
-            temp += " , ";
-        } else { temp += " " };
-    }
-    temp = temp + "]";
-    return temp;
+    for (let i = 0; i < filas; i++) {
+        if (typeof (matriz[i].length) === "undefined") {
+            temp += matriz[i];
+        } else {
+            temp += generaStringMatriz(matriz[i]);
+        };
+    };
+    return "[" + temp + "]";
 };
+
 
 
 function mostrar() {
-    if(array20.length===0 ||array50.length===0){
+    if (arraydoble.length === 0 || arraysimple.length === 0) {
         alert("Primero clickea en 'Generar'")
         return;
     };
-    document.getElementById("array50").innerHTML = 
-        `<u>Array de 50 valores reales:</u><br>${generaString(array50)}`;
+    document.getElementById("arraydoble").innerHTML =
+        `<u>Matriz:</u><br>${generaStringMatriz(arraydoble)}`;
 
-    document.getElementById("array20").innerHTML =
-        `<u>Array de 20 valores(primeros 10 copiados del de 50 y ultimos 10 con 0.5):</u><br>(${generaString(array20)}`;
+    document.getElementById("arraysimple").innerHTML =
+        `<u>Array concatenado:</u><br>[ ${arraysimple.join(" , ")} ]`;
 };
 
 function reiniciar() {
     document.getElementById("array50").innerHTML = "";
     document.getElementById("array20").innerHTML = "";
-    array50=[];
-    array20=[];
+    array50 = [];
+    array20 = [];
 };
