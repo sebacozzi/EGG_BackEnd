@@ -14,7 +14,7 @@
         <iframe src="../elem/back.html" frameborder="0" scrolling="no" seamless="seamless"
             style="height: 2em; overflow-x: hidden;"></iframe>
         <h1 id="titulo"></h1>
-        <h2>Mostrar y ocultar</h2>
+        <h2>Datos del Formulario</h2>
         <p style=" text-align: justify; font-weight: bold;">
             Consigna:
             <span id="consigna">
@@ -22,38 +22,16 @@
         </p>
         <hr>
     </header>
-    <div id="cuerpo" class="form centrar">
-        <p id="texto" style="font-size: larger;">Hey, you're not permitted in there. It's restricted. You'll be
-            deactivated for sure.. Don't call me a mindless philosopher, you overweight glob of grease! Now come out
-            before somebody sees you. Secret mission? What plans? What are you talking about? I'm not getting in there!
-            I'm going to regret this. There goes another one. Hold your fire. There are no life forms. It must have been
-            short-circuited. That's funny, the damage doesn't look as bad from out here. Are you sure this things safe?
-            Close up formation. You'd better let her loose. Almost there! I can't hold them! It's away! It's a hit!
-            Negative. Negative! It didn't go in. It just impacted on the surface. Red Leader, we're right above you. Tum
-            to point... oh-five, we'll cover for you. Stay there... I just lost my starboard engine. Get set to make
-            your attack run. The Death Star plans are not in the main computer. Where are those transmissions you
-            intercepted? What have you done with those plans? We intercepted no transmissions. Aaah... This is a
-            consular ship. Were on a diplomatic mission. If this is a consular ship... were is the Ambassador? Commander,
-            tear this ship apart until you've found those plans and bring me the Ambassador. I want her alive! There she
-            is! Set for stun! She'll be all right. Inform Lord Vader we have a prisoner. What a piece of junk. She'Il
-            make point five beyond the speed of light. She may not look like much, but she's got it where it counts,
-            kid. I've added some special modifications myself. We're a little rushed, so if you'll hurry aboard we'll
-            get out of here. Hello, sir.
-        </p>
-    </div>
+
     <main class="centrar" style="font-size: x-large;">
-        <form id="formulario" action="javascript:completarFormulario()" >
-            <div class="form centrar" id="paso1">
-                <p class="enfatizado" style="font-size: x-large;" id="tituloform">Apriete el botón para resaltar las
-                    palabras</p>
-                <div>
-                    <button type="submit" style="font-size: x-large;" id="boton">Mostrar</button>
-
-                </div>
-
-                <br>
-            </div>
-            
+        <div id="cuerpo" class="form centrar">
+            <form id="form1" onsubmit="getFormValores()">
+                Nombre: <input type="text" name="nombre" value="David"><br>
+                Apellido: <input type="text" name="apellido" value="Beckham"><br>
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+        </div>
     </main>
 
     <script src="script.js"></script>
