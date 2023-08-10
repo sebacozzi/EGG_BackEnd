@@ -240,3 +240,44 @@ border-collapse: collapse;
         opacity: 0;
     }
 }
+.reloj{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.carilla-reloj{
+position: relative;
+    height: 150px;
+    width: 150px;
+    background-color: antiquewhite;
+    border-radius: 50%;
+    border-width: 2px black solid;
+    box-shadow: inset 0px 0px 10px black, 0px 0px 15px grey;
+    z-index: 1;
+}
+.aguja{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background-color: blue;
+    transform-origin: 50% 0%;
+}
+.aguja-hora{
+     width: 8px;
+    height: 40px;
+    margin-left: -4px;
+    z-index: 30;
+}
+.aguja-minuto{
+    width: 6px;
+    height: 70px;
+    margin-left: -3px;
+    z-index: 30;
+}
+.aguja-segundo{
+    width: 4px;
+    height: 70px;
+    margin-left: -2px;
+    z-index: 40;
+}

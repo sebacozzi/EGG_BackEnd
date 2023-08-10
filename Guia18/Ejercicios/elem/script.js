@@ -30,6 +30,7 @@ function faltanDias(fechaInicio, fechaFin) {
 
   return dias;
 }
+
 // url del archivo con el texto de descripcion de los ejercicios
 const datos = "elem/datos.json";
 // instruccion encargada de abrir el archivo con los datos y llamar a la funcion para crear los botones
@@ -69,6 +70,8 @@ function checkFileExists(url) {
 //Crea botones asincronico, para mantener el orden llama check... con espera de resultado 
 async function creaBotones(jsonData) {
   const main = document.getElementById("lista");
+  const div =document.createElement("div");
+  div.className="lista scroll-parte";
   for (let i = 1; i < maxBotones; i++) {
     const urlOrigen = `/Ejercicios/ej${i}/index.html`;
     await checkFileExists(urlOrigen).then((exists) => {
@@ -95,9 +98,10 @@ async function creaBotones(jsonData) {
         acc.appendChild(desc);
         acc.hidden = false;
         // agrega el "a" al cuerpo del html
-        main.appendChild(acc);
+        div.appendChild(acc);
       }
     });
   }
+main.appendChild(div);
   document.getElementById("load").hidden=true;
 }
