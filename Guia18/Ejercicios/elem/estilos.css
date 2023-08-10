@@ -157,6 +157,10 @@ margin-top: 2px;
     text-decoration: line-through;
 }
 
+.resaltado-amarillo{
+    background-color: yellowgreen;
+}
+
 .inputredondeado {
     -moz-appearance: textfield;
     font-size: x-large;
