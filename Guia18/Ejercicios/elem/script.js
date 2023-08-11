@@ -97,12 +97,7 @@ const abrir= (url)=>
         .then(response => response.json())
         //.then(data => data)
         .catch(error => console.error('Error al cargar el archivo:', error));
-
-const fileReader = new FileReader();
-fileReader.onload = function (event) {
-  const fileContent = event.target.result;
-  return JSON.parse(fileContent);
-}};
+};
 
 
 
