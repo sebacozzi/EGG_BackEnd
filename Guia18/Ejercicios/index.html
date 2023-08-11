@@ -19,30 +19,33 @@
     
     <div id="lista"> </div>
     
+
     <div class=" marco-reloj" style="left:990px; top:290px;" id="reloj">
         <div>
             <div class="reloj" >
                 <div class="carilla-reloj" >
+                    <div class="reloj-minimiza" id="minimizar"></div>
                     <div class="aguja">
-                        
+                         
                         <div class="aguja aguja-hora" id="h"></div>
                         <div class="aguja aguja-minuto" id="m"></div>
                         <div class="aguja aguja-segundo" id="s"></div>
                         
                     </div>
+                    
                     <div class="centro-reloj"></div> 
-                    <div class="marcas dib"></div>
-                    <div class="marcas dib" style="rotate: 30deg;"></div>
-                    <div class="marcas dib" style="rotate: 60deg;"></div>
-                    <div class="marcas dib" style="rotate: 90deg; "></div>
-                    <div class="marcas dib" style="rotate: 120deg; "></div>
-                    <div class="marcas dib" style="rotate: 150deg; "></div>
-                    <div class="marcas dib" style="rotate: 180deg; "></div>
-                    <div class="marcas dib" style="rotate: 210deg; "></div>
-                    <div class="marcas dib" style="rotate: 240deg; "></div>
-                    <div class="marcas dib" style="rotate: 270deg; "></div>
-                    <div class="marcas dib" style="rotate: 300deg; "></div>
-                    <div class="marcas dib" style="rotate: 330deg; "></div>
+                    <div class="marcas marca-hora"></div>
+                    <div class="marcas marca-hora" style="rotate: 30deg;"></div>
+                    <div class="marcas marca-hora" style="rotate: 60deg;"></div>
+                    <div class="marcas marca-hora" style="rotate: 90deg; "></div>
+                    <div class="marcas marca-hora" style="rotate: 120deg; "></div>
+                    <div class="marcas marca-hora" style="rotate: 150deg; "></div>
+                    <div class="marcas marca-hora" style="rotate: 180deg; "></div>
+                    <div class="marcas marca-hora" style="rotate: 210deg; "></div>
+                    <div class="marcas marca-hora" style="rotate: 240deg; "></div>
+                    <div class="marcas marca-hora" style="rotate: 270deg; "></div>
+                    <div class="marcas marca-hora" style="rotate: 300deg; "></div>
+                    <div class="marcas marca-hora" style="rotate: 330deg; "></div>
                    
                     
                 </div>
@@ -53,9 +56,17 @@
         </div>
     </div>
 
-    <div class="form marcoflotante"style="left:75%; top:2%;  min-heigth:2ev;">
+    <div class="form marcoflotante "style="left:75%; top:2%;  min-heigth:2ev;" >
         <div>
             <span id="faltan" >Faltan 01 días para finalizar la guia</span>
+            
+        </div>
+    </div>
+    <div class="form marcoflotante reloj-dig-pos hidden" id="relojdigital">
+        
+        <div>
+            <div class="reloj-minimiza_a" id="minimizar"></div>
+            <span id="relojminimizado" >00:00:00</span>
             
         </div>
     </div>

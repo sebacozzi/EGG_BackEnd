@@ -76,20 +76,22 @@ input[type=button] {
 }
 
 input[type=number] {
-    
+
     text-align: center;
     padding-inline-end: 10px;
-margin-bottom: 2px;
-margin-top: 2px;
+    margin-bottom: 2px;
+    margin-top: 2px;
 }
-.inputredondeado{
+
+.inputredondeado {
     text-align: center;
     padding-inline-end: 10px;
-margin-bottom: 2px;
-margin-top: 2px;
-width: auto;
+    margin-bottom: 2px;
+    margin-top: 2px;
+    width: auto;
 }
-.marcoflotante{
+
+.marcoflotante {
     background-color: burlywood;
     display: flex;
     position: fixed;
@@ -153,7 +155,7 @@ width: auto;
     margin: 0;
 }
 
-.boton-cambiado{
+.boton-cambiado {
     font-size: x-large;
     border-radius: 5px;
     margin-top: 10px;
@@ -164,7 +166,7 @@ width: auto;
     text-decoration: line-through;
 }
 
-.resaltado-amarillo{
+.resaltado-amarillo {
     background-color: yellowgreen;
 }
 
@@ -175,44 +177,52 @@ width: auto;
     border-radius: 15px;
     padding-inline-start: 10px;
 }
-.disabled{
+
+.disabled {
     pointer-events: none;
     opacity: 0.5;
     cursor: not-allowed;
 }
 
 .ocultar {
- display: none;
+    display: none;
 }
 
-.txcentrado{
+.txcentrado {
     text-align: center;
     padding-inline-start: 0px;
 }
-header{
-    background-image: linear-gradient(to left, rgb(112, 112, 145),rgb(185, 178, 81));
+
+header {
+    background-image: linear-gradient(to left, rgb(112, 112, 145), rgb(185, 178, 81));
     border-radius: 0 100% 0px 10px;
 }
-#titulo{
+
+#titulo {
     margin-top: 0px;
     margin-bottom: 5px;
 }
-table{
-border: 2px black solid;
-border-collapse: collapse;
+
+table {
+    border: 2px black solid;
+    border-collapse: collapse;
 }
- th,tr, td{
+
+th,
+tr,
+td {
     border: 2px black solid;
     text-align: center;
     padding: 3px;
- }
+}
 
 /* Funciones */
- @keyframes slidein {
+@keyframes slidein {
     from {
         opacity: 0;
         text-shadow: 0px 0px 40px black;
     }
+
     to {
         text-shadow: 0px 0px 0px rgb(41, 12, 12);
         opacity: 1;
@@ -239,15 +249,16 @@ border-collapse: collapse;
         opacity: 0;
     }
 }
-.reloj{
+
+.reloj {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    cursor: grab;
 }
-.carilla-reloj{
-position: relative;
+
+.carilla-reloj {
+    position: relative;
     height: 150px;
     width: 150px;
     background-color: antiquewhite;
@@ -256,22 +267,25 @@ position: relative;
     box-shadow: inset 0px 0px 10px black, 0px 0px 15px grey;
     z-index: 1;
 }
-.aguja{
+
+.aguja {
     position: absolute;
     top: 50%;
     left: 50%;
     background-color: blue;
     transform-origin: 50% 0%;
 }
-.aguja-hora{
-     width: 6px;
+
+.aguja-hora {
+    width: 6px;
     height: 50px;
     margin-left: -3px;
     z-index: 30;
     border-radius: 0 0 50% 50%;
 
 }
-.aguja-minuto{
+
+.aguja-minuto {
     width: 4px;
     height: 70px;
     margin-left: -2px;
@@ -279,44 +293,49 @@ position: relative;
     border-radius: 0 0 50% 50%;
 
 }
-.aguja-segundo{
+
+.aguja-segundo {
     width: 2px;
     height: 70px;
     margin-left: -1px;
     z-index: 40;
     border-radius: 0 0 50% 50%;
 }
-.centro-reloj{
+
+.centro-reloj {
     position: absolute;
     top: 50%;
     left: 50%;
     width: 12px;
     height: 12px;
-    margin-top: -6px; 
-    margin-left: -6px; 
+    margin-top: -6px;
+    margin-left: -6px;
     background-color: black;
     border-radius: 50%;
-    
+
     z-index: 999;
 }
-.marco-reloj{
+
+.marco-reloj {
     border-radius: 50%;
     background-color: burlywood;
     display: flex;
     position: fixed;
     padding: 10px;
 }
+
 .marcas {
     position: absolute;
- background-color: gold;
- 
- top : 10%;
- left: 50%;
- 
- transform-origin: center 400%;
- z-index: 10;
+    background-color: gold;
+
+    top: 10%;
+    left: 50%;
+
+    transform-origin: center 400%;
+    z-index: 10;
 }
-.dib{
+
+.marca-hora {
     width: 4px;
     height: 15px;
     margin-left: -2px;
@@ -324,7 +343,44 @@ position: relative;
     border-radius: 50%;
     box-shadow: inset 1px 0px 3px;
 }
-#reloj:hover{
-        cursor: grab;
-    }
- 
+
+/* #reloj:hover {
+    cursor: grab;
+} */
+
+.reloj-minimiza {
+    height: 6px;
+    width: 15px;
+    background-color: white;
+    margin-top: 5px;
+    margin-left: 140px;
+    border-radius: 3px;
+    box-shadow: 1px 1px 3px black, -1px -1px 3px gray;
+}
+
+.reloj-minimiza:hover {
+    cursor: pointer;
+    background-color: darkgray;
+}
+.reloj-minimiza_a {
+    position: absolute;
+    height: 6px;
+    width: 15px;
+    background-color: white;
+    margin-top: -9px;
+    margin-left: 44px;
+    border-radius: 3px;
+    box-shadow: 1px 1px 3px black, -1px -1px 3px gray;
+}
+
+.reloj-minimiza_a:hover {
+    cursor: pointer;
+    background-color: darkgray;
+}
+.reloj-dig-pos{
+    left:48%; top:2%;  
+    min-height:2ev;
+}
+.hidden{
+    display: none;
+}
