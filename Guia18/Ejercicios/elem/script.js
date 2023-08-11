@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded",(ev)=>{
   
   reloj.style.top = posReloj["posx"];
   reloj.style.left = posReloj["posy"];
-  console.log("inicia caraga")
+  creaBotones();
 },false);
 // cierra el loader
 window.onload = function () {
@@ -32,8 +32,8 @@ function actualizaReloj(){
   const minutos = tiempo.getMinutes();
   let segundos= tiempo.getSeconds();
 
-  document.getElementById("h").style= `rotate:${hora*30+180}deg`;
-  document.getElementById("m").style= `rotate:${minutos*6+180}deg`;
+  document.getElementById("h").style= `rotate:${hora*30+180+(30/(60/minutos))}deg`;
+  document.getElementById("m").style= `rotate:${minutos*6+180+(6/(60/segundos))}deg`;
   document.getElementById("s").style= `rotate:${segundos*6+180}deg`;
  // document.getElementById("hora").innerHTML= `${hora}:${minutos}:${segundos}`;
 
@@ -46,19 +46,30 @@ let click =false;
 let posX,posY;
 const reloj= document.getElementById("reloj");
 reloj.addEventListener("mousemove",(ev)=>{
+  
   if (click){
   document.getElementById("reloj").style=`left:${ev.clientX-posX}px; top:${ev.clientY-posY}px;`;
+  
+  };
+  x=Math.abs(ev.offsetX-85);
+y=Math.abs(ev.offsetY-85);
+dis =Math.sqrt(x*x +y*y);
 
-  }
-
+/*  posiblemente se pueda cambiar el tamaño!!! para revisar
+x=Math.abs(ev.offsetX-85);
+y=Math.abs(ev.offsetY-85);
+dis =Math.sqrt(x*x +y*y);
+{
+  
+  console.log (Math.abs(ev.offsetY-75)+";"+ Math.abs(ev.offsetY-75) +"::::"+Math.sqrt(x*x+y*y));} */
 },false);
 
 reloj.addEventListener("mousedown",(ev)=>{
   click = true 
+  
   posX=ev.clientX - reloj.getBoundingClientRect().left;
   posY=ev.clientY- reloj.getBoundingClientRect().top;
-  console.log(posY);
-
+  //reloj.style.cursor= "grabbing";
 },false);
 
 reloj.addEventListener("mouseup",(ev)=>{
@@ -73,7 +84,7 @@ reloj.addEventListener("mouseup",(ev)=>{
     
   };
  localStorage.setItem("reloj", JSON.stringify(jso));
-
+ 
 },false);
 //// FIN RELOJ
 
@@ -142,7 +153,6 @@ async function creaBotones() {
   const div =document.createElement("div");
   div.className="lista scroll-parte";
   const jsonData = await abrir("elem/datos.json");
-  console.log("jsonData: "+jsonData);
   for (let i = 1; i < maxBotones; i++) {
     const urlOrigen = `/Ejercicios/ej${i}/index.html`;
     await checkFileExists(urlOrigen).then((exists) => {
@@ -176,4 +186,4 @@ async function creaBotones() {
 main.appendChild(div);
   document.getElementById("load").hidden=true;
 }
-creaBotones();
+

@@ -244,6 +244,7 @@ border-collapse: collapse;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    cursor: grab;
 }
 .carilla-reloj{
 position: relative;
@@ -263,24 +264,25 @@ position: relative;
     transform-origin: 50% 0%;
 }
 .aguja-hora{
-     width: 8px;
-    height: 40px;
-    margin-left: -4px;
-    z-index: 30;
-    border-radius: 0 0 50% 50%;
-    rotate: 30deg;
-}
-.aguja-minuto{
-    width: 6px;
-    height: 70px;
+     width: 6px;
+    height: 50px;
     margin-left: -3px;
     z-index: 30;
     border-radius: 0 0 50% 50%;
+
 }
-.aguja-segundo{
+.aguja-minuto{
     width: 4px;
     height: 70px;
     margin-left: -2px;
+    z-index: 30;
+    border-radius: 0 0 50% 50%;
+
+}
+.aguja-segundo{
+    width: 2px;
+    height: 70px;
+    margin-left: -1px;
     z-index: 40;
     border-radius: 0 0 50% 50%;
 }
@@ -294,9 +296,35 @@ position: relative;
     margin-left: -6px; 
     background-color: black;
     border-radius: 50%;
-    border: 1px solid gray;
+    
     z-index: 999;
 }
 .marco-reloj{
     border-radius: 50%;
+    background-color: burlywood;
+    display: flex;
+    position: fixed;
+    padding: 10px;
 }
+.marcas {
+    position: absolute;
+ background-color: gold;
+ 
+ top : 10%;
+ left: 50%;
+ 
+ transform-origin: center 400%;
+ z-index: 10;
+}
+.dib{
+    width: 4px;
+    height: 15px;
+    margin-left: -2px;
+    margin-top: 0px;
+    border-radius: 50%;
+    box-shadow: inset 1px 0px 3px;
+}
+#reloj:hover{
+        cursor: grab;
+    }
+ 
