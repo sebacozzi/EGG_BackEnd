@@ -1,6 +1,12 @@
 // contador de botones de ejercicios
 const maxBotones = 26;
-
+document.addEventListener("DOMContentLoaded",(ev)=>{
+  var posReloj=JSON.parse(localStorage.getItem("reloj"));
+  
+  reloj.style.top = posReloj["posx"];
+  reloj.style.left = posReloj["posy"];
+  console.log("inicia caraga")
+},false);
 // cierra el loader
 window.onload = function () {
   // fecha fin Guia con hora que termina la clase
@@ -58,23 +64,33 @@ reloj.addEventListener("mousedown",(ev)=>{
 reloj.addEventListener("mouseup",(ev)=>{
   click = false 
   /// guardar posición para proximo inicio
+  const x = reloj.style.top;
+  const y = reloj.style.left;
+  const jso={
+    
+      posx: x,
+      posy: y
+    
+  };
+ localStorage.setItem("reloj", JSON.stringify(jso));
 
 },false);
 //// FIN RELOJ
 
-/// post 
-const guardar= (url,datos)=>{
+/// post NO FUNCIONA ---- Investigar
+async function guardar(url,datos){
 fetch(url,{
   method:"POST",
   headers:{
     'Content-Type' : 'application/json'},
     body: datos
   }).then(reponse=> reponse.json())
-  .then(data=> console.log(data));
+  .then(data=> console.log(data))
+  .catch(error, console.log("mensaje:"+error));
 };
-
-
 /// post
+
+
 function faltanDias(fechaInicio, fechaFin) {
   const dia = 86400000;
   let dias = 0;
@@ -92,11 +108,11 @@ function faltanDias(fechaInicio, fechaFin) {
 
 
 // instruccion encargada de abrir el archivo con los datos y llamar a la funcion para crear los botones
-const abrir= (url)=>
+async function abrir (url)
 { return fetch(url)
         .then(response => response.json())
         //.then(data => data)
-        .catch(error => console.error('Error al cargar el archivo:', error));
+        .catch(error => console.error('Error al cargar el archivo('+url+'):', error));
 };
 
 
@@ -121,10 +137,12 @@ function checkFileExists(url) {
 
 //Crea botones asincronico, para mantener el orden llama check... con espera de resultado 
 async function creaBotones() {
+  
   const main = document.getElementById("lista");
   const div =document.createElement("div");
   div.className="lista scroll-parte";
   const jsonData = await abrir("elem/datos.json");
+  console.log("jsonData: "+jsonData);
   for (let i = 1; i < maxBotones; i++) {
     const urlOrigen = `/Ejercicios/ej${i}/index.html`;
     await checkFileExists(urlOrigen).then((exists) => {
