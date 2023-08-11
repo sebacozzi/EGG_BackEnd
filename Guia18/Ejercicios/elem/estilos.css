@@ -174,7 +174,6 @@ width: auto;
     width: auto;
     border-radius: 15px;
     padding-inline-start: 10px;
-    
 }
 .disabled{
     pointer-events: none;
@@ -268,16 +267,36 @@ position: relative;
     height: 40px;
     margin-left: -4px;
     z-index: 30;
+    border-radius: 0 0 50% 50%;
+    rotate: 30deg;
 }
 .aguja-minuto{
     width: 6px;
     height: 70px;
     margin-left: -3px;
     z-index: 30;
+    border-radius: 0 0 50% 50%;
 }
 .aguja-segundo{
     width: 4px;
     height: 70px;
     margin-left: -2px;
     z-index: 40;
+    border-radius: 0 0 50% 50%;
+}
+.centro-reloj{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 12px;
+    height: 12px;
+    margin-top: -6px; 
+    margin-left: -6px; 
+    background-color: black;
+    border-radius: 50%;
+    border: 1px solid gray;
+    z-index: 999;
+}
+.marco-reloj{
+    border-radius: 50%;
 }

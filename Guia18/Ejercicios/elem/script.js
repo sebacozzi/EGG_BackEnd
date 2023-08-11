@@ -1,5 +1,6 @@
 // contador de botones de ejercicios
 const maxBotones = 26;
+
 // cierra el loader
 window.onload = function () {
   // fecha fin Guia con hora que termina la clase
@@ -8,14 +9,72 @@ window.onload = function () {
   let hoy= new Date();
   /// obtiene la diferencia de dias habiles
   let faltan=faltanDias(hoy,fin);
- 
+  
   if(faltan===0){
     document.getElementById("faltan").innerHTML=`Hoy es el ultimo día para terminar la Guia`;
   } else{
     document.getElementById("faltan").innerHTML=`Faltan ${faltan} días para finalizar la Guia`;
   }
+  
 };
 
+
+// RELOJ
+function actualizaReloj(){
+ let tiempo= new Date();
+  const hora= tiempo.getHours()-12;
+  const minutos = tiempo.getMinutes();
+  let segundos= tiempo.getSeconds();
+
+  document.getElementById("h").style= `rotate:${hora*30+180}deg`;
+  document.getElementById("m").style= `rotate:${minutos*6+180}deg`;
+  document.getElementById("s").style= `rotate:${segundos*6+180}deg`;
+ // document.getElementById("hora").innerHTML= `${hora}:${minutos}:${segundos}`;
+
+
+};
+
+actualizaReloj();
+setInterval(actualizaReloj, 1000);
+let click =false;
+let posX,posY;
+const reloj= document.getElementById("reloj");
+reloj.addEventListener("mousemove",(ev)=>{
+  if (click){
+  document.getElementById("reloj").style=`left:${ev.clientX-posX}px; top:${ev.clientY-posY}px;`;
+
+  }
+
+},false);
+
+reloj.addEventListener("mousedown",(ev)=>{
+  click = true 
+  posX=ev.clientX - reloj.getBoundingClientRect().left;
+  posY=ev.clientY- reloj.getBoundingClientRect().top;
+  console.log(posY);
+
+},false);
+
+reloj.addEventListener("mouseup",(ev)=>{
+  click = false 
+  /// guardar posición para proximo inicio
+
+},false);
+//// FIN RELOJ
+
+/// post 
+const guardar= (url,datos)=>{
+fetch(url,{
+  method:"POST",
+  headers:{
+    'Content-Type' : 'application/json'},
+    body: datos
+  }).then(reponse=> reponse.json())
+  .then(data=> console.log(data));
+};
+
+
+/// post
 function faltanDias(fechaInicio, fechaFin) {
   const dia = 86400000;
   let dias = 0;
@@ -29,23 +88,21 @@ function faltanDias(fechaInicio, fechaFin) {
   }
 
   return dias;
-}
+};
 
-// url del archivo con el texto de descripcion de los ejercicios
-const datos = "elem/datos.json";
+
 // instruccion encargada de abrir el archivo con los datos y llamar a la funcion para crear los botones
-fetch(datos)
-  .then(response => response.blob())
-  .then(blob => fileReader.readAsText(blob))
-  .catch(error => console.error('Error al cargar el archivo:', error));
+const abrir= (url)=>
+{ return fetch(url)
+        .then(response => response.json())
+        //.then(data => data)
+        .catch(error => console.error('Error al cargar el archivo:', error));
 
 const fileReader = new FileReader();
 fileReader.onload = function (event) {
   const fileContent = event.target.result;
-  const jsonData = JSON.parse(fileContent);
-  creaBotones(jsonData);
-  
-};
+  return JSON.parse(fileContent);
+}};
 
 
 
@@ -68,10 +125,11 @@ function checkFileExists(url) {
   }
 
 //Crea botones asincronico, para mantener el orden llama check... con espera de resultado 
-async function creaBotones(jsonData) {
+async function creaBotones() {
   const main = document.getElementById("lista");
   const div =document.createElement("div");
   div.className="lista scroll-parte";
+  const jsonData = await abrir("elem/datos.json");
   for (let i = 1; i < maxBotones; i++) {
     const urlOrigen = `/Ejercicios/ej${i}/index.html`;
     await checkFileExists(urlOrigen).then((exists) => {
@@ -105,3 +163,4 @@ async function creaBotones(jsonData) {
 main.appendChild(div);
   document.getElementById("load").hidden=true;
 }
+creaBotones();
