@@ -2,9 +2,14 @@
 const maxBotones = 26;
 document.addEventListener("DOMContentLoaded", (ev) => {
   var posReloj = JSON.parse(localStorage.getItem("reloj"));
-
+  if (posReloj!=null){
   reloj.style.top = posReloj["posx"];
   reloj.style.left = posReloj["posy"];
+} else{
+  reloj.style.top = "50%";
+  reloj.style.left = "50%";
+
+}
   creaBotones();
 }, false);
 // cierra el loader
@@ -66,14 +71,6 @@ reloj.addEventListener("mousemove", (ev) => {
   if (dis < 84) {
     reloj.style.cursor = "grab";
   } else { reloj.style.cursor = "" }
-
-  /*  posiblemente se pueda cambiar el tamaño!!! para revisar
-  x=Math.abs(ev.offsetX-85);
-  y=Math.abs(ev.offsetY-85);
-  dis =Math.sqrt(x*x +y*y);
-  {
-    
-    console.log (Math.abs(ev.offsetY-75)+";"+ Math.abs(ev.offsetY-75) +"::::"+Math.sqrt(x*x+y*y));} */
 }, false);
 const minimizaRelojes = (ev) => {
   if (ev.target.id == "minimizar") {
@@ -94,7 +91,7 @@ reloj.addEventListener("mousedown", (ev) => {
 
   posX = xp - reloj.getBoundingClientRect().left;
   posY = yp - reloj.getBoundingClientRect().top;
-  //reloj.style.cursor= "grabbing";
+  
 }, false);
 
 reloj.addEventListener("mouseup", (ev) => {
