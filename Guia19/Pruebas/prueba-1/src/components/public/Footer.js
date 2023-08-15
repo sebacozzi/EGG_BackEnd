@@ -1,23 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 //import '../../App.css';
 
 const Footer = () => {
     
+    const [arriba,setArriba]= useState(0);
     const anio= new Date().getFullYear();
     
     const compania= 'Mi compania'
-
+    const handleOver=()=>{
+        setArriba(arriba+1);
+    }
 
     return (
         <div className='footer'>
-            <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top" >
-                <div class="col-md-4 d-flex align-items-center">
-                    <span class="mb-3 mb-md-0 text-body-secondary">© {anio} {compania} </span>
+            <footer className="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top" >
+                <div className="col-md-4 d-flex align-items-center">
+                    <span className="mb-4 mb-md-0 text-body-secondary">
+                        &copy; {anio}  <span className='m-4'>{compania} Arriba= {arriba}</span>  </span>
                 </div>
-                <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
-                    <li className='ms-3'>Mis redes </li>
-                    <li className='ms-3'>Mis redes </li>
-                    <li className='ms-3'>Mis redes </li>
+                <ul className="nav col-md-4 justify-content-end list-unstyled d-flex">
+                    <li className='ms-2' onMouseOver={handleOver}>Instagram </li>
+                    <li className='ms-2'>Facebook </li>
+                    <li className='ms-2'>Discord </li>
                 </ul>
             </footer>
         </div>

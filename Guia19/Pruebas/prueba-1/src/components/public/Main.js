@@ -1,20 +1,29 @@
-import React from 'react'
+import React, { Component, useState } from 'react'
+import Cartas from './Cartas';
+import RickAndMortyService from '../../services/RM_Service'
 
-const Main = () => {
-  const pes=()=>{
-    let s="";
-    for (let i=0; i<25;i++){
-      s+= `<p>Hola  ${i+1}</p>\n`;
-    }
-    return s;
+class Main extends Component {
+  constructor(props){
+    super(props);
+    this.state= {cartas:[]};
   }
-  return (
-    <div>
-      <div className='cuerpo-scroll'>
-       
+
+  componentDidMount(){
+    RickAndMortyService.getTodosLosPersonajes()
+    .then((data)=>
+    this.setState({ cartas : data.results}));
+  }
+
+  render() {
+    return (
+      <div>
+        <div className='cuerpo-scroll'>
+          <Cartas datos={this.state.cartas} />
+
+        </div>
       </div>
-    </div>
-  )
+    )
+  }
 }
-document.getElementById().onent
+
 export default Main
