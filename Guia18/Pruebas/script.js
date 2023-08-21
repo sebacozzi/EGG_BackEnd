@@ -47,3 +47,12 @@ console.log(persona);
 console.log(mascota);
 console.log(persona.mass.id);
 console.log(p1);
+
+let a= 10;
+
+console.log("Antes del if"+a);
+if(true){
+    a=15;
+console.log("dentro del if"+a);
+}
+console.log("despues del if"+a);
