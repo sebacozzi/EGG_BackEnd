@@ -16,7 +16,7 @@ const Cartas = () => {
     },[cartas]);
     
     // Crea la lista de cartas
-    const lista = cartas.map((c)=><Carta carta={c} id={c.id}/>);
+    const lista = cartas.map((c)=><Carta carta={c} key={c.id} id={c.id}/>);
 
     return (
         <div className='album py-5 bg-light'>

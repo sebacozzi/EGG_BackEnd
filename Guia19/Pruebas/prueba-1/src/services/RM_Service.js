@@ -7,6 +7,7 @@ class RickAndMortyService {
     };
 
     async getPersonaje(id){
+        console.log("getPersonaje: "+ id)
         const response = await fetch(API_RM.personaje(id));
         return response.json();
     };

@@ -14,7 +14,7 @@ function Main () {
    {
     return (
       <div>
-        <div className='cuerpo-scroll'>
+        <div /* className='cuerpo-scroll' */>
           <Cartas />
 
         </div>

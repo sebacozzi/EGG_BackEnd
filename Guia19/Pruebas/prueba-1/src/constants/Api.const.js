@@ -5,6 +5,6 @@ export const API_RM={
         return `${this.url}/character`
     },
     personaje: function(id){
-        return `${this.personajes()}/${id}`;
+        return `${this.url}/character/${id}`;
     }
 };
