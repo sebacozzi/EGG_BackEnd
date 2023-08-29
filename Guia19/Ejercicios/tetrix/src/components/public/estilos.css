@@ -1,0 +1,39 @@
+/* Tablero */
+
+.tablero {
+    width: 450px;
+    background-color: chocolate; 
+    border: 1px solid aqua;
+    box-shadow: inset 0 0 3px black, 0 0 3px wheat;
+    display: grid;
+    grid-template-columns: repeat(15, 30px);
+    grid-template-rows: repeat(20, 30px);
+
+}
+
+.casilla {
+    width: 30px;
+    height: 30px;
+   border: 1px solid aqua;
+}
+
+.fila {
+    display: contents;
+}
+
+.ficha-0 {
+    background-color: rgba(71, 51, 36, 0.377);
+    box-shadow: inset 0 0 7px white;
+}
+
+.ficha-1 {
+    background-color: #ff0000;
+}
+
+.ficha-2 {
+    background-color: #00ff00;
+}
+
+.ficha-3 {
+    background-color: #0000ff;
+}
