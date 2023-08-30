@@ -10,15 +10,22 @@
     grid-template-rows: repeat(20, 30px);
 }
 .tanteador {
-    width: 450px;
+    width: 200px;
     background-color: chocolate; 
     border: 1px solid aqua;
     box-shadow: inset 0 0 3px black, 0 0 3px wheat;
-    
-    top:15px;
-z-index: 100;
-}
+    height: auto;
+    top: 400px;
+    left: 30px;
+    position: absolute;
+    z-index: 100;
 
+}
+.juego{ width: 450px;
+    display: grid;
+    grid-template-columns: repeat(15, 30px);
+    grid-template-rows: repeat(20, 30px);
+    position: absolute;}
 .casilla {
     width: 30px;
     height: 30px;
