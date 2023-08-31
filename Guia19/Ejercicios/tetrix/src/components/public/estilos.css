@@ -63,6 +63,7 @@
 .ficha{
     position: absolute;
     box-shadow: inset 5px 5px 4px rgb(170, 168, 168), inset -5px -5px 5px rgb(46, 42, 42);
+    color: #0f0f0f;
 }
 .fichas{
     position: absolute;

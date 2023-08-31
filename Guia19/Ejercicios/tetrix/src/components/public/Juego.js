@@ -1,7 +1,8 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import './estilos.css'
 import Pieza from './Pieza'
 import CTanteador from '../Services/Contextos';
+import { eventWrapper } from '@testing-library/user-event/dist/utils';
 
 export default function Juego() {
     const { mOver, segundos, filasOcupadas, actualizaFila, actualizaSegundos, actualizamOver } = useContext(CTanteador)
@@ -10,34 +11,33 @@ export default function Juego() {
 
     const filas = 20;
     const columnas = 15;
-
+    const puedeActualizar= useRef(true)
     const filasInicio = 4;
     const [first, setfirst] = useState(true)
 
     // const [nuevaFila, setNuevaFila] = useState([]);
 
-    let idFicha = 1;
-    const [fichas, setFichas] = useState(
-        [/* { id: 1, pieza: 1, x: 2, y: 19 },
-        { id: 2, pieza: 3, x: 12, y: 19 },
-        { id: 3, pieza: 4, x: 4, y: 18 },
-        { id: 4, pieza: 4, x: 7, y: 19 },
-        { id: 5, pieza: 3, x: 4, y: 19 }, */
-        ]
-    )
+    const idFicha = useRef(0);
+    const disponibleDerecha= useRef(15);
+    const disponibleIzquierda= useRef(-1);
+    const xActual =useRef(0)
+    const posicionMouse=useRef(0)
+
+    const [fichas, setFichas] = useState([]);
 
     /// crea la cantidad filas
     function creaFicha(fx, fy, maximo) {
-        const id = idFicha;
+        const id = idFicha.current;
         const nPieza = Math.round(Math.random() * maximo) + 1;
-        const to=fx + (nPieza-1);
+        const to = fx + (nPieza - 1);
+        idFicha.current = (idFicha.current + 1);
+        return { id: id, pieza: nPieza, x: fx, y: fy, to: to };
 
-        idFicha++;
-        return { id: id, pieza: nPieza, x: fx, y: fy ,to:to};
     }
 
     useEffect(() => {
         if (first) {
+
             let nFichas = [];
             for (let iFilas = 19; iFilas > filas - (filasInicio + 1); iFilas--) {/// recorre las filas
                 let largoMax = 4;
@@ -50,9 +50,11 @@ export default function Juego() {
                         const llevaFicha = Math.round(Math.random()) === 1; ///  Randomiza si va a cargar una ficha en esa columna
                         if (llevaFicha) {
                             // Crear ficha
+                            idFicha.current = (lineaFichas.length + nFichas.length + 1);
                             const nf = creaFicha(iColumna, iFilas, largoMax);
                             iColumna += nf.pieza;
                             lineaFichas = lineaFichas.concat([nf]);
+
                         }
                     }
                 }
@@ -61,6 +63,7 @@ export default function Juego() {
                     iFilas++;
                 } else {
                     nFichas = nFichas.concat(lineaFichas);
+
                 }
 
 
@@ -75,105 +78,44 @@ export default function Juego() {
     /// actualiza filas ocupadas
     useEffect(() => {
         let min = 20;
-        let cambio = false;
+
         /// Hacer caer fichas
-        let pf = Array.from({ length: 20 }, () => Array(15).fill(0))
+        let tempFichas = fichas.slice();
+        let actualizo;
 
-        fichas.forEach(element => {
-            if (element.y < min) min = element.y;
-            for (let i = element.x; i < element.x + element.pieza; i++) {
-                pf[element.y][i] = element.id;
-            }
-        });
-        let salir = true;
 
-        salir = true;
-        /* for (let i = 0; i < 19; i++) {
-            let vacio = true;
-            let l = 0;
-            for (let j = 0; j < 15; j++) {
-                if (pf[i][j] !== 0) {
-                    vacio = true;
-                    l = 0;
-                    const ficha = pf[i][j];
-                    for (let k = j; k < 15; k++) {
-                        if (pf[i][k] === 0) { break };
-                        if (!((pf[i][k] === ficha) && (pf[i + 1][k] === 0))) {
-                            vacio = false;
-                            break;
+        if(puedeActualizar){
+        do {
+            actualizo = false;
+             tempFichas.map(ficha => {
+                if (ficha.y < 19) {
+                    const fichasdebajo= tempFichas.filter((f)=>f.y === ficha.y+1)
+                    const noTieneAbajo = fichasdebajo.every((ficha1) => {
+                        if (ficha.id !== ficha1.id) {
+                                if(ficha1.y === ficha.y + 1)
+                                if ( 
+                                    ((ficha1.x <= ficha.x && ficha1.to >= ficha.x) || (ficha1.x <= ficha.x && ficha1.to >= ficha.x)) ||
+                                    ((ficha.x <=ficha1.x && ficha.to>= ficha1.x) || (ficha.x<=ficha1.x && ficha.to >= ficha1.x))
+                                    ) {
+                                    return false;
+                                }
                         }
-                        l++;
+                        return true;
+                    })
+                    if (noTieneAbajo) {
+                        ficha.y = ficha.y + 1;
+                        actualizo = true;
                     }
-                    if (vacio) {
-                        for (let k = j; k < j + l; k++) {
-                            pf[i + 1][k] = pf[i][k];
-                            pf[i][k] = 0;
-                        }
-                        j += l;
-                        cambio = true;
-                        salir = false;
-                    }
-                }
-            }
-        } */
-
-        const tempFichas = fichas;
-
-        tempFichas.map(ficha => {
-            
-            if (ficha.y < 19) {
-                console.log(ficha)
-                tempFichas.forEach((ficha1)=>{
-                    
-                    if(ficha.id !== ficha1.id){
-                        if(ficha1.y===ficha.y+1){
-                            
-                            if(((ficha1.x<=ficha.x && 
-                                ficha1.to>=ficha.x) || (ficha1.x<=ficha.to && ficha1.to<=ficha.to)) ){
-                                /*  console.log('ficha1.x>=ficha.x'+ficha1.x>=ficha.x)
-                                 console.log('ficha1.to<=ficha.x'+ficha1.to<=ficha.x)  */  
-                                console.log('Puede bajar: '+JSON.stringify(ficha)+ ':: ficha debajo: '+JSON.stringify(ficha1))
-                            } 
-
-                        }
-                    }
-                })
-            }
-            //return ficha;
-        })
-        console.log(tempFichas)
-        /// pasar del array a fichas
-        if (cambio) {
-            let MFichas = [];
-
-            pf.forEach((fila, i) => {
-                for (let j = 0; j < fila.length; j++) {
-                    let Ficha = {};
-                    if (fila[j] !== 0) {
-                        let tipo = 0;
-                        const id = fila[j];
-                        let k = j;
-                        do {
-                            tipo++;
-                            k++;
-                        } while (fila[k] === 0);
-                        Ficha = { id: id, pieza: tipo, x: j, y: i }
-                        j += tipo + 1;
-                        MFichas = MFichas.concat([Ficha])
-                    }
-
-
-
                 }
             })
-           
-            // setFichas(fichas=>MFichas);
-
+        } while (actualizo);
         }
-        
+        fichas.forEach(element => {
+            if (element.y < min) min = element.y;
 
+        });
+        actualizaSegundos(fichas.length)
         actualizaFila(filas - min);
-
     }, [fichas])
 
     /*  useEffect(() => {
@@ -203,36 +145,64 @@ export default function Juego() {
            return () => { clearInterval(intervalo) }
      
        }, []) */
+      
+    function handleMouseMove(e, ficha,i) {
+      if (!puedeActualizar.current){  
+        const dif = Math.trunc(ficha.x)+(e.clientX -posicionMouse.current )/30;
 
-    function handleMouseMove(indice, ficha) {
-        actualizamOver(ficha + ', ' + indice);
+        console.log(dif);
+        
+        const nFichas=[...fichas];
+
+        nFichas[i].x=  dif;
+        nFichas[i].to= nFichas.x + nFichas.pieza;
+
+        setFichas(nFichas);
+       
+       
+       
+       
+        /*  
+       
+       if(dif === 0){
+            ficha.x = xActual.current;
+
+        } else if(dif<0){ficha.x = xActual.current-dif}else{ficha.x=xActual.current+dif} */
+       // console.log(disponibleIzquierda.current + " dddd "+ disponibleDerecha.current)
+      }
     }
 
-    /*   const handleOnClick = (e) => {
-          let nFichas = [];
-          let largoMax = 4;
-     
-          for (let index = 0; index < columnas; index++) {
-     
-              if ((columnas - index) < 5) { largoMax = index - columnas }
-     
-              if (largoMax > 0) {
-                  const llevaFicha = Math.round(Math.random());
-                  if (llevaFicha === 1) {
-                      const tipoFicha = Math.round(Math.random() * largoMax) + 1;
-                      const nPieza = tipoFicha;
-                      const y = 19;
-                      const x = index;
-                      index += tipoFicha;
-                      nFichas = nFichas.concat([{ pieza: nPieza, x: x, y: y }]);
-                  }
-              }
-          }
-          setNuevaFila(nFichas);
-     
-      }
-    */
 
+    function handleMouseDown(e,ficha){
+        let dispIzq=-1;
+        let dispDer=15;
+        puedeActualizar.current=false;
+        posicionMouse.current=e.clientX;
+       
+        actualizamOver(ficha.id + ', ' + ficha.pieza);
+        
+        const fizq =fichas.filter((f)=> ((f.y === ficha.y) && (f.id!==ficha.id)) && f.to<ficha.x)
+        
+        if(fizq.length!==0){
+            
+            fizq.forEach((f)=>{if(f.to >= dispIzq) dispIzq=f.x+f.pieza})
+        } else dispIzq=0;
+        
+        const fder=fichas.filter((f)=> (f.y === ficha.y) && (f.id!==ficha.id) && f.x>ficha.to);
+        
+        if(fder.length!==0){
+            
+            fder.forEach((f)=>{if(f.x <= dispDer) dispDer=f.x-1})
+        } else dispDer=14;
+        xActual.current=ficha.x;
+        disponibleDerecha.current=dispDer;
+        disponibleIzquierda.current=dispIzq;
+    };
+
+    function handleMouseUp(e){
+        puedeActualizar.current= true;
+        console.log(puedeActualizar.current);
+    }
 
 
     return (
@@ -240,8 +210,10 @@ export default function Juego() {
             {/* Dibuja fichas en tablero */}
             <div className='fichas'>
                 {fichas.map((ficha, index) => (
-                    <Pieza key={ficha.id} ficha={ficha.pieza} x={ficha.x} y={ficha.y}
-                        onMouseMove={() => handleMouseMove(ficha.id, ficha.pieza)} />))}
+                    <Pieza key={ficha.id} idf={ficha.id} ficha={ficha.pieza} x={ficha.x} y={ficha.y}
+                        onMouseMove={(e)=>handleMouseMove(e,ficha,index)} 
+                        onMouseDown={(e)=>handleMouseDown(e,ficha)}
+                        onMouseUp={handleMouseUp}/>))}
             </div>
         </div>
     )
