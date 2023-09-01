@@ -80,11 +80,12 @@ export default function Juego() {
         let min = 20;
 
         /// Hacer caer fichas
-        let tempFichas = fichas.slice();
+        let tempFichas = [...fichas];
         let actualizo;
 
-
-        if(puedeActualizar){
+        console.log('Puede Actualizar en el useEffect:'+ puedeActualizar.current)
+        if(puedeActualizar.current){
+            console.log('Actualizando')
         do {
             actualizo = false;
              tempFichas.map(ficha => {
@@ -114,11 +115,12 @@ export default function Juego() {
             if (element.y < min) min = element.y;
 
         });
-        actualizaSegundos(fichas.length)
+        if (actualizo){setFichas(tempFichas)};
         actualizaFila(filas - min);
     }, [fichas])
 
     /*  useEffect(() => {
+
          if (nuevaFila.length !== 0) {
              const subeFichas = fichas.map((ficha) => {
                  ficha.y--
@@ -129,56 +131,92 @@ export default function Juego() {
          }
          console.log('Nueva fila')
          console.log(fichas)
-     }, [nuevaFila]) */
-    /*    useEffect(() => {
+     }, [nuevaFila]) */ 
+        useEffect(() => {
      
            const intervalo = setInterval(() => {
                /// Sube las fichas en el tablero 1 posición
-     
-     
-               //// Crea la nueva linea de Fichas
-     
-               actualizaSegundos(segundos + 1);
-     
-           }, 1000);
-     
-           return () => { clearInterval(intervalo) }
-     
-       }, []) */
-      
-    function handleMouseMove(e, ficha,i) {
-      if (!puedeActualizar.current){  
-        const dif = Math.trunc(ficha.x)+(e.clientX -posicionMouse.current )/30;
+               let iFilas;
+               let lineaFichas = [];
+               do {
+                iFilas=false;
+              
+               let largoMax = 4;
+               
+               for (let iColumna = 0; iColumna < columnas; iColumna++) { /// recorre las columnas para cargar las fichas
 
-        console.log(dif);
+                   if ((columnas - iColumna) < 5) { largoMax = iColumna - columnas } /// ajusta el ancho de la ficha para el final de la fila
+
+                   if (largoMax > 0) {
+                       const llevaFicha = Math.round(Math.random()) === 1; ///  Randomiza si va a cargar una ficha en esa columna
+                       if (llevaFicha) {
+                           // Crear ficha
+                           idFicha.current = idFicha.current+1;
+                           const nf = creaFicha(iColumna, iFilas, largoMax);
+                           iColumna += nf.pieza;
+                           lineaFichas = lineaFichas.concat([nf]);
+
+                       }
+                   }
+               }
+
+               if (lineaFichas.length === 0) {
+                   iFilas=true;
+               } 
+            } while (iFilas);
+               setFichas(fichas=>[...fichas,...lineaFichas]);
+               //// Crea la nueva linea de Fichas
+                
+               actualizaSegundos("aniade fila");
+
+           }, 3000);
+           
+    
+           return () => { clearInterval(intervalo);  }
+     
+       }, []) 
+     
+    function handleMouseDownJuego(e){
+        actualizaSegundos(e.clientX);
+       if (!puedeActualizar.current){  
+        
+        const dif = Math.trunc((e.clientX - posicionMouse.current )/30);
+        const x=xActual.current.f;
+        const i=xActual.current.ind;
+        const pieza=xActual.current.p;
+        if((x+dif)>=disponibleIzquierda.current && (x+dif+pieza-1)<=disponibleDerecha.current ){
+        const nFichas=[...fichas];
+        nFichas[i].x= x + dif;
+        nFichas[i].to= x + dif + pieza-1;
+
+        setFichas(nFichas);
+        }
+      } 
+    }   
+
+    function handleMouseMove(e, ficha,i) {
+      /* if (!puedeActualizar.current){  
+        const dif = Math.trunc((e.clientX - posicionMouse.current )/25);
+
+        actualizaSegundos(dif);
         
         const nFichas=[...fichas];
 
-        nFichas[i].x=  dif;
+        nFichas[i].x= xActual.current + dif;
         nFichas[i].to= nFichas.x + nFichas.pieza;
 
         setFichas(nFichas);
-       
-       
-       
-       
-        /*  
-       
-       if(dif === 0){
-            ficha.x = xActual.current;
-
-        } else if(dif<0){ficha.x = xActual.current-dif}else{ficha.x=xActual.current+dif} */
-       // console.log(disponibleIzquierda.current + " dddd "+ disponibleDerecha.current)
-      }
+      } */
+      actualizamOver(JSON.stringify(ficha))
     }
 
 
-    function handleMouseDown(e,ficha){
+    function handleMouseDown(e,ficha,i){
         let dispIzq=-1;
         let dispDer=15;
         puedeActualizar.current=false;
         posicionMouse.current=e.clientX;
-       
+        
         actualizamOver(ficha.id + ', ' + ficha.pieza);
         
         const fizq =fichas.filter((f)=> ((f.y === ficha.y) && (f.id!==ficha.id)) && f.to<ficha.x)
@@ -194,25 +232,29 @@ export default function Juego() {
             
             fder.forEach((f)=>{if(f.x <= dispDer) dispDer=f.x-1})
         } else dispDer=14;
-        xActual.current=ficha.x;
+        xActual.current={f:ficha.x,ind:i, p: ficha.pieza};
         disponibleDerecha.current=dispDer;
         disponibleIzquierda.current=dispIzq;
+        actualizaSegundos('Izquierda: '+dispIzq+' Derecha: '+ dispDer)
     };
 
     function handleMouseUp(e){
         puedeActualizar.current= true;
-        console.log(puedeActualizar.current);
+        const d=[...fichas];
+        setFichas(d);
+        console.log('SUELTA MOUSE')
+
     }
 
 
     return (
-        <div className='juego'>
+        <div className='juego' onMouseMove={handleMouseDownJuego}>
             {/* Dibuja fichas en tablero */}
-            <div className='fichas'>
+            <div className='fichas' >
                 {fichas.map((ficha, index) => (
                     <Pieza key={ficha.id} idf={ficha.id} ficha={ficha.pieza} x={ficha.x} y={ficha.y}
                         onMouseMove={(e)=>handleMouseMove(e,ficha,index)} 
-                        onMouseDown={(e)=>handleMouseDown(e,ficha)}
+                        onMouseDown={(e)=>handleMouseDown(e,ficha,index)}
                         onMouseUp={handleMouseUp}/>))}
             </div>
         </div>

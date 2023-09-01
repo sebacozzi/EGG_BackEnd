@@ -18,7 +18,7 @@ export default function Tablero() {
                     <div key={iFila} className='fila'>
                         {fila.map((columna, iColumna) => (
 
-                            <div key={iColumna + iFila * columnas} className={`casilla`} >{(iColumna)  }</div>
+                            <div key={iColumna + iFila * columnas} className={`casilla`} ></div>
 
                         ))}
                     </div>
