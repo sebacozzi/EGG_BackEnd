@@ -14,17 +14,19 @@ function App() {
       segundos: 0,
       filasOcupadas: 0,
       estadoJuego: 0,
+      puntuacion:0,
     })
 
   const actualizaFila = (nuevoDato) => { setDatosContexto((prevData) => ({ ...prevData, filasOcupadas: nuevoDato })) }
   const actualizaSegundos = (nuevoDato) => { setDatosContexto((prevData) => ({ ...prevData, segundos: nuevoDato })) }
   const actualizamOver = (nuevoDato) => { setDatosContexto((prevData) => ({ ...prevData, mOver: nuevoDato })) }
   const actualizaEstadoJuego = (nuevoDato) => { setDatosContexto((prevData) => ({ ...prevData, estadoJuego: nuevoDato })) }
+  const actualizaPuntuacion = (nuevoDato) => { setDatosContexto((prevData) => ({ ...prevData, puntuacion: nuevoDato })) }
 
 
 
   return (
-    <CTanteador.Provider value={{ ...datos, actualizaFila, actualizaSegundos, actualizamOver, actualizaEstadoJuego }}>
+    <CTanteador.Provider value={{ ...datos, actualizaFila, actualizaSegundos, actualizamOver, actualizaEstadoJuego, actualizaPuntuacion}}>
       <div className="App">
         <header className="App-header">
 
