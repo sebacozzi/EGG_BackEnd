@@ -14,26 +14,37 @@ function App() {
       segundos: 0,
       filasOcupadas: 0,
       estadoJuego: 0,
-      puntuacion:0,
+      puntuacion: 0,
+      mouseUp: false,
     })
 
-  const actualizaFila = (nuevoDato) => { setDatosContexto((prevData) => ({ ...prevData, filasOcupadas: nuevoDato })) }
-  const actualizaSegundos = (nuevoDato) => { setDatosContexto((prevData) => ({ ...prevData, segundos: nuevoDato })) }
-  const actualizamOver = (nuevoDato) => { setDatosContexto((prevData) => ({ ...prevData, mOver: nuevoDato })) }
-  const actualizaEstadoJuego = (nuevoDato) => { setDatosContexto((prevData) => ({ ...prevData, estadoJuego: nuevoDato })) }
-  const actualizaPuntuacion = (nuevoDato) => { setDatosContexto((prevData) => ({ ...prevData, puntuacion: nuevoDato })) }
+  const actualizaFila = (nuevoDato) => { setDatosContexto((prevData) => ({ ...prevData, filasOcupadas: nuevoDato })) };
+  const actualizaSegundos = (nuevoDato) => { setDatosContexto((prevData) => ({ ...prevData, segundos: nuevoDato })) };
+  const actualizamOver = (nuevoDato) => { setDatosContexto((prevData) => ({ ...prevData, mOver: nuevoDato })) };
+  const actualizaEstadoJuego = (nuevoDato) => { setDatosContexto((prevData) => ({ ...prevData, estadoJuego: nuevoDato })) };
+  const actualizaPuntuacion = (nuevoDato) => { setDatosContexto((prevData) => ({ ...prevData, puntuacion: nuevoDato })) };
+  const actualizaMouseUp = (nuevoDato) => { setDatosContexto((prevData) => ({ ...prevData, mouseUp: nuevoDato })) };
 
-
+  function handleMouseUp(ev) {
+    actualizaMouseUp(true);
+    
+  }
 
   return (
-    <CTanteador.Provider value={{ ...datos, actualizaFila, actualizaSegundos, actualizamOver, actualizaEstadoJuego, actualizaPuntuacion}}>
+    <CTanteador.Provider value={{
+      ...datos,
+      actualizaFila,
+      actualizaSegundos,
+      actualizamOver,
+      actualizaEstadoJuego,
+      actualizaPuntuacion,
+      actualizaMouseUp
+    }}>
       <div className="App">
-        <header className="App-header">
-
-
+        <header className="App-header" onMouseUp={handleMouseUp}>
           <Tablero />
           <Tanteador />
-          <Juego />
+          <Juego onMouseUp={handleMouseUp} />
           {(datos.estadoJuego === 1) && (
 
             <div className='gameOver'><h1>Juego Terminado!!!</h1></div>

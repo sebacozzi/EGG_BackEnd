@@ -3,15 +3,23 @@ import './estilos.css'
 import Pieza from './Pieza'
 import CTanteador from '../Services/Contextos';
 import { eventWrapper } from '@testing-library/user-event/dist/utils';
+import { puedeBajar, getFicha, creaFicha, getFichas } from '../Services/Metodos';
 
-export default function Juego() {
-    const { estadoJuego, actualizaFila, actualizaSegundos, actualizamOver, actualizaEstadoJuego } = useContext(CTanteador)
+
+export default function Juego({handleMouseUp}) {
+    const { estadoJuego, puntuacion, mouseUp,
+        actualizaFila,
+        actualizaSegundos,
+        actualizamOver,
+        actualizaEstadoJuego,
+        actualizaPuntuacion,
+        actualizaMouseUp } = useContext(CTanteador)
 
     // const [nivel, setNivel] = useState(1);
 
     const filas = 20;
     const columnas = 15;
-    const puedeActualizar = useRef(true)
+    
     const filasInicio = 4;
     const [first, setfirst] = useState(true)
 
@@ -26,34 +34,11 @@ export default function Juego() {
     const [fichas, setFichas] = useState([]);
 
     /// crea la cantidad filas
-    function creaFicha(fx, fy, maximo) {
-        const id = idFicha.current;
-        const nPieza = Math.round(Math.random() * maximo) + 1;
-        const to = fx + (nPieza - 1);
-        idFicha.current = (idFicha.current + 1);
-        const puntos = nPieza*nPieza;
-        return { id: id, pieza: nPieza, x: fx, y: fy, to: to, puntos: puntos };
 
-    }
 
     /// crea una copia nueva de fichas
-    function getFichas(listaFichas) {
-        let tempFichas = [];
-        listaFichas.forEach((ficha) => {
-            tempFichas = [...tempFichas, getFicha(ficha, 0)];
-        })
-        return tempFichas;
-    }
 
-    function getFicha(ficha, incrementoY = 0) {
-        const id = ficha.id;
-        const nPieza = ficha.pieza;
-        const x = ficha.x;
-        const y = ficha.y - incrementoY;
-        const to = ficha.to;
 
-        return { id: id, pieza: nPieza, x: x, y: y, to: to };
-    }
 
     function eliminarFilaCompleta(listaFichas) {
 
@@ -69,35 +54,22 @@ export default function Juego() {
                 if (suma !== 15) {
                     tempFichas = tempFichas.concat(fila);
                 } else {
-             }
+                    let puntos = 0;
+                    fila.forEach(f => puntos += f.puntos);
+                    actualizaPuntuacion(puntuacion + puntos);
+                }
             }
         }
         return tempFichas;
     }
 
-    //// Verifica si la ficha puede bajar
-    function puedeBajar(listaFichas,ficha){
-        const fichasdebajo = listaFichas.filter((f) => f.y === ficha.y + 1)
-        return  fichasdebajo.every((ficha1) => {
-            if (ficha.id !== ficha1.id) {
-                if (ficha1.y === ficha.y + 1)
-                    if (
-                        ((ficha1.x <= ficha.x && ficha1.to >= ficha.x) || (ficha1.x <= ficha.x && ficha1.to >= ficha.x)) ||
-                        ((ficha.x <= ficha1.x && ficha.to >= ficha1.x) || (ficha.x <= ficha1.x && ficha.to >= ficha1.x))
-                    ) {
-                        return false;
-                    }
-            }
-            return true;
-        })
-    }
 
     ////Crea fichas para iniciar Juego - Se crea una vez
     useEffect(() => {
 
         if (first) {
-            let filasinicio=filasInicio
-            let sumaFichas=0;
+            let filasinicio = filasInicio
+            let sumaFichas = 0;
             let nFichas = [];
             for (let iFilas = 19; iFilas > filas - (filasinicio + 1); iFilas--) {/// recorre las filas
                 let largoMax = 4;
@@ -111,9 +83,9 @@ export default function Juego() {
                         if (llevaFicha) {
                             // Crear ficha
                             idFicha.current = (lineaFichas.length + nFichas.length + 1);
-                            const nf = creaFicha(iColumna, iFilas, largoMax);
+                            const nf = creaFicha(iColumna, iFilas, largoMax, idFicha);
                             iColumna += nf.pieza;
-                            sumaFichas+=nf.pieza;
+                            sumaFichas += nf.pieza;
                             lineaFichas = lineaFichas.concat([nf]);
 
                         }
@@ -142,34 +114,34 @@ export default function Juego() {
 
         /// Hacer caer fichas
         let tempFichas = getFichas(fichas);
-        let actualizo=false;
-       
-        if (puedeActualizar.current) {
+        let actualizo = false;
+
+        if (mouseUp) {
 
             do {
                 actualizo = false;
                 tempFichas.map(ficha => {
                     if (ficha.y < 19) {
-                        
+
                         /// modifica ficha para abajo
-                        if (puedeBajar(tempFichas,ficha)) {
+                        if (puedeBajar(tempFichas, ficha)) {
                             ficha.y = ficha.y + 1;
-                            
-                           
-                           //// Limpia la fila completada
-                            if(!puedeBajar(tempFichas,ficha)|| ficha.y===19){
+
+
+                            //// Limpia la fila completada
+                            if (!puedeBajar(tempFichas, ficha) || ficha.y === 19) {
                                 tempFichas = eliminarFilaCompleta(tempFichas);
                                 setFichas(tempFichas);
-                            }else { setFichas(tempFichas)}
+                            } else { setFichas(tempFichas) }
                             actualizo = true;
-                           
-                            
+
+
                         }
                     }
                 })
             } while (actualizo);
-         
-    }
+
+        }
         /// Actualiza la cantidad de filas ocupadas
         fichas.forEach(element => {
             if (element.y < min) min = element.y;
@@ -204,7 +176,7 @@ export default function Juego() {
                                 if (llevaFicha) {
                                     // Crear ficha
                                     idFicha.current = idFicha.current + 1;
-                                    const nf = creaFicha(iColumna, 19, largoMax);
+                                    const nf = creaFicha(iColumna, 19, largoMax, idFicha);
                                     iColumna += nf.pieza;
                                     lineaFichas = lineaFichas.concat([nf]);
 
@@ -249,7 +221,8 @@ export default function Juego() {
 
     function handleMouseDownJuego(e) {
         actualizaSegundos(e.clientX);
-        if (!puedeActualizar.current) {
+
+        if ( !mouseUp ) {
 
             const dif = Math.trunc((e.clientX - posicionMouse.current) / 30);
             const x = xActual.current.f;
@@ -266,18 +239,18 @@ export default function Juego() {
     }
 
     function handleMouseMove(e, ficha, i) {
- 
-        actualizamOver(JSON.stringify(ficha))
+
+        /* actualizamOver(JSON.stringify(ficha)) */
     }
 
 
     function handleMouseDown(e, ficha, i) {
+        
+        actualizaMouseUp(false)
         let dispIzq = -1;
         let dispDer = 15;
-        puedeActualizar.current = false;
+        
         posicionMouse.current = e.clientX;
-
-        actualizamOver(ficha.id + ', ' + ficha.pieza);
 
         const fizq = fichas.filter((f) => ((f.y === ficha.y) && (f.id !== ficha.id)) && f.to < ficha.x)
 
@@ -295,19 +268,24 @@ export default function Juego() {
         xActual.current = { f: ficha.x, ind: i, p: ficha.pieza };
         disponibleDerecha.current = dispDer;
         disponibleIzquierda.current = dispIzq;
-        actualizaSegundos('Izquierda: ' + dispIzq + ' Derecha: ' + dispDer)
+       
     };
 
-    function handleMouseUp(e) { }
+   // function handleMouseUp(e) { }
 
     function handleMouseUpJuego(e) {
-        puedeActualizar.current = true;
-        const d = [...fichas];
-        setFichas(d);
 
-
+        actualizaMouseUp(true);
     }
 
+    useEffect(() => {
+      if(mouseUp){
+        const d = [...fichas];
+        setFichas(d);
+      }
+   
+    }, [mouseUp])
+    
 
     return (
         <div className='juego' onMouseMove={handleMouseDownJuego} onMouseUp={handleMouseUpJuego}>
