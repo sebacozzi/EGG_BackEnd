@@ -1,7 +1,8 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import CTanteador from '../Services/Contextos'
 import './estilos.css'
-import Idioma from '../Constantes/Lenguaje';
+
+
 
 
 export default function Tanteador() {
@@ -11,8 +12,8 @@ export default function Tanteador() {
       filasOcupadas,
       estadoJuego,
       puntuacion,
-    lengua} = useContext(CTanteador);
-    const [tiempo, setTiempo] = useState(0);
+    lengua,textos, actualizaEstadoJuego,actualizaMotivoEstadoJuego,} = useContext(CTanteador);
+    const [tiempo, setTiempo] = useState(50);
     const time = useRef(null);
 
 
@@ -21,34 +22,34 @@ export default function Tanteador() {
       if ((estadoJuego===2 || estadoJuego===1 )&& time.current!==null) {
         
         clearInterval(time.current)
+      } else{
+         time.current = setInterval(() => { 
+         
+            if(estadoJuego!==3){
+              setTiempo(tiempo=>tiempo - 1)
+            }
+            }, 1000);
+        return ()=>clearInterval(time.current);
       }
 
     },[estadoJuego])
     
-    useEffect(() => {
-      
-
-         time.current = setInterval(() => { 
-         /*  console.log('Estado: '+ estadoJuego)
-          console.log(time.current)
-          console.log('Estado juego: '+((estadoJuego!==0 && time.current!==null) ? 'Juego terminado':'Jugando'))
-           */
-            if(estadoJuego!==3){
-              setTiempo(tiempo=>tiempo + 1)
-            }
-            }, 1000);
-        return ()=>clearInterval(time.current);
-    }, [])
-    
+    useEffect(()=>{
+      if (tiempo<1){
+        actualizaEstadoJuego( 1);
+        actualizaMotivoEstadoJuego(textos.tx_fin_tiempo)
+      }
+    },[tiempo])
+   
   return (
     <div>
       {/* Tablero de Puntos */}
       <div className='tanteador'>
-                <p>{Idioma.get(lengua).tx_nivel}/{Idioma.get(lengua).tx_dif}: {nivel}/{Idioma.get(lengua).tx_dificultad[dificultad]}</p>
-                <p>{Idioma.get(lengua).tx_filas}: {filasOcupadas}</p>
-                <p>{Idioma.get(lengua).tx_f_rest}: {fichasRestantes}</p>
-                <p>{Idioma.get(lengua).tx_tiempo}: {tiempo} {Idioma.get(lengua).tx_tiempo_det}.</p>
-                <p>{Idioma.get(lengua).tx_puntos}: {puntuacion}</p>
+                <p>{textos.tx_nivel}/{textos.tx_dif}: {nivel}/{textos.tx_dificultad[dificultad]}</p>
+                <p>{textos.tx_filas}: {filasOcupadas}</p>
+                <p>{textos.tx_f_rest}: {fichasRestantes}</p>
+                <p>{textos.tx_tiempo}: {tiempo} {textos.tx_tiempo_det}.</p>
+                <p>{textos.tx_puntos}: {puntuacion}</p>
                 </div>
     </div>
   )

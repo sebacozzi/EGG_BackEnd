@@ -18,6 +18,7 @@ const Idioma = {
                     'Dificil',
                     'Extremo'],
         tx_continue:'Continuar',
+        tx_fin_perdio: ['Tiempo Finalizado!!', 'Se termino el tablero!!!'],
         
     };
     const en= {
@@ -37,7 +38,15 @@ const Idioma = {
         'Intermediate',
         'Difficult',
         'Extreme'],
-        tx_continue:'Continue'
+        tx_continue:'Continue',
+        tx_fin_perdio: ['Time Out!!','The board is finished!!!'],
     };
 
-    export default Idioma;
+    export function texto(ln){switch (ln) {
+        case 'en': return Idioma.get('en');
+            case'es': return Idioma.get('es');
+    
+        default:
+            return Idioma.get('es');
+    }}
+    //export default Idioma;

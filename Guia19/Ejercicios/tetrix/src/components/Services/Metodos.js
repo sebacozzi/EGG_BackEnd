@@ -1,4 +1,6 @@
-
+/** 
+ * Metodo encargador de verificar si la ficha puede bajar de lugar
+*/
 export function puedeBajar(listaFichas, ficha) {
     const fichasdebajo = listaFichas.filter((f) => f.y === ficha.y + 1)
     return fichasdebajo.every((ficha1) => {
@@ -32,13 +34,20 @@ export function creaFicha(fx, fy, maximo,idFicha) {
     idFicha.current = (idFicha.current + 1);
     const puntos = nPieza*nPieza;
     return { id: id, pieza: nPieza, x: fx, y: fy, to: to, puntos: puntos };
-
 }
 
-export function getFichas(listaFichas) {
+export function getFichas(listaFichas,incremento=0) {
     let tempFichas = [];
     listaFichas.forEach((ficha) => {
-        tempFichas = [...tempFichas, getFicha(ficha, 0)];
+        tempFichas = [...tempFichas, getFicha(ficha, incremento)];
     })
     return tempFichas;
+}
+
+export function sumaFichas(listaFichas){
+    let suma=0;
+    listaFichas.forEach((f)=>{
+        suma+=f.pieza;
+    })
+    return suma;
 }
