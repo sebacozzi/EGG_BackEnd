@@ -1,34 +1,42 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import CTanteador from '../Services/Contextos'
 import './estilos.css'
+import Idioma from '../Constantes/Lenguaje';
+
 
 export default function Tanteador() {
-    const {mOver,
-      segundos,
+    const {nivel,
+      dificultad,
+      fichasRestantes,
       filasOcupadas,
       estadoJuego,
-      puntuacion} = useContext(CTanteador);
+      puntuacion,
+    lengua} = useContext(CTanteador);
     const [tiempo, setTiempo] = useState(0);
     const time = useRef(null);
 
+
     /// Temporizador
+    useEffect(()=>{
+      if ((estadoJuego===2 || estadoJuego===1 )&& time.current!==null) {
+        
+        clearInterval(time.current)
+      }
+
+    },[estadoJuego])
+    
     useEffect(() => {
       
-      
-        
-        
-      if (estadoJuego!==0 && time.current!==null){
-        console.log('Juego Terminado')
-        clearInterval(time.current)
-      };
 
          time.current = setInterval(() => { 
          /*  console.log('Estado: '+ estadoJuego)
           console.log(time.current)
           console.log('Estado juego: '+((estadoJuego!==0 && time.current!==null) ? 'Juego terminado':'Jugando'))
            */
-            setTiempo(tiempo=>tiempo + 1)
-        }, 1000);
+            if(estadoJuego!==3){
+              setTiempo(tiempo=>tiempo + 1)
+            }
+            }, 1000);
         return ()=>clearInterval(time.current);
     }, [])
     
@@ -36,11 +44,11 @@ export default function Tanteador() {
     <div>
       {/* Tablero de Puntos */}
       <div className='tanteador'>
-                <p>rectOver: {mOver}</p>
-                <p>Filas: {filasOcupadas}</p>
-                <p>{segundos}</p>
-                <p>Tiempo: {tiempo} seg.</p>
-                <p>Puntos: {puntuacion}</p>
+                <p>{Idioma.get(lengua).tx_nivel}/{Idioma.get(lengua).tx_dif}: {nivel}/{Idioma.get(lengua).tx_dificultad[dificultad]}</p>
+                <p>{Idioma.get(lengua).tx_filas}: {filasOcupadas}</p>
+                <p>{Idioma.get(lengua).tx_f_rest}: {fichasRestantes}</p>
+                <p>{Idioma.get(lengua).tx_tiempo}: {tiempo} {Idioma.get(lengua).tx_tiempo_det}.</p>
+                <p>{Idioma.get(lengua).tx_puntos}: {puntuacion}</p>
                 </div>
     </div>
   )

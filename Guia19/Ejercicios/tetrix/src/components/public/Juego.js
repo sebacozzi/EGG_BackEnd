@@ -2,15 +2,13 @@ import React, { useContext, useEffect, useRef, useState } from 'react'
 import './estilos.css'
 import Pieza from './Pieza'
 import CTanteador from '../Services/Contextos';
-import { eventWrapper } from '@testing-library/user-event/dist/utils';
 import { puedeBajar, getFicha, creaFicha, getFichas } from '../Services/Metodos';
 
 
-export default function Juego({handleMouseUp}) {
+export default function Juego() {
     const { estadoJuego, puntuacion, mouseUp,
         actualizaFila,
-        actualizaSegundos,
-        actualizamOver,
+        
         actualizaEstadoJuego,
         actualizaPuntuacion,
         actualizaMouseUp } = useContext(CTanteador)
@@ -34,12 +32,12 @@ export default function Juego({handleMouseUp}) {
     const [fichas, setFichas] = useState([]);
 
     /// crea la cantidad filas
-
-
+    
+    
     /// crea una copia nueva de fichas
-
-
-
+    
+    
+        
     function eliminarFilaCompleta(listaFichas) {
 
         let tempFichas = [];
@@ -57,13 +55,13 @@ export default function Juego({handleMouseUp}) {
                     let puntos = 0;
                     fila.forEach(f => puntos += f.puntos);
                     actualizaPuntuacion(puntuacion + puntos);
-                }
+             }
             }
         }
         return tempFichas;
     }
 
-
+    
     ////Crea fichas para iniciar Juego - Se crea una vez
     useEffect(() => {
 
@@ -115,33 +113,33 @@ export default function Juego({handleMouseUp}) {
         /// Hacer caer fichas
         let tempFichas = getFichas(fichas);
         let actualizo = false;
-
+       
         if (mouseUp) {
 
             do {
                 actualizo = false;
                 tempFichas.map(ficha => {
                     if (ficha.y < 19) {
-
+                        
                         /// modifica ficha para abajo
                         if (puedeBajar(tempFichas, ficha)) {
                             ficha.y = ficha.y + 1;
-
-
-                            //// Limpia la fila completada
+                            
+                           
+                           //// Limpia la fila completada
                             if (!puedeBajar(tempFichas, ficha) || ficha.y === 19) {
                                 tempFichas = eliminarFilaCompleta(tempFichas);
                                 setFichas(tempFichas);
                             } else { setFichas(tempFichas) }
                             actualizo = true;
-
-
+                           
+                            
                         }
                     }
                 })
             } while (actualizo);
-
-        }
+         
+    }
         /// Actualiza la cantidad de filas ocupadas
         fichas.forEach(element => {
             if (element.y < min) min = element.y;
@@ -208,7 +206,7 @@ export default function Juego({handleMouseUp}) {
 
                     //// Crea la nueva linea de Fichas
 
-                    actualizaSegundos("aniade fila");
+                    
                 }
             }, 3000);
 
@@ -220,8 +218,8 @@ export default function Juego({handleMouseUp}) {
     }, [fichas])
 
     function handleMouseDownJuego(e) {
-        actualizaSegundos(e.clientX);
-
+        
+        
         if ( !mouseUp ) {
 
             const dif = Math.trunc((e.clientX - posicionMouse.current) / 30);
@@ -239,13 +237,13 @@ export default function Juego({handleMouseUp}) {
     }
 
     function handleMouseMove(e, ficha, i) {
-
+ 
         /* actualizamOver(JSON.stringify(ficha)) */
     }
 
 
     function handleMouseDown(e, ficha, i) {
-        
+
         actualizaMouseUp(false)
         let dispIzq = -1;
         let dispDer = 15;
@@ -268,13 +266,13 @@ export default function Juego({handleMouseUp}) {
         xActual.current = { f: ficha.x, ind: i, p: ficha.pieza };
         disponibleDerecha.current = dispDer;
         disponibleIzquierda.current = dispIzq;
-       
+        
     };
 
-   // function handleMouseUp(e) { }
+    function handleMouseUp(e) { }
 
     function handleMouseUpJuego(e) {
-
+        
         actualizaMouseUp(true);
     }
 
@@ -282,9 +280,9 @@ export default function Juego({handleMouseUp}) {
       if(mouseUp){
         const d = [...fichas];
         setFichas(d);
-      }
-   
-    }, [mouseUp])
+    }
+
+}, [mouseUp])
     
 
     return (
