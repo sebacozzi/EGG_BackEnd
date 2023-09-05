@@ -51,3 +51,27 @@ export function sumaFichas(listaFichas){
     })
     return suma;
 }
+
+export function eliminarFilaCompleta(listaFichas, filas) {
+
+    let tempFichas = [];
+    let puntos=0;
+    for (let index = 0; index < filas; index++) {
+        const fila = listaFichas.filter((f) => f.y === index);
+
+        if (fila.length !== 0) {
+            let suma = 0;
+            fila.forEach(f => {
+                suma += f.pieza;
+            });
+            if (suma !== 15) {
+                tempFichas = tempFichas.concat(fila);
+            } else {
+                puntos = 0;
+
+                fila.forEach(f => puntos += f.puntos);
+            }
+        }
+    }
+    return [tempFichas,puntos];
+}

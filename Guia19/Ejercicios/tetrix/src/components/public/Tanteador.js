@@ -12,22 +12,30 @@ export default function Tanteador() {
       filasOcupadas,
       estadoJuego,
       puntuacion,
-    lengua,textos, actualizaEstadoJuego,actualizaMotivoEstadoJuego,} = useContext(CTanteador);
-    const [tiempo, setTiempo] = useState(50);
+      tiempoJuego,
+      tiempoJugado,
+    lengua,textos, actualizaEstadoJuego,actualizaMotivoEstadoJuego,actualizaTiempoJugado} = useContext(CTanteador);
+    const [tiempo, setTiempo] = useState(60);
     const time = useRef(null);
 
 
     /// Temporizador
+    
+    
     useEffect(()=>{
       if ((estadoJuego===2 || estadoJuego===1 )&& time.current!==null) {
         
         clearInterval(time.current)
+        actualizaTiempoJugado(tiempoJuego - tiempo)
+        setTiempo(tiempoJuego)
       } else{
          time.current = setInterval(() => { 
          
-            if(estadoJuego!==3){
+            
+              
               setTiempo(tiempo=>tiempo - 1)
-            }
+           
+           
             }, 1000);
         return ()=>clearInterval(time.current);
       }
@@ -35,11 +43,11 @@ export default function Tanteador() {
     },[estadoJuego])
     
     useEffect(()=>{
-      if (tiempo<1){
-        actualizaEstadoJuego( 1);
+      if (tiempoJugado<1){
+        actualizaEstadoJuego(1);
         actualizaMotivoEstadoJuego(textos.tx_fin_tiempo)
       }
-    },[tiempo])
+    },[tiempoJugado])
    
   return (
     <div>
