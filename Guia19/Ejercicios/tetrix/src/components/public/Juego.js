@@ -2,12 +2,13 @@ import React, { useContext, useEffect, useRef, useState } from 'react'
 import './estilos.css'
 import Pieza from './Pieza'
 import CTanteador from '../Services/Contextos';
-import { puedeBajar, getFicha, creaFicha, getFichas, sumaFichas, eliminarFilaCompleta } from '../Services/Metodos';
+import { puedeBajar, getFicha, creaFicha, getFichas, sumaFichas, eliminarFilaCompleta, generateCombinations } from '../Services/Metodos';
 import Tablero from './Tablero';
+import Test from './Test';
 
 
 export default function Juego() {
-    const { filas, columnas, estadoJuego, puntuacion, mouseUp, iniciaJuego,
+    const { filas, columnas, estadoJuego, puntuacion, mouseUp, iniciaJuego, textos,
         actualizaFila,
         actualizaIniciaJuego,
         actualizaEstadoJuego,
@@ -17,7 +18,7 @@ export default function Juego() {
         actualizaMotivoEstadoJuego, } = useContext(CTanteador)
 
     // const [nivel, setNivel] = useState(1);
-
+    const [combinations, setCombinations] = useState([]);
 
 
     const filasInicio = 4;
@@ -32,6 +33,20 @@ export default function Juego() {
     const posicionMouse = useRef(0)
 
     const [fichas, setFichas] = useState([]);
+
+    useEffect(() => {
+        console.log(mouseUp)
+        
+            const nuevaFila = creaFila(columnas, idFicha);
+            const tempFichas = getFichas(fichas, 1);
+
+            //// Carga la nueva linea de Fichas salvo que 
+            if (fichas.length !== 0 && mouseUp) {
+                setFichas([...tempFichas, ...nuevaFila]);
+            }
+            console.log(tempFichas)
+       
+    }, [mouseUp])
 
 
     ////Crea fichas para iniciar Juego - Se crea una vez
@@ -79,13 +94,15 @@ export default function Juego() {
 
 
             } while (fff >= (20 - filasInicio));
+
             setFichas(nFichas);
             setfirst(false);
             actualizaIniciaJuego(false)
             actualizaEstadoJuego(0)
+
         }
 
-    }, [iniciaJuego])
+    }, [estadoJuego])
 
 
 
@@ -110,13 +127,13 @@ export default function Juego() {
                             if (!puedeBajar(tempFichas, ficha) || ficha.y === 19) {
                                 setFichas(tempFichas)
                                 setTimeout(() => {
-                                    setFichas(tempFichas)
+
                                     const [Fichas, puntos] = eliminarFilaCompleta(tempFichas, filas);
                                     setFichas(Fichas)
                                     actualizaPuntuacion(puntuacion + puntos)
                                 }, 200);
                             } else {
-                                setTimeout(()=>{setFichas(tempFichas)},200)
+                                setTimeout(() => { setFichas(tempFichas) }, 200)
                             }
                             actualizo = true;
                         }
@@ -128,89 +145,91 @@ export default function Juego() {
         /// Actualiza la cantidad de filas ocupadas
         fichas.forEach(element => {
             if (element.y < min) min = element.y;
+
         });
+        setCombinations(generateCombinations(sumaFichas(fichas) % 15, [1, 2, 3, 4, 5]));
 
-
-        if ((filas - min === 0)) { actualizaEstadoJuego(2) };
+        if ((filas - min === 0 && !first)) { actualizaEstadoJuego(2) };
         actualizaFichasRestantes(fichas.length)
         if (filas - min === 20) {
             actualizaEstadoJuego(1);
-            actualizaMotivoEstadoJuego(0);
+            actualizaMotivoEstadoJuego(textos.tx_fin_perdio[1]);
         }
         actualizaFila(filas - min);
-    }, [fichas, first]);
 
+    }, [fichas]);
+
+    function creaFila(cols, id_ficha) {
+
+        let continuar = false;
+        let linea = [];
+        do {
+            continuar = false;
+            let largoMaximo = 4;
+            for (let i = 0; i < cols; i++) {
+                if ((cols - i) < largoMaximo + 1) {
+                    largoMaximo = i - cols;
+                }
+                if (largoMaximo > 0) {
+                    const llevaFicha = Math.round(Math.random()) === 1; ///  Randomiza si va a cargar una ficha en esa columna
+                    if (llevaFicha) {
+                        // Crear ficha.
+                        id_ficha.current = id_ficha.current + 1;
+                        const nf = creaFicha(i, 19, largoMaximo, id_ficha);
+                        i += nf.pieza - 1;
+                        linea = linea.concat([nf]);
+
+                    }
+                }
+            }
+            if (linea.length === 0) {
+                continuar = true;
+            } else {
+                return linea;
+            }
+        } while (continuar);
+    }
 
 
     //// Agrega nueva fila pasado un tiempo
-    useEffect(() => {
-
-        if (estadoJuego === 0 && !first) {
-            const intervalo = setInterval(() => {
-                /// Sube las fichas en el tablero 1 posición
-
-
-                let reintentos = 0
-                let iFilas;
-                let lineaFichas = [];
-                do {
-                    iFilas = false;
-
-                    let largoMax = 4;
-
-                    for (let iColumna = 0; iColumna < columnas; iColumna++) { /// recorre las columnas para cargar las fichas
-
-                        if ((columnas - iColumna) < 5) { largoMax = iColumna - columnas } /// ajusta el ancho de la ficha para el final de la fila
-
-                        if (largoMax > 0) {
-                            const llevaFicha = Math.round(Math.random()) === 1; ///  Randomiza si va a cargar una ficha en esa columna
-                            if (llevaFicha) {
-                                // Crear ficha
-                                idFicha.current = idFicha.current + 1;
-                                const nf = creaFicha(iColumna, 19, largoMax, idFicha);
-                                iColumna += nf.pieza - 1;
-                                lineaFichas = lineaFichas.concat([nf]);
-
-                            }
-                        }
-                    }
-
-                    if (lineaFichas.length === 0) {
-                        iFilas = true;
-                    } else if ((sumaFichas([...fichas, ...lineaFichas]) % 15 !== 0)) {
-                        reintentos++;
-                        if (reintentos !== 11) {
-                            lineaFichas = [];
-                            iFilas = true;
-                        }
-                    }
-                } while (iFilas);
-                /// Sube las fichas
-                const tempFichas = getFichas(fichas, 1);
-
-
-                //// Carga la nueva linea de Fichas salvo que 
-                if (fichas.length !== 0) {
-                    setFichas([...tempFichas, ...lineaFichas]);
-                } else {
-                    if (fichas.length === 0 && estadoJuego === 0) {
-                        actualizaEstadoJuego(2)
-                        return (clearInterval(intervalo));
-                    }
-                }
-
-            }, 1500);
-
-            return () => { clearInterval(intervalo); }
-
-        }
-
-
-    }, [fichas])
-
+      useEffect(() => {
+         if (estadoJuego === 0 && !first) {
+             const intervalo = setInterval(() => {
+                 /// Sube las fichas en el tablero 1 posición
+ 
+                 let reintentos = 0
+                 let iFilas;
+                 let lineaFichas = [];
+            
+                 /// Sube las fichas
+ 
+                 const nuevaFila = creaFila(columnas, idFicha);
+ 
+                 const largo = nuevaFila.length;
+                 idFicha.current = idFicha.current + nuevaFila.length;
+                 const tempFichas = getFichas(fichas, 1);
+ 
+ 
+                 //// Carga la nueva linea de Fichas salvo que 
+                 if (fichas.length !== 0) {
+                     setFichas([...tempFichas, ...nuevaFila]);
+                 } else {
+                     if (fichas.length === 0 && estadoJuego === 0) {
+                         actualizaEstadoJuego(2)
+                         return (clearInterval(intervalo));
+                     }
+                 }
+ 
+             }, 1500);
+ 
+             return () => { clearInterval(intervalo); }
+ 
+         }
+ 
+ 
+     }, [fichas])
+  
     function handleMouseDownJuego(e) {
-
-
         if (!mouseUp) {
 
             const dif = Math.trunc((e.clientX - posicionMouse.current) / 30);
@@ -222,7 +241,7 @@ export default function Juego() {
                 nFichas[i].x = x + dif;
                 nFichas[i].to = x + dif + pieza - 1;
 
-                //setFichas(nFichas);
+                setFichas(nFichas);
             }
         }
     }
@@ -289,6 +308,7 @@ export default function Juego() {
                             onMouseUp={handleMouseUp} />))}
                 </div>
             </div>
+            <Test combinaciones={combinations} />
         </div>
     )
 }

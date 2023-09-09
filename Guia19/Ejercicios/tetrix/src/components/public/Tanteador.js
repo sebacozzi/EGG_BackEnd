@@ -14,6 +14,7 @@ export default function Tanteador() {
       puntuacion,
       tiempoJuego,
       tiempoJugado,
+      actualiza,
     lengua,textos, actualizaEstadoJuego,actualizaMotivoEstadoJuego,actualizaTiempoJugado} = useContext(CTanteador);
     const [tiempo, setTiempo] = useState(60);
     const time = useRef(null);
@@ -26,16 +27,11 @@ export default function Tanteador() {
       if ((estadoJuego===2 || estadoJuego===1 )&& time.current!==null) {
         
         clearInterval(time.current)
-        actualizaTiempoJugado(tiempoJuego - tiempo)
+        actualiza.TiempoJugado(tiempoJuego - tiempo)
         setTiempo(tiempoJuego)
       } else{
          time.current = setInterval(() => { 
-         
-            
-              
               setTiempo(tiempo=>tiempo - 1)
-           
-           
             }, 1000);
         return ()=>clearInterval(time.current);
       }
@@ -43,11 +39,11 @@ export default function Tanteador() {
     },[estadoJuego])
     
     useEffect(()=>{
-      if (tiempoJugado<1){
-        actualizaEstadoJuego(1);
-        actualizaMotivoEstadoJuego(textos.tx_fin_tiempo)
+      if (tiempo<1){
+        actualiza.EstadoJuego(1);
+        actualiza.MotivoEstadoJuego(textos.tx_fin_perdio[0])
       }
-    },[tiempoJugado])
+    },[tiempo])
    
   return (
     <div>

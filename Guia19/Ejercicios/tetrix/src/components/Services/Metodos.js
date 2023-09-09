@@ -75,3 +75,32 @@ export function eliminarFilaCompleta(listaFichas, filas) {
     }
     return [tempFichas,puntos];
 }
+
+export function generateCombinations(targetSum, numbers) {
+    const result = [];
+    
+    function findCombinations(currentCombination, currentSum, startIndex) {
+      if (currentSum === targetSum) {
+        result.push(currentCombination.slice()); // Guardar la combinación encontrada
+        return;
+      }
+  
+      if (currentSum > targetSum || startIndex === numbers.length) {
+        return;
+      }
+  
+      for (let i = startIndex; i < numbers.length; i++) {
+        currentCombination.push(numbers[i]);
+        findCombinations(currentCombination, currentSum + numbers[i], i); // Permitir repeticiones
+        currentCombination.pop();
+      }
+    }
+  
+    findCombinations([], 0, 0);
+    return result;
+  }
+  
+  
+ 
+  
+  

@@ -4,11 +4,6 @@ import Juego from './Juego'
 
 export default function Consola() {
 
-
-
-
-
-
   return (
     <div className='App'> 
       
