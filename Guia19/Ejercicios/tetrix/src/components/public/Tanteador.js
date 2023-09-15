@@ -15,7 +15,7 @@ export default function Tanteador() {
       tiempoJuego,
       tiempoJugado,
       actualiza,
-    lengua,textos, actualizaEstadoJuego,actualizaMotivoEstadoJuego,actualizaTiempoJugado} = useContext(CTanteador);
+    lengua,textos} = useContext(CTanteador);
     const [tiempo, setTiempo] = useState(60);
     const time = useRef(null);
 

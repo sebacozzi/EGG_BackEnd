@@ -6,9 +6,10 @@ export default function JuegoGanado({motivo,reiniciar, texto}) {
   return (
     <div>
         
-      <div className={`gameOver maximiza`} >
+      <div className={`gameOver`} >
               <h1>{texto}!!!</h1>
-              <div style={{display:'grid', gridAutoFlow:'column'}}>
+              <p>Puntos Obtenidos: </p>
+              <div className='botones-columnas'>
               <Boton accion={reiniciar} label='Reintentar' clase='reply' />
               <Boton accion={reiniciar} label='Niveles' clase='menu' />
               <Boton  label='Continuar' clase='done' />

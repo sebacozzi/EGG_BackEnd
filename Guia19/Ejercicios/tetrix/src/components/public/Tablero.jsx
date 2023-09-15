@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import './estilos.css'
 
-export default function Tablero() {
+export default function Tableros(props) {
     
-    const filas = 20;
-    const columnas = 15;
+    const filas = props.filas;
+    const columnas = props.columnas;
      const [casillas, setCasillas] = useState(Array.from({ length: filas }, (v, f) => Array.from({ length: columnas }, (v, i) => {
         if (f === filas) { return 1 } return 0
     })));

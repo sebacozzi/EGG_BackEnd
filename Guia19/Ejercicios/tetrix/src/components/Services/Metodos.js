@@ -52,7 +52,7 @@ export function sumaFichas(listaFichas){
     return suma;
 }
 
-export function eliminarFilaCompleta(listaFichas, filas) {
+export function eliminarFilaCompleta(listaFichas, filas, maximo) {
 
     let tempFichas = [];
     let puntos=0;
@@ -64,7 +64,7 @@ export function eliminarFilaCompleta(listaFichas, filas) {
             fila.forEach(f => {
                 suma += f.pieza;
             });
-            if (suma !== 15) {
+            if (suma !== maximo) {
                 tempFichas = tempFichas.concat(fila);
             } else {
                 puntos = 0;
@@ -74,6 +74,37 @@ export function eliminarFilaCompleta(listaFichas, filas) {
         }
     }
     return [tempFichas,puntos];
+}
+
+export function creaFila(cols, id_ficha,filas) {
+
+    let continuar = false;
+    let linea = [];
+    do {
+        continuar = false;
+        let largoMaximo = 4;
+        for (let i = 0; i < cols; i++) {
+            if ((cols - i) < largoMaximo + 1) {
+                largoMaximo = i - cols;
+            }
+            if (largoMaximo > 0) {
+                const llevaFicha = Math.round(Math.random()) === 1; ///  Randomiza si va a cargar una ficha en esa columna
+                if (llevaFicha) {
+                    // Crear ficha.
+                    id_ficha.current = id_ficha.current + 1;
+                    const nf = creaFicha(i, filas-1, largoMaximo, id_ficha);
+                    i += nf.pieza - 1;
+                    linea = linea.concat([nf]);
+
+                }
+            }
+        }
+        if (linea.length === 0) {
+            continuar = true;
+        } else {
+            return linea;
+        }
+    } while (continuar);
 }
 
 export function generateCombinations(targetSum, numbers) {
