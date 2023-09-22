@@ -13,7 +13,7 @@ const Idioma = {
         tx_pausa: 'Pausa',
         tx_nivel: 'Nivel',
         tx_dif: 'Dificultad',
-        tx_titulo_fin: [, 'Juego Terminado', 'Ganaste', 'Pausa'],
+        tx_titulo_fin: ['', 'Juego Terminado', 'Ganaste', 'Pausa'],
         tx_pausar: 'Pausar',
         tx_dificultad: ['Facil',
             'Intermedio',
@@ -41,7 +41,7 @@ const Idioma = {
         tx_pausa: 'Pause',
         tx_nivel: 'Level',
         tx_dif: 'Difficulty',
-        tx_titulo_fin: [, 'GameOver', 'You Won', 'Pause'],
+        tx_titulo_fin: ['', 'GameOver', 'You Won', 'Pause'],
         tx_pausar: 'Pause',
         tx_dificultad: ['Easy',
             'Intermediate',
@@ -69,7 +69,7 @@ const Idioma = {
         tx_pausa: 'Pausa',
         tx_nivel: 'Livello',
         tx_dif: 'Difficoltà',
-        tx_titulo_fin: ['Game Over', 'Hai vinto', 'Pausa'],
+        tx_titulo_fin: ['','Game Over', 'Hai vinto', 'Pausa'],
         tx_pausar: 'Pausa',
         tx_dificultad: ['Facile', 'Intermedio', 'Difficile', 'Estremo'],
         tx_continue: 'Continua',
@@ -88,7 +88,7 @@ export function texto(ln) {
 
     for (const lang in Idioma) {
         if (Object.hasOwnProperty.call(Idioma, lang)) {
-            if (lang == ln) {
+            if (lang === ln) {
                 return Idioma[lang];
             }
         }

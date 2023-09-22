@@ -2,29 +2,27 @@ import React, { useContext, useEffect, useRef, useState } from 'react'
 
 import Pieza from './Pieza'
 import CTanteador from '../Services/Contextos';
-import { puedeBajar,  getFichas, eliminarFilaCompleta, creaFila, generateCombinations } from '../Services/Metodos';
+import { puedeBajar,  getFichas, eliminarFilaCompleta, creaFila} from '../Services/Metodos';
 import Tablero from './Tablero';
 import Test from './Test';
-import { useForceUpdate } from './../Hooks/useForceUpdate';
 import { juegoGanado, juegoPerdido, jugando } from '../Constantes/Consts';
 
 
 export default function Juego(props) {
-    const { filas, columnas, estadoJuego, puntuacion, mouseUp, iniciaJuego, textos,
+    const {columnas,filas,estadoJuego, puntuacion, mouseUp, iniciaJuego, textos, ClienteX,
         actualiza } = useContext(CTanteador)
-
-        const forceUpdate = useForceUpdate();
+    
+ 
     // const [nivel, setNivel] = useState(1);
-    const [combinations, setCombinations] = useState([]);
+    
 
 
-    const filasInicio = 4;
+        
     const [first, setfirst] = useState(props.first)
 
-    // const [nuevaFila, setNuevaFila] = useState([]);
 
-    const idFicha = useRef(0);
-    const disponibleDerecha = useRef(15);
+    const idFicha = useRef(props.idFicha);
+    const disponibleDerecha = useRef(props.columnas+1);
     const disponibleIzquierda = useRef(-1);
     const xActual = useRef(0)
     const posicionMouse = useRef(0)
@@ -32,8 +30,7 @@ export default function Juego(props) {
     const [fichas, setFichas] = useState(props.tablero);
         /// agrega fila cuando se suelta el mouse
     useEffect(() => {
-       
-        console.log('mouseUp: ' + JSON.stringify(fichas))
+        
         const nuevaFila = creaFila(columnas, idFicha);
         const tempFichas = getFichas(fichas, 1);
 
@@ -44,41 +41,15 @@ export default function Juego(props) {
        
 
     }, [mouseUp])
-
-    useEffect(()=>{
-        setFichas(props.tablero);
-    },[])
-    ////Crea fichas para iniciar Juego - Se crea una vez
-    useEffect(() => {
-        console.log('iniciaJuego: '+iniciaJuego)
-        
-
-            let nFichas = [];
-            let fff = 0;
-            do {
-                nFichas = nFichas.concat(creaFila(columnas, idFicha, filas - fff));
-                fff++;
-            } while (fff < filasInicio);
-            console.log('props.tablero: '+ JSON.stringify(props.tablero))
-            setFichas(props.tablero);
-            setfirst(false);
-            actualiza.IniciaJuego(false)
-        
-
-    }, [])
  
-
     const bajaFicha=(ficha)=>{
         ficha.y=ficha.y+1;
     }
 
     /// Hace caer las fichas y elimina fila completa 
     useEffect(() => {
-       
-        console.log('useEffect Fichas: '+ JSON.stringify(fichas));
+              
         /// Hacer caer fichas
-        
-        
         if (mouseUp) {
             let tempFichas = getFichas(fichas);
             let actualizo = false;
@@ -120,7 +91,7 @@ export default function Juego(props) {
 
         actualiza.FichasRestantes(fichas.length)
 
-        if (filas - min === filas) {
+        if (min === -1) {
             actualiza.EstadoJuego(juegoPerdido);
             actualiza.MotivoEstadoJuego(textos.tx_fin_perdio[1]);
         }
@@ -145,7 +116,7 @@ export default function Juego(props) {
                     }
                 }
 
-            }, 1000);
+            }, 10000);
 
             return () => { clearInterval(intervalo); }
 
@@ -158,9 +129,10 @@ export default function Juego(props) {
 
   
     function handleMouseDownJuego(e) {
+       
         if (!mouseUp) {
-
-            const dif = Math.trunc((e.clientX - posicionMouse.current) / 40);
+            console.log('Ancho Ficha: ',props.anchoFicha)
+            const dif = Math.trunc((e.clientX - posicionMouse.current) / props.anchoFicha);
             const x = xActual.current.f;
             const i = xActual.current.ind;
             const pieza = xActual.current.p;
@@ -187,7 +159,7 @@ export default function Juego(props) {
         let dispDer = columnas;
 
         posicionMouse.current = e.clientX;
-
+        
         const fizq = fichas.filter((f) => ((f.y === ficha.y) && (f.id !== ficha.id)) && f.to < ficha.x)
 
         if (fizq.length !== 0) {
@@ -224,19 +196,22 @@ export default function Juego(props) {
 
 
     return (
-        <div className='App-header'>
-            <Tablero columnas={columnas} filas={filas} />
-            <div className='juego' onMouseMove={handleMouseDownJuego} onMouseUp={handleMouseUpJuego}>
+        
+        <div >
+            
+            
+            <div className='baseConsola juego'  onMouseMove={handleMouseDownJuego} onMouseUp={handleMouseUpJuego}>
                 {/* Dibuja fichas en tablero */}
-                <div className='fichas' >
+                <div className='fichas'  >
                     {fichas.map((ficha, index) => (
-                        <Pieza key={ficha.id} idf={ficha.id} ficha={ficha.pieza} x={ficha.x} y={ficha.y}
+                        <Pieza key={ficha.id} idf={ficha.id} ficha={ficha.pieza} x={ficha.x} y={ficha.y} anchoFicha={props.anchoFicha}
                             onMouseMove={(e) => handleMouseMove(e, ficha, index)}
-                            onMouseDown={(e) => handleMouseDown(e, ficha, index)}
+                            onMouseDown={(e) => handleMouseDown(e, ficha, index)} 
                             onMouseUp={handleMouseUp} />))}
                 </div>
             </div>
-            <Test combinaciones={combinations} />
+            
         </div>
+        
     )
 }

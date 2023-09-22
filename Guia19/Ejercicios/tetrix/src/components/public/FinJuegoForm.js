@@ -1,9 +1,9 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import React, { useEffect,  useState } from 'react'
 import JuegoPerdido from './JuegoPerdido';
 import { createPortal } from 'react-dom';
 import JuegoGanado from './JuegoGanado';
 
-export default function FinJuegoForm({ motivo, estado, reiniciar, texto }) {
+export default function FinJuegoForm(props) {
 
   const [mostrar, setMostrar] = useState('maximiza');
   useEffect(() => {
@@ -13,18 +13,19 @@ export default function FinJuegoForm({ motivo, estado, reiniciar, texto }) {
 
   return (
     <div className='App' style={{ zIndex: '1000' }}>
-      {estado === 1 ? (
+      {props.estado === 1 ? (
         createPortal(
           <div className='bloqueo'>
             <div className={`modal ${mostrar} `}>
-              <JuegoPerdido motivo={motivo} reiniciar={reiniciar} texto={texto} />
+              <JuegoPerdido motivo={props.motivo} reiniciar={props.reiniciar} niveles={props.niveles} texto={props.texto} />
             </div>
           </div>,
-          document.body)) : estado === 2 ?
+          document.body)) : 
+        props.estado === 2 ?
         createPortal(
           <div className='bloqueo'>
             <div className={`modal ${mostrar} `}>
-              <JuegoGanado reiniciar={reiniciar} texto={texto} />
+              <JuegoGanado reiniciar={props.reiniciar} niveles={props.niveles} texto={props.texto} />
             </div>
           </div>,
           document.body) : <div></div>}

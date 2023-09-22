@@ -54,7 +54,7 @@ const stars=[<div>{r}</div>,
         height:'100%',
         width:'100%',
         position:'absolute',
-        
+        color: `${calcularColorOpuesto(props.bgcolor)}`,
         display:'grid',
         textAlign:'center',
         alignContent:'center',

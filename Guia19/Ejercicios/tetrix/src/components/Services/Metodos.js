@@ -53,7 +53,7 @@ export function sumaFichas(listaFichas){
 }
 
 export function eliminarFilaCompleta(listaFichas, filas, maximo) {
-
+    let fichasEliminadas=0;
     let tempFichas = [];
     let puntos=0;
     for (let index = 0; index < filas; index++) {
@@ -69,11 +69,11 @@ export function eliminarFilaCompleta(listaFichas, filas, maximo) {
             } else {
                 puntos = 0;
 
-                fila.forEach(f => puntos += f.puntos);
+                fila.forEach(f => {puntos += f.puntos; fichasEliminadas++;});
             }
         }
     }
-    return [tempFichas,puntos];
+    return [tempFichas,puntos,fichasEliminadas];
 }
 
 export function creaFila(cols, id_ficha,filas) {

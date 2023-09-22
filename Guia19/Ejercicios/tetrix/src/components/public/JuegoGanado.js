@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import Boton from './Boton'
 
-export default function JuegoGanado({motivo,reiniciar, texto}) {
+export default function JuegoGanado({motivo,reiniciar, texto, niveles}) {
 
   return (
     <div>
@@ -11,7 +11,7 @@ export default function JuegoGanado({motivo,reiniciar, texto}) {
               <p>Puntos Obtenidos: </p>
               <div className='botones-columnas'>
               <Boton accion={reiniciar} label='Reintentar' clase='reply' />
-              <Boton accion={reiniciar} label='Niveles' clase='menu' />
+              <Boton accion={niveles} label='Niveles' clase='menu' />
               <Boton  label='Continuar' clase='done' />
               </div>
             </div>

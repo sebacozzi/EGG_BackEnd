@@ -34,8 +34,9 @@ export default function FormOpciones(props) {
   const guardar = () => {
     updateOpciones.ln(traduc);
     updateOpciones.dificultad(difi);
-  props.accion(0) };
-  const cancelar = () => {console.log('Cancela Opciones')};
+  props.accion(props.sender) };
+
+  const cancelar = () => {props.accion(props.sender)};
 
   return (
     <div className='modal' style={{ backgroundColor: 'ActiveCaption', padding: '10px', display: 'block', minWidth:'400px' }}>

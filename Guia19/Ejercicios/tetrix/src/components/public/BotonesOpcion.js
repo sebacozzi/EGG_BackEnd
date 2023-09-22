@@ -6,7 +6,7 @@ export default function BotonesOpcion(props) {
   const listaBotones=()=>{
     let lista=[];
     for (let i = 0; i < props.accion.length; i++) {
-      lista=[...lista,<Boton key={i} accion={props.accion[i]}  label={props.label[i]} clase={props.clase[i]} />];
+      lista=[...lista,<Boton key={i} accion={props.accion[i]} desactivado={props.desactivado ? props.desactivado[i]:''}  label={props.label[i]} clase={props.clase[i]} />];
     }
     return lista;
   };

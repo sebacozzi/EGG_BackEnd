@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
-import CTanteador from '../Services/Contextos'
+import React, {  useEffect, useRef, useState } from 'react'
+
 import './estilos.css'
 
 

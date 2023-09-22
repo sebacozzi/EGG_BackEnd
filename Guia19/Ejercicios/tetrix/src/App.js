@@ -1,22 +1,21 @@
-import logo from './logo.svg';
+
 import './App.css';
-import Tablero from './components/public/Tablero';
-import Juego from './components/public/Juego';
-import Tanteador from './components/public/Tanteador';
 import CTanteador from './components/Services/Contextos';
 import { useEffect, useState, useRef } from 'react';
 import { getNames, texto } from './components/Constantes/Lenguaje';
 import Consola from './components/public/Consola';
-
 import { useForceUpdate } from './components/Hooks/useForceUpdate';
 import FinJuegoForm from './components/public/FinJuegoForm';
-import Boton from './components/public/Boton';
 import BotonesOpcion from './components/public/BotonesOpcion';
 import JuegoPausa from './components/public/JuegoPausa';
 import FormOpciones from './components/public/configuraciones/FormOpciones';
 import ContextoJuego from './components/Services/ContextoJuego';
 import { Reglas } from './components/Constantes/Reglas';
-
+import React from 'react';
+import Bienvenida from './components/public/Bienvenida';
+import { config, juegoGanado, juegoPerdido, jugando, niveles, startApp } from './components/Constantes/Consts';
+import Niveles from './components/public/Niveles';
+import { getNivel } from './components/Constantes/Levels';
 
 function App() {
 
@@ -25,6 +24,17 @@ function App() {
     dificultad: 0,
     ln: 'es',
   })
+  const [nivelesCompletos, setNivelesCompletos] = useState([
+    {
+      nivel: 0,
+      completado: true
+    },
+    {
+      nivel: 1,
+      completado: false
+    },])
+
+
   const updateOpciones = {
     dificultad: (nuevoDato) => {
       setOpciones((prevData) => ({ ...prevData, dificultad: nuevoDato }));
@@ -39,13 +49,14 @@ function App() {
 
   }
   const [nivel, setNivel] = useState({
-    nivel:1,
+    nivel: 1,
     filas: 10,
     columnas: 10,
     tiempoLinea: Reglas[opciones.dificultad].tiempoLinea,
     tiempoBonifica: Reglas[opciones.dificultad].tiempoBonifica,
     movimiento: Reglas[opciones.dificultad].movimiento,
   })
+
   const updateNivel = {
     nivel: (nuevoDato) => { setNivel((prevData) => ({ ...prevData, nivel: nuevoDato })) },
     filas: (nuevoDato) => { setNivel((prevData) => ({ ...prevData, filas: nuevoDato })) },
@@ -63,7 +74,7 @@ function App() {
       dificultad: 1,
       fichasRestantes: 0,
       filasOcupadas: 0,
-      estadoJuego: 0,
+      estadoJuego: -3,
       puntuacion: 0,
       mouseUp: false,
       lengua: 'ar',
@@ -127,9 +138,33 @@ function App() {
     datos.tiempoJuego = 60;
     datos.tiempoJugado = 60;
     datos.puntuacion = 0;
-    datos.filasOcupadas=0;
+    datos.filasOcupadas = 0;
     forceUpdate()
   }
+  /* const [toPlay,setToPlay]= useState({}); */
+  const startNivel = (nivel) => {
+    /*   setToPlay(getNivel(nivel)); */
+    const toPlay = getNivel(nivel);
+
+    if (toPlay) {
+      datos.estadoJuego = 0;
+      datos.iniciaJuego = true;
+      datos.tiempoJuego = 60 + toPlay.tiempo;
+      datos.tiempoJugado = datos.tiempoJuego;
+      datos.puntuacion = 0;
+      datos.filasOcupadas = 0;
+      datos.columnas = toPlay.columnas;
+      datos.filas = toPlay.filas;
+      datos.nivel = nivel+1;
+      updateNivel.filas(toPlay.filas);
+      updateNivel.columnas(toPlay.columnas);
+      updateNivel.nivel(nivel+1);
+      console.log('Nivel elegido: ',nivel)
+    };
+
+    forceUpdate();
+  }
+
 
 
   return (
@@ -139,24 +174,34 @@ function App() {
       <ContextoJuego.Provider value={{ ...opciones, updateOpciones }}>
         <div className="App" onMouseLeave={handleMouseUp} >
           <header className="App-header" onMouseLeave={handleMouseUp} onMouseUp={handleMouseUp}>
-            {datos.estadoJuego === 3 ?
+            {datos.estadoJuego === JuegoPausa ?
               <JuegoPausa
                 accion={handleBotonContinuar}
                 texto={textos.tx_pausa}
                 label={textos.tx_continue} />
 
-              : datos.estadoJuego === 0 ?
+              : datos.estadoJuego === jugando ?
                 <>
-                  <Consola filas={nivel.filas} columnas={nivel.columnas}/>
+                  <Consola filas={nivel.filas} columnas={nivel.columnas} toPlay={nivel} />
                   <BotonesOpcion className='botonera' accion={pausar} label={textos.tx_pausar} />
                 </> :
-                datos.estadoJuego === 1 || datos.estadoJuego === 2 ?
+                datos.estadoJuego === juegoGanado || datos.estadoJuego === juegoPerdido ?
                   <FinJuegoForm
                     motivo={datos.motivoJuegoPerdido}
                     estado={datos.estadoJuego}
                     reiniciar={reiniciar}
-                    texto={textos.tx_titulo_fin[datos.estadoJuego]} />
-                  : <FormOpciones accion={actualiza.EstadoJuego} />}
+                    texto={textos.tx_titulo_fin[datos.estadoJuego]}
+                    niveles={() => { actualiza.EstadoJuego(niveles) }}
+                    juegoGanado={setNivelesCompletos} />
+                  :
+                  datos.estadoJuego === startApp ?
+                    <Bienvenida estados={actualiza.EstadoJuego} />
+                    :
+                    datos.estadoJuego === niveles ?
+                      <Niveles estados={actualiza.EstadoJuego} startNivel={startNivel} nivel={setNivel.nivel} nivelesCompletos={nivelesCompletos} textos={textos} />
+                      : datos.estadoJuego === config ?
+                        <FormOpciones accion={actualiza.EstadoJuego} sender={startApp} />
+                        : <div>Error de Estado</div>}
 
 
           </header>
